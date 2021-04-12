@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.engimon.exception.EngimonExpDead;
 import com.engimon.exception.EngimonLifeDead;
+import com.engimon.exception.EngimonState;
 import com.engimon.inventory.Storable;
 
 public class Engimon implements Storable, Comparable<Engimon> {
@@ -23,14 +24,22 @@ public class Engimon implements Storable, Comparable<Engimon> {
         this.species = species;
         this.customName = null;
         this.skills = new ArrayList<>(4);
-        addSkill(species.getUniqueSkill());
+        try {
+            addSkill(species.getUniqueSkill());
+        } catch (EngimonState ignored) {
+            // ignored karena gak mungkin
+        }
     }
 
     public Engimon(WildEngimon wildEngimon) {
         this.species = wildEngimon.getSpecies();
         this.customName = null;
         this.skills = new ArrayList<>(4);
-        addSkill(species.getUniqueSkill());
+        try {
+            addSkill(species.getUniqueSkill());
+        } catch (EngimonState ignored) {
+            // ignored karena gak mungkin
+        }
     }
 
     public Engimon(Species species, Engimon parentFirst, Engimon parentSecond, String name) {
@@ -39,22 +48,26 @@ public class Engimon implements Storable, Comparable<Engimon> {
         this.parentFirst = parentFirst;
         this.parentSecond = parentSecond;
         this.skills = new ArrayList<>(4);
-        addSkill(species.getUniqueSkill());
+        try {
+            addSkill(species.getUniqueSkill());
+        } catch (EngimonState ignored) {
+            // ignored karena gak mungkin
+        }
     }
 
     public Skill getSkill(int id) {
         return this.skills.get(id);
     }
 
-    protected Engimon addSkill(Skill s) throws IllegalStateException {
+    protected Engimon addSkill(Skill s) throws EngimonState {
         if (this.skills.size() > 4) {
-            throw new IllegalStateException("One engimon only can equip up to 4 skills.");
+            throw new EngimonState(this, "already has 4 skills.");
         }
         if (this.skills.contains(s)) {
-            throw new IllegalStateException("Engimon already learned that skill.");
+            throw new EngimonState(this, "already learned that skill.");
         }
         if (!(this.getSpecies().isOneOf(s.getFirstElement()) && this.getSpecies().isOneOf(s.getSecondElement()))) {
-            throw new IllegalStateException("Engimon can't learn that skill.");
+            throw new EngimonState(this, "has incompatible element(s) with the skill.");
         }
         this.skills.add(s);
         return this;

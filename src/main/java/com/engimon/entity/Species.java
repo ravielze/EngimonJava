@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.engimon.exception.SkillNotFound;
+
 public class Species extends Elementum {
 
     private String name;
@@ -15,13 +17,13 @@ public class Species extends Elementum {
     private Skill uniqueSkill;
 
     public Species(Element firstElement, int speciesId, int uniqueSkillId, String name, String[] message)
-            throws IllegalArgumentException {
+            throws SkillNotFound {
         super(firstElement);
         this.speciesId = speciesId;
         this.name = name;
         this.uniqueSkill = Skill.getSkill(uniqueSkillId);
         if (this.uniqueSkill == null) {
-            throw new IllegalArgumentException("Unique skill with id " + uniqueSkillId + " is not found.");
+            throw new SkillNotFound(uniqueSkillId);
         }
         this.message = new ArrayList<String>();
         if (message.length > 0) {
@@ -37,13 +39,13 @@ public class Species extends Elementum {
     }
 
     public Species(Element firstElement, Element secondElement, int speciesId, int uniqueSkillId, String name,
-            String[] message) throws IllegalArgumentException {
+            String[] message) throws SkillNotFound {
         super(firstElement, secondElement);
         this.speciesId = speciesId;
         this.name = name;
         this.uniqueSkill = Skill.getSkill(uniqueSkillId);
         if (this.uniqueSkill == null) {
-            throw new IllegalArgumentException("Unique skill with id " + uniqueSkillId + " is not found.");
+            throw new SkillNotFound(uniqueSkillId);
         }
         this.message = new ArrayList<String>();
         if (message.length > 0) {

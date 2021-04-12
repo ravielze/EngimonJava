@@ -1,5 +1,6 @@
 package com.engimon.entity;
 
+import com.engimon.exception.EngimonState;
 import com.engimon.inventory.Storable;
 
 public class SkillItem implements Storable {
@@ -15,15 +16,14 @@ public class SkillItem implements Storable {
         return this.amount;
     }
 
-    public Engimon learn(Engimon eng) {
+    public Engimon learn(Engimon eng) throws EngimonState {
         try {
             Engimon result = eng.addSkill(this.skill);
             this.amount--;
             return result;
-        } catch (IllegalStateException ex) {
-            // TODO out the exception
+        } catch (EngimonState ex) {
+            throw ex;
         }
-        return eng;
     }
 
     @Override
