@@ -1,16 +1,36 @@
 package com.engimon.entity;
 
-public class Engimon {
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import com.engimon.exception.EngimonExpDead;
+import com.engimon.exception.EngimonLifeDead;
+import com.engimon.inventory.Storable;
+
+public class Engimon implements Storable, Comparable<Engimon> {
 
     private String customName;
     private Species species;
     private Engimon parentFirst, parentSecond;
-    // TODO skill
-    private int experience = 0, cumulativeExperience = 0, level = 1, life = 3;
+    private List<Skill> skills;
+    private int experience = 0, cumulativeExperience = 0, level = 1;
+    protected int life = 3;
+
+    public static final int MAX_CUMULATIVE_EXP = 20000;
 
     public Engimon(Species species) {
         this.species = species;
         this.customName = null;
+        this.skills = new ArrayList<>(4);
+        addSkill(species.getUniqueSkill());
+    }
+
+    public Engimon(WildEngimon wildEngimon) {
+        this.species = wildEngimon.getSpecies();
+        this.customName = null;
+        this.skills = new ArrayList<>(4);
+        addSkill(species.getUniqueSkill());
     }
 
     public Engimon(Species species, Engimon parentFirst, Engimon parentSecond, String name) {
@@ -18,6 +38,26 @@ public class Engimon {
         this.species = species;
         this.parentFirst = parentFirst;
         this.parentSecond = parentSecond;
+        this.skills = new ArrayList<>(4);
+        addSkill(species.getUniqueSkill());
+    }
+
+    public Skill getSkill(int id) {
+        return this.skills.get(id);
+    }
+
+    public Engimon addSkill(Skill s) throws IllegalStateException {
+        if (this.skills.size() > 4) {
+            throw new IllegalStateException("One engimon only can equip up to 4 skills.");
+        }
+        if (this.skills.contains(s)) {
+            throw new IllegalStateException("Engimon already learned that skill.");
+        }
+        if (!(this.getSpecies().isOneOf(s.getFirstElement()) && this.getSpecies().isOneOf(s.getSecondElement()))) {
+            throw new IllegalStateException("Engimon can't learn that skill.");
+        }
+        this.skills.add(s);
+        return this;
     }
 
     public boolean hasParent() {
@@ -48,7 +88,7 @@ public class Engimon {
         return this.experience;
     }
 
-    public void addExperience(int exp) {
+    public void addExperience(int exp) throws EngimonExpDead {
         this.cumulativeExperience += exp;
         this.experience += exp;
         int neededExperience = level * 100;
@@ -57,6 +97,13 @@ public class Engimon {
             this.experience -= neededExperience;
             neededExperience = level * 100;
         }
+        if (this.cumulativeExperience >= MAX_CUMULATIVE_EXP) {
+            throw new EngimonExpDead(this);
+        }
+    }
+
+    public String interact() {
+        return this.species.interact();
     }
 
     public int getCumulativeExperience() {
@@ -71,8 +118,61 @@ public class Engimon {
         return this.life;
     }
 
-    public void reduceLife() {
+    public void reduceLife() throws EngimonLifeDead {
         this.life--;
+        if (this.life == 0) {
+            throw new EngimonLifeDead(this);
+        }
+    }
+
+    @Override
+    public int compareTo(Engimon o) {
+        int compareSpecies = Comparator.comparing(Species::getElements).thenComparing(Species::getFirstElement)
+                .thenComparing(Species::getSecondElement).compare(this.getSpecies(), o.getSpecies());
+        if (compareSpecies == 0) {
+            return Comparator.comparing(Engimon::getLevel).thenComparing(Engimon::getName).compare(this, o);
+        }
+        return compareSpecies;
+    }
+
+    public String getElementString() {
+        Species s = this.species;
+        if (s.getElements() == 1) {
+            return s.getFirstElement().toString();
+        }
+        return String.format("%s-%s", s.getFirstElement().toString(), s.getSecondElement().toString());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s/%s/Lv.%d", getName(), getElementString(), getLevel());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Engimon)) {
+            return false;
+        }
+        Engimon engimon = (Engimon) o;
+        boolean parentSame = (engimon.hasParent() && this.hasParent());
+
+        // satu gak punya parent & satu punya parent
+        if (!parentSame)
+            return false;
+
+        // sampe disini berarti either duaduanya punya parent or not
+
+        // kalau punya parent baru cek sama atau enggak
+        if (this.hasParent() && engimon.hasParent()) {
+            parentSame = (engimon.parentFirst.equals(this.parentFirst)
+                    && this.parentSecond.equals(engimon.parentSecond));
+        }
+        return getName().equals(engimon.getName()) && this.species.equals(engimon.species)
+                && skills.equals(engimon.skills) && this.experience == engimon.experience
+                && this.cumulativeExperience == engimon.cumulativeExperience && this.level == engimon.level
+                && this.life == engimon.life && parentSame;
     }
 
 }
