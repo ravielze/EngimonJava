@@ -46,7 +46,7 @@ public class Engimon implements Storable, Comparable<Engimon> {
         return this.skills.get(id);
     }
 
-    public Engimon addSkill(Skill s) throws IllegalStateException {
+    protected Engimon addSkill(Skill s) throws IllegalStateException {
         if (this.skills.size() > 4) {
             throw new IllegalStateException("One engimon only can equip up to 4 skills.");
         }
