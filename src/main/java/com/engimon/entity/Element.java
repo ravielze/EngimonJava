@@ -2,6 +2,16 @@ package com.engimon.entity;
 
 public enum Element {
 
-    NONE, FIRE, WATER, ELECTRIC, GROUND, ICE;
+    NONE(999999), FIRE(0), WATER(1), ELECTRIC(2), GROUND(3), ICE(4);
+
+    private final int index;
+
+    private Element(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 
 }
