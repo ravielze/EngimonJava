@@ -48,4 +48,12 @@ public abstract class Elementum {
         return Element.NONE;
     }
 
+    @Override
+    public String toString() {
+        if (getElements() == 1) {
+            return firstElement.toString();
+        }
+        return String.format("%s-%s", firstElement.toString(), secondElement.toString());
+    }
+
 }
