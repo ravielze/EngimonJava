@@ -1,5 +1,7 @@
 package com.engimon.entity;
 
-public interface LivingEntity {
+import com.engimon.map.biome.CellOccupier;
+
+public interface LivingEntity extends CellOccupier {
 
 }

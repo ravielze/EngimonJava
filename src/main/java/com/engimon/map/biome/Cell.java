@@ -9,7 +9,7 @@ import com.engimon.exception.CellException.ErrorCause;
 
 public abstract class Cell {
 
-    private LivingEntity occupied;
+    private CellOccupier occupied;
 
     protected abstract boolean allowPass(Elementum el);
 
@@ -25,11 +25,11 @@ public abstract class Cell {
         return this.occupied != null;
     }
 
-    private void setOccupier(LivingEntity entity) {
+    private void setOccupier(CellOccupier entity) {
         this.occupied = entity;
     }
 
-    public LivingEntity getOccupier() {
+    public CellOccupier getOccupier() {
         return this.occupied;
     }
 
@@ -38,15 +38,19 @@ public abstract class Cell {
             throw new CellException(ErrorCause.CELL_EMPTY);
         }
         if (other.isOccupied()) {
-            LivingEntity occupier = other.getOccupier();
+            CellOccupier occupier = other.getOccupier();
             if (occupier instanceof Player) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_PLAYER);
-            } else {
+            } else if (occupier instanceof LivingEntity) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OTHER);
+            } else {
+                throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OBSTACLE);
             }
         }
-        other.setOccupier(this.occupied);
-        this.setOccupier(null);
+        if (this.occupied instanceof LivingEntity) {
+            other.setOccupier(this.occupied);
+            this.setOccupier(null);
+        }
     }
 
 }
