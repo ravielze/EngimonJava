@@ -2,7 +2,7 @@ package com.engimon.entity;
 
 import java.util.Comparator;
 
-import com.engimon.exception.EngimonState;
+import com.engimon.exception.EngimonStateException;
 import com.engimon.inventory.Storable;
 
 public class SkillItem implements Storable, Comparable<SkillItem> {
@@ -22,13 +22,13 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
         return this.skill.getSkillName();
     }
 
-    public Engimon learn(Engimon eng) throws EngimonState {
+    public Engimon learn(Engimon eng) throws EngimonStateException {
         Engimon result = eng.addSkill(new Skill(this.skill, 1));
         this.amount--;
         return result;
     }
 
-    public Engimon learn(Engimon eng, int index) throws EngimonState {
+    public Engimon learn(Engimon eng, int index) throws EngimonStateException {
         Engimon result = eng.replaceSkill(index, new Skill(this.skill, 1));
         this.amount--;
         return result;
