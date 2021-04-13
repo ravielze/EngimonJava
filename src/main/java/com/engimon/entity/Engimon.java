@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import com.engimon.exception.EngimonExpDead;
-import com.engimon.exception.EngimonLifeDead;
-import com.engimon.exception.EngimonState;
+import com.engimon.exception.EngimonDeadException;
+import com.engimon.exception.EngimonStateException;
+import com.engimon.exception.EngimonDeadException.DeadCause;
+import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.inventory.Storable;
 
-public class Engimon implements Storable, Comparable<Engimon> {
+public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
 
     private String customName;
     private Species species;
@@ -26,7 +27,7 @@ public class Engimon implements Storable, Comparable<Engimon> {
         this.skills = new ArrayList<>(4);
         try {
             addSkill(species.getUniqueSkill());
-        } catch (EngimonState ignored) {
+        } catch (EngimonStateException ignored) {
             // ignored karena gak mungkin
         }
     }
@@ -37,7 +38,7 @@ public class Engimon implements Storable, Comparable<Engimon> {
         this.skills = new ArrayList<>(4);
         try {
             addSkill(species.getUniqueSkill());
-        } catch (EngimonState ignored) {
+        } catch (EngimonStateException ignored) {
             // ignored karena gak mungkin
         }
     }
@@ -50,7 +51,7 @@ public class Engimon implements Storable, Comparable<Engimon> {
         this.skills = new ArrayList<>(4);
         try {
             addSkill(species.getUniqueSkill());
-        } catch (EngimonState ignored) {
+        } catch (EngimonStateException ignored) {
             // ignored karena gak mungkin
         }
     }
@@ -59,29 +60,29 @@ public class Engimon implements Storable, Comparable<Engimon> {
         return this.skills.get(id);
     }
 
-    protected Engimon addSkill(Skill s) throws EngimonState {
+    protected Engimon addSkill(Skill s) throws EngimonStateException {
         if (this.skills.size() > 4) {
-            throw new EngimonState(this, "already has 4 skills.");
+            throw new EngimonStateException(this, StateError.MAX_SKILL_REACHED);
         }
         if (this.skills.contains(s)) {
-            throw new EngimonState(this, "already learned that skill.");
+            throw new EngimonStateException(this, StateError.SKILL_ALREADY_LEARNED);
         }
         if (!(this.getSpecies().isOneOf(s.getFirstElement()) && this.getSpecies().isOneOf(s.getSecondElement()))) {
-            throw new EngimonState(this, "has incompatible element(s) with the skill.");
+            throw new EngimonStateException(this, StateError.INCOMPATIBLE_ELEMENT);
         }
         this.skills.add(s);
         return this;
     }
 
-    protected Engimon replaceSkill(int id, Skill s) throws EngimonState {
+    protected Engimon replaceSkill(int id, Skill s) throws EngimonStateException {
         if (id < 0 || id >= 4) {
-            throw new EngimonState(this, "does not have skill with slot index " + id);
+            throw new EngimonStateException(this, StateError.SKILL_INDEX_NOT_FOUND);
         }
         if (this.skills.contains(s)) {
-            throw new EngimonState(this, "already learned that skill.");
+            throw new EngimonStateException(this, StateError.SKILL_ALREADY_LEARNED);
         }
         if (!(this.getSpecies().isOneOf(s.getFirstElement()) && this.getSpecies().isOneOf(s.getSecondElement()))) {
-            throw new EngimonState(this, "has incompatible element(s) with the skill.");
+            throw new EngimonStateException(this, StateError.MAX_SKILL_REACHED);
         }
         this.skills.set(id, s);
         return this;
@@ -115,7 +116,7 @@ public class Engimon implements Storable, Comparable<Engimon> {
         return this.experience;
     }
 
-    public void addExperience(int exp) throws EngimonExpDead {
+    public void addExperience(int exp) throws EngimonDeadException {
         this.cumulativeExperience += exp;
         this.experience += exp;
         int neededExperience = level * 100;
@@ -125,7 +126,7 @@ public class Engimon implements Storable, Comparable<Engimon> {
             neededExperience = level * 100;
         }
         if (this.cumulativeExperience >= MAX_CUMULATIVE_EXP) {
-            throw new EngimonExpDead(this);
+            throw new EngimonDeadException(this, DeadCause.EXP_LIMIT);
         }
     }
 
@@ -145,10 +146,10 @@ public class Engimon implements Storable, Comparable<Engimon> {
         return this.life;
     }
 
-    public void reduceLife() throws EngimonLifeDead {
+    public void reduceLife() throws EngimonDeadException {
         this.life--;
         if (this.life == 0) {
-            throw new EngimonLifeDead(this);
+            throw new EngimonDeadException(this, DeadCause.LIFE);
         }
     }
 
