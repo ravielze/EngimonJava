@@ -88,4 +88,8 @@ public class Species extends Elementum {
         return speciesId == species.speciesId;
     }
 
+    public String getElementString() {
+        return super.toString();
+    }
+
 }
