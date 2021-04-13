@@ -23,23 +23,15 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
     }
 
     public Engimon learn(Engimon eng) throws EngimonState {
-        try {
-            Engimon result = eng.addSkill(new Skill(this.skill, 1));
-            this.amount--;
-            return result;
-        } catch (EngimonState ex) {
-            throw ex;
-        }
+        Engimon result = eng.addSkill(new Skill(this.skill, 1));
+        this.amount--;
+        return result;
     }
 
     public Engimon learn(Engimon eng, int index) throws EngimonState {
-        try {
-            Engimon result = eng.replaceSkill(index, new Skill(this.skill, 1));
-            this.amount--;
-            return result;
-        } catch (EngimonState ex) {
-            throw ex;
-        }
+        Engimon result = eng.replaceSkill(index, new Skill(this.skill, 1));
+        this.amount--;
+        return result;
     }
 
     @Override
