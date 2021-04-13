@@ -73,6 +73,20 @@ public class Engimon implements Storable, Comparable<Engimon> {
         return this;
     }
 
+    protected Engimon replaceSkill(int id, Skill s) throws EngimonState {
+        if (id < 0 || id >= 4) {
+            throw new EngimonState(this, "does not have skill with slot index " + id);
+        }
+        if (this.skills.contains(s)) {
+            throw new EngimonState(this, "already learned that skill.");
+        }
+        if (!(this.getSpecies().isOneOf(s.getFirstElement()) && this.getSpecies().isOneOf(s.getSecondElement()))) {
+            throw new EngimonState(this, "has incompatible element(s) with the skill.");
+        }
+        this.skills.set(id, s);
+        return this;
+    }
+
     public boolean hasParent() {
         return this.parentFirst != null & this.parentSecond != null;
     }
@@ -148,17 +162,9 @@ public class Engimon implements Storable, Comparable<Engimon> {
         return compareSpecies;
     }
 
-    public String getElementString() {
-        Species s = this.species;
-        if (s.getElements() == 1) {
-            return s.getFirstElement().toString();
-        }
-        return String.format("%s-%s", s.getFirstElement().toString(), s.getSecondElement().toString());
-    }
-
     @Override
     public String toString() {
-        return String.format("%s/%s/Lv.%d", getName(), getElementString(), getLevel());
+        return String.format("%s/%s/Lv.%d", getName(), this.species.getElementString(), getLevel());
     }
 
     @Override
