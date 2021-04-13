@@ -9,7 +9,7 @@ public class Skill extends Elementum {
     private int skillId;
     private String skillName;
     private double basePower;
-    private int masteryLevel = 0;
+    private int masteryLevel = 1;
 
     public Skill(Element firstElement, int skillId, String skillName, double basePower) {
         super(firstElement);
@@ -25,6 +25,14 @@ public class Skill extends Elementum {
         this.skillName = skillName;
         this.basePower = basePower;
         skillList.put(skillId, this);
+    }
+
+    public Skill(Skill source, int masteryLevel) {
+        super(source.getFirstElement(), source.getSecondElement());
+        this.skillId = source.skillId;
+        this.skillName = source.skillName;
+        this.basePower = source.basePower;
+        this.masteryLevel = masteryLevel;
     }
 
     public static Skill getSkill(int id) {
@@ -60,6 +68,11 @@ public class Skill extends Elementum {
         }
         Skill skill = (Skill) o;
         return skillId == skill.skillId;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s/%s/Power %.2f", this.skillName, super.toString(), this.basePower);
     }
 
 }
