@@ -58,12 +58,8 @@ public abstract class Cell implements Serializable {
         return this.occupied != null;
     }
 
-    private void setOccupier(CellOccupier entity) {
+    public void setOccupier(CellOccupier entity) {
         this.occupied = entity;
-    }
-
-    public void setOccupier(Player player) {
-        this.occupied = player;
     }
 
     public CellOccupier getOccupier() {

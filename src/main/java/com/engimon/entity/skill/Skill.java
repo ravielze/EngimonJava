@@ -79,6 +79,10 @@ public class Skill extends Elementum {
         return this.basePower;
     }
 
+    public double getPower() {
+        return this.basePower * this.masteryLevel;
+    }
+
     public int getMasteryLevel() {
         return this.masteryLevel;
     }

@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
+import com.engimon.entity.ElementTable;
 import com.engimon.entity.skill.Skill;
 import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.EngimonDeadException.DeadCause;
@@ -226,6 +228,17 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Ser
                 && skills.equals(engimon.skills) && this.experience == engimon.experience
                 && this.cumulativeExperience == engimon.cumulativeExperience && this.level == engimon.level
                 && this.life == engimon.life && parentSame;
+    }
+
+    public double getPower(Engimon other) {
+        Species x = this.species;
+        Species y = other.species;
+        double a = Math.max(ElementTable.getMultiplier(x.getFirstElement(), y.getFirstElement()),
+                ElementTable.getMultiplier(x.getFirstElement(), y.getSecondElement()));
+        double b = Math.max(ElementTable.getMultiplier(x.getSecondElement(), y.getFirstElement()),
+                ElementTable.getMultiplier(x.getSecondElement(), y.getSecondElement()));
+        double sum = this.skills.stream().filter(Objects::nonNull).map(Skill::getPower).reduce(0D, Double::sum);
+        return level * Math.max(a, b) + sum;
     }
 
 }
