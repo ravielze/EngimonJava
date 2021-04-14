@@ -2,7 +2,6 @@ package com.engimon.map;
 
 import java.security.SecureRandom;
 
-import com.engimon.entity.Player;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
@@ -15,11 +14,20 @@ import com.google.common.collect.TreeBasedTable;
 
 public class Map {
 
+    private final static int MAP_DEFAULT_SIZE = 30;
+    private static Map instance;
     private Table<Integer, Integer, Cell> storage;
     private int size;
 
+    public static Map getInstance() {
+        if (instance == null) {
+            instance = new Map(MAP_DEFAULT_SIZE);
+        }
+        return instance;
+    }
+
     // TODO populate tree and rock
-    public Map(int size, Player player) {
+    public Map(int size) {
         this.size = size;
         this.storage = TreeBasedTable.create();
 
