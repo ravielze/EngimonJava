@@ -5,10 +5,14 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.engimon.exception.EngimonDeadException;
-import com.engimon.exception.EngimonStateException;
 import com.engimon.exception.EngimonDeadException.DeadCause;
+import com.engimon.exception.EngimonStateException;
 import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.inventory.Storable;
+import com.engimon.map.biome.LivingEntity;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
 
@@ -21,7 +25,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
 
     public static final int MAX_CUMULATIVE_EXP = 20000;
 
-    public Engimon(Species species) {
+    public Engimon(@NotNull Species species) {
         this.species = species;
         this.customName = null;
         this.skills = new ArrayList<>(4);
@@ -32,7 +36,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
         }
     }
 
-    public Engimon(WildEngimon wildEngimon) {
+    public Engimon(@NotNull WildEngimon wildEngimon) {
         this.species = wildEngimon.getSpecies();
         this.customName = null;
         this.skills = new ArrayList<>(4);
@@ -43,7 +47,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
         }
     }
 
-    public Engimon(Species species, Engimon parentFirst, Engimon parentSecond, String name) {
+    public Engimon(@NotNull Species species, @NotNull Engimon parentFirst, @NotNull Engimon parentSecond, String name) {
         this.customName = name;
         this.species = species;
         this.parentFirst = parentFirst;
@@ -56,11 +60,13 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
         }
     }
 
+    @Nullable
     public Skill getSkill(int id) {
         return this.skills.get(id);
     }
 
-    protected Engimon addSkill(Skill s) throws EngimonStateException {
+    @NotNull
+    protected Engimon addSkill(@NotNull Skill s) throws EngimonStateException {
         if (this.skills.size() > 4) {
             throw new EngimonStateException(this, StateError.MAX_SKILL_REACHED);
         }
@@ -74,7 +80,8 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
         return this;
     }
 
-    protected Engimon replaceSkill(int id, Skill s) throws EngimonStateException {
+    @NotNull
+    protected Engimon replaceSkill(int id, @NotNull Skill s) throws EngimonStateException {
         if (id < 0 || id >= 4) {
             throw new EngimonStateException(this, StateError.SKILL_INDEX_NOT_FOUND);
         }
@@ -92,22 +99,26 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
         return this.parentFirst != null & this.parentSecond != null;
     }
 
+    @Nullable
     public String getName() {
         return this.customName != null ? this.customName : this.species.getName();
     }
 
-    public void setName(String customName) {
+    public void setName(@Nullable String customName) {
         this.customName = customName;
     }
 
+    @NotNull
     public Species getSpecies() {
         return this.species;
     }
 
+    @Nullable
     public Engimon getParentFirst() {
         return this.parentFirst;
     }
 
+    @Nullable
     public Engimon getParentSecond() {
         return this.parentSecond;
     }
@@ -130,7 +141,8 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
         }
     }
 
-    public String interact() {
+    @NotNull
+    protected String interact() {
         return this.species.interact();
     }
 
@@ -164,6 +176,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
     }
 
     @Override
+    @NotNull
     public String toString() {
         return String.format("%s/%s/Lv.%d", getName(), this.species.getElementString(), getLevel());
     }
@@ -172,6 +185,8 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
     public boolean equals(Object o) {
         if (o == this)
             return true;
+        if (o == null)
+            return false;
         if (!(o instanceof Engimon)) {
             return false;
         }

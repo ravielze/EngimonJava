@@ -3,6 +3,10 @@ package com.engimon.entity;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NotNull;
+
 public class Skill extends Elementum {
 
     private static Map<Integer, Skill> skillList = new TreeMap<Integer, Skill>();
@@ -11,7 +15,7 @@ public class Skill extends Elementum {
     private double basePower;
     private int masteryLevel = 1;
 
-    public Skill(Element firstElement, int skillId, String skillName, double basePower) {
+    public Skill(@NotNull Element firstElement, int skillId, @NotNull String skillName, double basePower) {
         super(firstElement);
         this.skillId = skillId;
         this.skillName = skillName;
@@ -19,7 +23,8 @@ public class Skill extends Elementum {
         skillList.put(skillId, this);
     }
 
-    public Skill(Element firstElement, Element secondElement, int skillId, String skillName, double basePower) {
+    public Skill(@NotNull Element firstElement, @NotNull Element secondElement, int skillId, @NotNull String skillName,
+            double basePower) {
         super(firstElement, secondElement);
         this.skillId = skillId;
         this.skillName = skillName;
@@ -27,7 +32,7 @@ public class Skill extends Elementum {
         skillList.put(skillId, this);
     }
 
-    public Skill(Skill source, int masteryLevel) {
+    public Skill(@NotNull Skill source, int masteryLevel) {
         super(source.getFirstElement(), source.getSecondElement());
         this.skillId = source.skillId;
         this.skillName = source.skillName;
@@ -35,6 +40,7 @@ public class Skill extends Elementum {
         this.masteryLevel = masteryLevel;
     }
 
+    @Nullable
     public static Skill getSkill(int id) {
         return skillList.getOrDefault(id, null);
     }
@@ -63,6 +69,8 @@ public class Skill extends Elementum {
     public boolean equals(Object o) {
         if (o == this)
             return true;
+        if (o == null)
+            return false;
         if (!(o instanceof Skill)) {
             return false;
         }
@@ -71,6 +79,7 @@ public class Skill extends Elementum {
     }
 
     @Override
+    @NotNull
     public String toString() {
         return String.format("%s/%s/Power %.2f", this.skillName, super.toString(), this.basePower);
     }

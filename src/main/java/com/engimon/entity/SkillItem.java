@@ -5,6 +5,8 @@ import java.util.Comparator;
 import com.engimon.exception.EngimonStateException;
 import com.engimon.inventory.Storable;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SkillItem implements Storable, Comparable<SkillItem> {
 
     private Skill skill;
@@ -18,17 +20,20 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
         return this.amount;
     }
 
+    @NotNull
     public String getName() {
         return this.skill.getSkillName();
     }
 
-    public Engimon learn(Engimon eng) throws EngimonStateException {
+    @NotNull
+    public Engimon learn(@NotNull Engimon eng) throws EngimonStateException {
         Engimon result = eng.addSkill(new Skill(this.skill, 1));
         this.amount--;
         return result;
     }
 
-    public Engimon learn(Engimon eng, int index) throws EngimonStateException {
+    @NotNull
+    public Engimon learn(@NotNull Engimon eng, int index) throws EngimonStateException {
         Engimon result = eng.replaceSkill(index, new Skill(this.skill, 1));
         this.amount--;
         return result;
@@ -38,6 +43,8 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
     public boolean equals(Object o) {
         if (o == this)
             return true;
+        if (o == null)
+            return false;
         if (!(o instanceof SkillItem)) {
             return false;
         }
@@ -46,12 +53,13 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
     }
 
     @Override
+    @NotNull
     public String toString() {
         return String.format("%s x%d", this.skill.toString(), this.amount);
     }
 
     @Override
-    public int compareTo(SkillItem o) {
+    public int compareTo(@NotNull SkillItem o) {
         return Comparator.comparing(Skill::getBasePower).thenComparing(Skill::getSkillName).compare(this.skill,
                 o.skill);
     }

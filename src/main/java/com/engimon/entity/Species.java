@@ -8,6 +8,8 @@ import java.util.TreeMap;
 
 import com.engimon.exception.SkillNotFound;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Species extends Elementum {
 
     private String name;
@@ -16,8 +18,8 @@ public class Species extends Elementum {
     private static Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
     private Skill uniqueSkill;
 
-    public Species(Element firstElement, int speciesId, int uniqueSkillId, String name, String[] message)
-            throws SkillNotFound {
+    public Species(@NotNull Element firstElement, int speciesId, int uniqueSkillId, @NotNull String name,
+            @NotNull String[] message) throws SkillNotFound {
         super(firstElement);
         this.speciesId = speciesId;
         this.name = name;
@@ -38,8 +40,8 @@ public class Species extends Elementum {
         speciesList.put(speciesId, this);
     }
 
-    public Species(Element firstElement, Element secondElement, int speciesId, int uniqueSkillId, String name,
-            String[] message) throws SkillNotFound {
+    public Species(@NotNull Element firstElement, @NotNull Element secondElement, int speciesId, int uniqueSkillId,
+            @NotNull String name, @NotNull String[] message) throws SkillNotFound {
         super(firstElement, secondElement);
         this.speciesId = speciesId;
         this.name = name;
@@ -60,14 +62,17 @@ public class Species extends Elementum {
         speciesList.put(speciesId, this);
     }
 
+    @NotNull
     public Skill getUniqueSkill() {
         return this.uniqueSkill;
     }
 
+    @NotNull
     public String getName() {
         return this.name;
     }
 
+    @NotNull
     public String interact() {
         SecureRandom rnd = new SecureRandom();
         return message.get(rnd.nextInt(message.size()));
@@ -81,6 +86,8 @@ public class Species extends Elementum {
     public boolean equals(Object o) {
         if (o == this)
             return true;
+        if (o == null)
+            return false;
         if (!(o instanceof Species)) {
             return false;
         }
@@ -88,6 +95,7 @@ public class Species extends Elementum {
         return speciesId == species.speciesId;
     }
 
+    @NotNull
     public String getElementString() {
         return super.toString();
     }
