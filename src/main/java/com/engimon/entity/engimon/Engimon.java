@@ -1,5 +1,9 @@
 package com.engimon.entity.engimon;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,8 +19,9 @@ import com.engimon.map.biome.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
+public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Serializable {
 
+    private static final long serialVersionUID = 5993563572031342255L;
     private String customName;
     private Species species;
     private Engimon parentFirst, parentSecond;
@@ -25,6 +30,18 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
     protected int life = 3;
 
     public static final int MAX_CUMULATIVE_EXP = 20000;
+
+    public Engimon() {
+        // Constructor for Serializable Access
+    }
+
+    private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
+        inpStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
+        outStream.defaultWriteObject();
+    }
 
     public Engimon(@NotNull Species species) {
         this.species = species;

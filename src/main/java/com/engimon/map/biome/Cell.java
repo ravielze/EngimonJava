@@ -1,16 +1,35 @@
 package com.engimon.map.biome;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import com.engimon.entity.Player;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 
-public abstract class Cell {
+public abstract class Cell implements Serializable {
+
+    private static final long serialVersionUID = -6351841280611348432L;
 
     private int x, y;
 
     private CellOccupier occupied;
+
+    private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
+        inpStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
+        outStream.defaultWriteObject();
+    }
+
+    public Cell() {
+        // Constructor for Serializable Access
+    }
 
     public Cell(int x, int y) {
         this.x = x;

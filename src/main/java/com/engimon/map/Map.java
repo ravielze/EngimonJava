@@ -1,5 +1,9 @@
 package com.engimon.map;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.SecureRandom;
 
 import com.engimon.exception.CellException;
@@ -12,8 +16,9 @@ import com.engimon.map.biome.cells.TundraCell;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 
-public class Map {
+public class Map implements Serializable {
 
+    private static final long serialVersionUID = -7776475252062247238L;
     private final static int MAP_DEFAULT_SIZE = 30;
     private static Map instance;
     private Table<Integer, Integer, Cell> storage;
@@ -24,6 +29,22 @@ public class Map {
             instance = new Map(MAP_DEFAULT_SIZE);
         }
         return instance;
+    }
+
+    public static void setInstance(Map map) {
+        instance = map;
+    }
+
+    private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
+        inpStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
+        outStream.defaultWriteObject();
+    }
+
+    public Map() {
+        // Constructor for Serializable Access
     }
 
     // TODO populate tree and rock
