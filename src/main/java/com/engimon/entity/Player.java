@@ -1,11 +1,15 @@
 package com.engimon.entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.engimon.exception.CellException;
 import com.engimon.inventory.Inventory;
 import com.engimon.inventory.Storable;
+import com.engimon.map.Map;
 import com.engimon.map.biome.Cell;
 import com.engimon.map.biome.LivingEntity;
 
-import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 
 public class Player implements LivingEntity {
@@ -27,10 +31,37 @@ public class Player implements LivingEntity {
     }
 
     public void switchEngimon(@NotNull Engimon eng) {
-        Validate.notNull(activeEngimon);
+        inventory.add(activeEngimon);
+        if (inventory.contains(eng)) {
+            activeEngimon = eng;
+            inventory.remove(eng);
+        }
     }
 
-    public void move(@NotNull Direction dir) {
+    @NotNull
+    public Engimon getActiveEngimon() {
+        return this.activeEngimon;
+    }
+
+    // TODO active engimon follow
+    public void move(@NotNull Direction dir) throws CellException {
+        int x = currentCell.getX();
+        int y = currentCell.getY();
+        Cell target = Map.getInstance().getCell(x + dir.getX(), y + dir.getY());
+        currentCell.move(target);
+        this.currentCell = target;
+    }
+
+    @NotNull
+    public List<Engimon> getEngimons() {
+        return this.inventory.stream().filter(Engimon.class::isInstance).map(Engimon.class::cast).sorted()
+                .collect(Collectors.toList());
+    }
+
+    @NotNull
+    public List<SkillItem> getItems() {
+        return this.inventory.stream().filter(SkillItem.class::isInstance).map(SkillItem.class::cast).sorted()
+                .collect(Collectors.toList());
     }
 
 }
