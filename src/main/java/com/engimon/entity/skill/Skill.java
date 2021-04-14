@@ -1,15 +1,32 @@
-package com.engimon.entity;
+package com.engimon.entity.skill;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.annotation.Nullable;
 
+import com.engimon.entity.engimon.Elementum;
+import com.engimon.entity.enums.Element;
+
 import org.jetbrains.annotations.NotNull;
 
 public class Skill extends Elementum {
 
+    private static final long serialVersionUID = 1244181908986208537L;
     private static Map<Integer, Skill> skillList = new TreeMap<Integer, Skill>();
+
+    public static Map<Integer, Skill> getSkillList() {
+        return skillList;
+    }
+
+    public static void setSkillList(Map<Integer, Skill> x) {
+        skillList.clear();
+        skillList.putAll(x);
+    }
+
     private int skillId;
     private String skillName;
     private double basePower;
@@ -38,6 +55,11 @@ public class Skill extends Elementum {
         this.skillName = source.skillName;
         this.basePower = source.basePower;
         this.masteryLevel = masteryLevel;
+    }
+
+    public Skill() {
+        super();
+        // Constructor for Serializable Access
     }
 
     @Nullable
@@ -82,6 +104,14 @@ public class Skill extends Elementum {
     @NotNull
     public String toString() {
         return String.format("%s/%s/Power %.2f", this.skillName, super.toString(), this.basePower);
+    }
+
+    private void readObject(ObjectInputStream aInputStream) throws IOException, ClassNotFoundException {
+        aInputStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream aOutputStream) throws IOException, ClassNotFoundException {
+        aOutputStream.defaultWriteObject();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.engimon.entity;
+package com.engimon.entity.engimon;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -6,16 +6,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.engimon.entity.enums.Element;
+import com.engimon.entity.skill.Skill;
 import com.engimon.exception.SkillNotFound;
 
 import org.jetbrains.annotations.NotNull;
 
 public class Species extends Elementum {
 
+    private static final long serialVersionUID = -6290674014341181063L;
     private String name;
     private List<String> message;
     private int speciesId;
     private static Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
+
+    public static Map<Integer, Species> getSpeciesList() {
+        return speciesList;
+    }
+
+    public static void setSpeciesList(Map<Integer, Species> x) {
+        speciesList.clear();
+        speciesList.putAll(x);
+    }
+
     private Skill uniqueSkill;
 
     public Species(@NotNull Element firstElement, int speciesId, int uniqueSkillId, @NotNull String name,

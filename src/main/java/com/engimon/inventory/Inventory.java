@@ -50,8 +50,4 @@ public class Inventory<T> extends LinkedList<T> {
     public String toString() {
         return String.format("Inventory %d/%d", size(), capacity);
     }
-
-    public int count(Class<?> s) {
-        return (int) this.stream().filter(x -> s.isInstance(x)).count();
-    }
 }

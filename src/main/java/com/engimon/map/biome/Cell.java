@@ -1,8 +1,8 @@
 package com.engimon.map.biome;
 
-import com.engimon.entity.Elementum;
 import com.engimon.entity.Player;
-import com.engimon.entity.WildEngimon;
+import com.engimon.entity.engimon.Elementum;
+import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 

@@ -1,6 +1,6 @@
 package com.engimon.exception;
 
-import com.engimon.entity.Engimon;
+import com.engimon.entity.engimon.Engimon;
 
 public class EngimonDeadException extends Exception {
 

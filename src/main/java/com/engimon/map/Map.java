@@ -5,10 +5,10 @@ import java.security.SecureRandom;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
-import com.engimon.map.biome.GrasslandCell;
-import com.engimon.map.biome.MountainCell;
-import com.engimon.map.biome.SeaCell;
-import com.engimon.map.biome.TundraCell;
+import com.engimon.map.biome.cells.GrasslandCell;
+import com.engimon.map.biome.cells.MountainCell;
+import com.engimon.map.biome.cells.SeaCell;
+import com.engimon.map.biome.cells.TundraCell;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 

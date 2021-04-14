@@ -1,7 +1,8 @@
-package com.engimon.entity;
+package com.engimon.entity.skill;
 
 import java.util.Comparator;
 
+import com.engimon.entity.engimon.Engimon;
 import com.engimon.exception.EngimonStateException;
 import com.engimon.inventory.Storable;
 

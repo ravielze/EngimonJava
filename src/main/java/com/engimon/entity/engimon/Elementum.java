@@ -1,11 +1,23 @@
-package com.engimon.entity;
+package com.engimon.entity.engimon;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+import com.engimon.entity.enums.Element;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Elementum {
+public abstract class Elementum implements Serializable {
 
+    private static final long serialVersionUID = -692660335192154424L;
     private Element firstElement;
     private Element secondElement;
+
+    public Elementum() {
+        // Constructor for Serializable Access
+    }
 
     public Elementum(@NotNull Element firstElement) throws IllegalArgumentException {
         if (firstElement == Element.NONE) {
@@ -63,4 +75,11 @@ public abstract class Elementum {
         return String.format("%s-%s", firstElement.toString(), secondElement.toString());
     }
 
+    private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
+        inpStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
+        outStream.defaultWriteObject();
+    }
 }

@@ -3,6 +3,9 @@ package com.engimon.entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.engimon.entity.engimon.Engimon;
+import com.engimon.entity.enums.Direction;
+import com.engimon.entity.skill.SkillItem;
 import com.engimon.exception.CellException;
 import com.engimon.inventory.Inventory;
 import com.engimon.inventory.Storable;
@@ -23,11 +26,6 @@ public class Player implements LivingEntity {
         this.inventory = new Inventory<>(30);
         this.currentCell = spawnPoint;
         spawnPoint.setOccupier(this);
-    }
-
-    @NotNull
-    public String interact() {
-        return activeEngimon.interact();
     }
 
     public void switchEngimon(@NotNull Engimon eng) {

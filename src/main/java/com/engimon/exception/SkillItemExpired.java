@@ -1,6 +1,6 @@
 package com.engimon.exception;
 
-import com.engimon.entity.SkillItem;
+import com.engimon.entity.skill.SkillItem;
 
 public class SkillItemExpired extends Exception {
 

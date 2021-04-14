@@ -1,9 +1,10 @@
-package com.engimon.entity;
+package com.engimon.entity.engimon;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.engimon.entity.skill.Skill;
 import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.EngimonDeadException.DeadCause;
 import com.engimon.exception.EngimonStateException;
@@ -66,7 +67,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
     }
 
     @NotNull
-    protected Engimon addSkill(@NotNull Skill s) throws EngimonStateException {
+    public Engimon addSkill(@NotNull Skill s) throws EngimonStateException {
         if (this.skills.size() > 4) {
             throw new EngimonStateException(this, StateError.MAX_SKILL_REACHED);
         }
@@ -81,7 +82,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon> {
     }
 
     @NotNull
-    protected Engimon replaceSkill(int id, @NotNull Skill s) throws EngimonStateException {
+    public Engimon replaceSkill(int id, @NotNull Skill s) throws EngimonStateException {
         if (id < 0 || id >= 4) {
             throw new EngimonStateException(this, StateError.SKILL_INDEX_NOT_FOUND);
         }

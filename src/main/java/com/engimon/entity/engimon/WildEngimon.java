@@ -1,4 +1,4 @@
-package com.engimon.entity;
+package com.engimon.entity.engimon;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,4 +1,4 @@
-package com.engimon.entity;
+package com.engimon.entity.enums;
 
 public enum Element {
 

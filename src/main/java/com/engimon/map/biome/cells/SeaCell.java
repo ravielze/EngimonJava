@@ -1,7 +1,8 @@
-package com.engimon.map.biome;
+package com.engimon.map.biome.cells;
 
-import com.engimon.entity.Element;
-import com.engimon.entity.Elementum;
+import com.engimon.entity.engimon.Elementum;
+import com.engimon.entity.enums.Element;
+import com.engimon.map.biome.Cell;
 
 public class SeaCell extends Cell {
 
