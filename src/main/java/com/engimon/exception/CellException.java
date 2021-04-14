@@ -15,7 +15,7 @@ public class CellException extends Exception {
     }
 
     public enum ErrorCause {
-        CELL_EMPTY, CELL_OCCUPIED_BY_PLAYER, CELL_OCCUPIED_BY_OTHER, CELL_OCCUPIED_BY_OBSTACLE;
+        CELL_EMPTY, CELL_OCCUPIED_BY_PLAYER, CELL_OCCUPIED_BY_OTHER, CELL_OCCUPIED_BY_OBSTACLE, CELL_NOT_FOUND;
     }
 
 }

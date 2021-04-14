@@ -1,7 +1,6 @@
 package com.engimon.map.biome;
 
 import com.engimon.entity.Elementum;
-import com.engimon.entity.LivingEntity;
 import com.engimon.entity.Player;
 import com.engimon.entity.WildEngimon;
 import com.engimon.exception.CellException;
@@ -9,7 +8,22 @@ import com.engimon.exception.CellException.ErrorCause;
 
 public abstract class Cell {
 
+    private int x, y;
+
     private CellOccupier occupied;
+
+    public Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
 
     protected abstract boolean allowPass(Elementum el);
 
@@ -27,6 +41,10 @@ public abstract class Cell {
 
     private void setOccupier(CellOccupier entity) {
         this.occupied = entity;
+    }
+
+    public void setOccupier(Player player) {
+        this.occupied = player;
     }
 
     public CellOccupier getOccupier() {

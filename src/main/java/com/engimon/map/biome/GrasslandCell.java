@@ -5,6 +5,10 @@ import com.engimon.entity.Elementum;
 
 public class GrasslandCell extends Cell {
 
+    public GrasslandCell(int x, int y) {
+        super(x, y);
+    }
+
     @Override
     protected boolean allowPass(Elementum el) {
         return el.isOneOf(Element.GROUND) || el.isOneOf(Element.ELECTRIC);

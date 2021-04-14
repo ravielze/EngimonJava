@@ -3,6 +3,8 @@ package com.engimon.map;
 import java.security.SecureRandom;
 
 import com.engimon.entity.Player;
+import com.engimon.exception.CellException;
+import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
 import com.engimon.map.biome.GrasslandCell;
 import com.engimon.map.biome.MountainCell;
@@ -23,12 +25,18 @@ public class Map {
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                storage.put(x, y, new GrasslandCell());
+                storage.put(x, y, new GrasslandCell(x, y));
             }
         }
         massPopulate(MountainCell.class, 4, 3, 0.45D);
         massPopulate(SeaCell.class, 5, 4, 0.3D);
         massPopulate(TundraCell.class, 4, 3, 0.4D);
+    }
+
+    public Cell getCell(int x, int y) throws CellException {
+        if (!isInRange(x, y))
+            throw new CellException(ErrorCause.CELL_NOT_FOUND);
+        return storage.get(x, y);
     }
 
     public int getSize() {
@@ -62,7 +70,7 @@ public class Map {
 
     private void populate(SecureRandom sr, Class<? extends Cell> clazz, int x, int y, double chance) {
         try {
-            storage.put(x, y, clazz.getConstructor().newInstance());
+            storage.put(x, y, clazz.getConstructor(Integer.class, Integer.class).newInstance(x, y));
         } catch (Exception ignored) {
         }
         for (int rx = -1; rx <= 1; rx++) {
@@ -71,7 +79,8 @@ public class Map {
                     continue;
                 if (sr.nextDouble() < chance) {
                     try {
-                        storage.put(x + rx, y + ry, clazz.getConstructor().newInstance());
+                        storage.put(x + rx, y + ry,
+                                clazz.getConstructor(Integer.class, Integer.class).newInstance(x + rx, y + ry));
                     } catch (Exception ignored) {
                     }
                 }
