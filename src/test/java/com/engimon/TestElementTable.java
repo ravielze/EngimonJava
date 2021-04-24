@@ -1,12 +1,9 @@
 package com.engimon;
 
-import com.engimon.entity.ElementTable;
-import com.engimon.entity.engimon.Species;
-import com.engimon.entity.enums.Element;
-import com.engimon.entity.skill.Skill;
-import com.engimon.exception.SkillNotFound;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.engimon.entity.ElementTable;
+import com.engimon.entity.enums.Element;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

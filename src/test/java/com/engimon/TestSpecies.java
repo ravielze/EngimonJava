@@ -1,14 +1,14 @@
 package com.engimon;
 
-import com.engimon.entity.engimon.Species;
-import com.engimon.entity.enums.Element;
-import com.engimon.entity.skill.Skill;
-import com.engimon.exception.SkillNotFound;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.engimon.entity.engimon.Species;
+import com.engimon.entity.enums.Element;
+import com.engimon.entity.skill.Skill;
+import com.engimon.exception.SkillNotFound;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -104,6 +104,9 @@ public class TestSpecies {
         try{
             Species spesies = new Species(Element.FIRE, Element.ELECTRIC, 1, 1, "ApiPetir", pesan);
             assertEquals(true, spesies.equals(spesies));
+            assertEquals(false, spesies.equals(null));
+            assertEquals(false, spesies.equals("objek berbeda"));
+            assertEquals(false, spesies.equals(new Species(Element.FIRE, 2, 2, "Apii", pesan)));
         }
         catch (SkillNotFound e){
             e.getMessage();
