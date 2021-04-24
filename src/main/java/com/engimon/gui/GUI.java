@@ -26,9 +26,15 @@ public class GUI implements GUIMediator {
         frame.setTitle("Start Page");
         // Initialize other here;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        // scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        // scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        // frame.add(scrollPane);
         
         frame.add(startPage);
         frame.setVisible(true);
+
     }
 
 }
