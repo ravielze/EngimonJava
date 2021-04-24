@@ -71,7 +71,7 @@ public class TestSkill {
     void testequals(){
         Skill skill1 = new Skill(Element.FIRE, Element.ELECTRIC, 1, "ThunderBoom", 50.0D);
         Skill skill2 = new Skill(Element.FIRE, Element.ELECTRIC, 1, "ThunderBoom", 50.0D);
-        assertEquals(true, skill1.equals(null));
+        assertEquals(false, skill1.equals(null));
         assertEquals(true, skill1.equals(skill1));
         assertEquals(false, skill1.equals(1));
         assertEquals(true, skill1.equals(skill2));
@@ -81,6 +81,6 @@ public class TestSkill {
     @DisplayName("Test Skill - toString()")
     void testtoString(){
         Skill skill = new Skill(Element.FIRE, Element.ELECTRIC, 1, "ThunderBoom", 50.0D);
-        assertEquals("ThunderBoom/FIRE-ELECTRIC/50.00", skill.toString());
+        assertEquals("ThunderBoom/FIRE-ELECTRIC/Power 50.00", skill.toString());
     }
 }

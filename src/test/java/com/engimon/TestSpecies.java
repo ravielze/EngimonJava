@@ -7,6 +7,9 @@ import com.engimon.exception.SkillNotFound;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -32,9 +35,10 @@ public class TestSpecies {
     void testsetSpeciesList(){
         String[] pesan = { "aku bisa bikin api", "aku takut petir" };
         try{
+            Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
             Species spesies = new Species(Element.FIRE, Element.ELECTRIC, 1, 1, "ApiPetir", pesan);
-            Species.setSpeciesList(null);
-            assertEquals(null, Species.getSpeciesList());
+            Species.setSpeciesList(speciesList);
+            assertEquals(speciesList, Species.getSpeciesList());
         }
         catch (SkillNotFound e){
             e.getMessage();
