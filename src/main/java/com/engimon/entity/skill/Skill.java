@@ -91,6 +91,10 @@ public class Skill extends Elementum {
         this.masteryLevel++;
     }
 
+    public void setMasteryLevel(int level) {
+        this.masteryLevel = level;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
