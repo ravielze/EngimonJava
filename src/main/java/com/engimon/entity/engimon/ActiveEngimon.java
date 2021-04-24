@@ -6,8 +6,6 @@ import java.io.ObjectOutputStream;
 
 import com.engimon.entity.enums.Direction;
 import com.engimon.exception.CellException;
-import com.engimon.exception.EngimonStateException;
-import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.map.Map;
 import com.engimon.map.Moveable;
 import com.engimon.map.biome.Cell;
@@ -15,25 +13,21 @@ import com.engimon.map.biome.LivingEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class WildEngimon extends Engimon implements LivingEntity, Moveable{
-
-    private static final long serialVersionUID = -4173057657086613937L;
+public class ActiveEngimon extends Engimon implements Moveable, LivingEntity{
     private Cell currentCell;
 
-    public WildEngimon(@NotNull Species species, int level, @NotNull Cell spawnPoint) throws EngimonStateException{
-        super(species);
-        if (!spawnPoint.allowSpawn(this)){
-            throw new EngimonStateException(this, StateError.ENGIMON_CANT_SPAWN);
-        }
-        this.currentCell = spawnPoint;
-        spawnPoint.setOccupier(this);
-        this.level = level;
-        this.life = 1;
+    public ActiveEngimon(){
+        // Constructor for Serializable
     }
 
-    public WildEngimon() {
-        super();
-        // Constructor for serializable
+    public ActiveEngimon(@NotNull Engimon engimon, @NotNull Cell lastCell){
+        super(engimon);
+        this.currentCell = lastCell;
+        lastCell.setOccupier(this);
+    }
+    
+    public Cell getCell(){
+        return currentCell;
     }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
@@ -52,10 +46,5 @@ public class WildEngimon extends Engimon implements LivingEntity, Moveable{
         currentCell.transferEntity(target);
         this.currentCell = target;
     }
-
-    public void kill() {
-        this.currentCell.setOccupier(null);
-        this.currentCell = null;
-    }
-
+    
 }

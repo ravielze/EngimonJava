@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.engimon.entity.StaticSerializer;
-import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
 import com.engimon.inventory.Inventory;
@@ -25,15 +24,16 @@ public class App {
         x.add(3);
         x.add(7);
         x.add(10);
-        Skill sk = new Skill(Element.FIRE, 1, "Testing Fire", 1D);
-        Skill sk2 = new Skill(Element.WATER, 2, "Testing Water", 3D);
-        Skill sk3 = new Skill(Element.WATER, Element.GROUND, 3, "Gabungan", 999.23D);
+        Object y = x;
+        Object sk = new Skill(Element.FIRE, 1, "Testing Fire", 1D);
+        Object sk2 = new Skill(Element.WATER, 2, "Testing Water", 3D);
+        Object sk3 = new Skill(Element.WATER, Element.GROUND, 3, "Gabungan", 999.23D);
         new Skill(Element.FIRE, 4, "a", 1D);
 
         try {
             FileOutputStream fout = new FileOutputStream("../file.txt");
             ObjectOutputStream oot = new ObjectOutputStream(fout);
-            oot.writeObject(x);
+            oot.writeObject(y);
             oot.writeObject(sk);
             oot.writeObject(sk2);
             oot.writeObject(sk3);
@@ -65,7 +65,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        load();
+        save();
         // JFrame jf = new JFrame();
         // jf.setSize(500, 500);
         // jf.setTitle("Test");

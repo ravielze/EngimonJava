@@ -10,26 +10,26 @@ import java.util.List;
 import java.util.Objects;
 
 import com.engimon.entity.ElementTable;
+import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
 import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.EngimonDeadException.DeadCause;
 import com.engimon.exception.EngimonStateException;
 import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.inventory.Storable;
-import com.engimon.map.biome.LivingEntity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Serializable {
+public class Engimon implements Storable, Comparable<Engimon>, Serializable {
 
     private static final long serialVersionUID = 5993563572031342255L;
     private String customName;
     private Species species;
     private Engimon parentFirst, parentSecond;
     private List<Skill> skills;
-    private int experience = 0, cumulativeExperience = 0, level = 1;
-    protected int life = 3;
+    private int experience = 0, cumulativeExperience = 0;
+    protected int life = 3, level = 1;
 
     public static final int MAX_CUMULATIVE_EXP = 20000;
 
@@ -56,10 +56,26 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Ser
         }
     }
 
+    public Engimon(@NotNull Engimon engimon){
+        this.customName = engimon.customName;
+        this.species = engimon.species;
+        this.parentFirst = engimon.parentFirst;
+        this.parentSecond = engimon.parentSecond;
+        this.skills = new ArrayList<>(4);
+        this.skills.addAll(engimon.skills);
+        this.experience = engimon.experience;
+        this.cumulativeExperience = engimon.cumulativeExperience;
+        this.level = engimon.level;
+        this.life = engimon.life;
+    }
+
     public Engimon(@NotNull WildEngimon wildEngimon) {
         this.species = wildEngimon.getSpecies();
         this.customName = null;
         this.skills = new ArrayList<>(4);
+        this.level = wildEngimon.getLevel();
+        this.experience = wildEngimon.getExperience();
+        this.cumulativeExperience = wildEngimon.getCumulativeExperience();
         try {
             addSkill(species.getUniqueSkill());
         } catch (EngimonStateException ignored) {
@@ -67,8 +83,7 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Ser
         }
     }
 
-    public Engimon(@NotNull Species species, @NotNull Engimon parentFirst, @NotNull Engimon parentSecond, String name) {
-        this.customName = name;
+    public Engimon(@NotNull Species species, @NotNull Engimon parentFirst, @NotNull Engimon parentSecond) {
         this.species = species;
         this.parentFirst = parentFirst;
         this.parentSecond = parentSecond;
@@ -83,6 +98,10 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Ser
     @Nullable
     public Skill getSkill(int id) {
         return this.skills.get(id);
+    }
+
+    public List<Skill> getAllSkills() {
+        return skills;
     }
 
     @NotNull
@@ -239,6 +258,89 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Ser
                 ElementTable.getMultiplier(x.getSecondElement(), y.getSecondElement()));
         double sum = this.skills.stream().filter(Objects::nonNull).map(Skill::getPower).reduce(0D, Double::sum);
         return level * Math.max(a, b) + sum;
+    }
+
+    public Engimon breed(Engimon other) throws EngimonStateException {
+        //TODO
+        if (this.getLevel() < 4 || other.getLevel() < 4){
+            throw new EngimonStateException(this, EngimonStateException.StateError.ENGIMON_CANT_BREED);
+        }
+        Species result = null;
+        if (((Elementum) this.species).equals(other.getSpecies())) {
+            result = this.getSpecies();
+        }
+        if (result == null) {
+            Element thisMajor = getSpecies().getMajorElement(other.getSpecies());
+            Element otherMajor = other.getSpecies().getMajorElement(this.getSpecies());
+            if (ElementTable.getMultiplier(thisMajor, otherMajor) > ElementTable.getMultiplier(otherMajor, thisMajor)) {
+                result = this.getSpecies();
+            } else if (ElementTable.getMultiplier(thisMajor, otherMajor) < ElementTable.getMultiplier(otherMajor, thisMajor)) {
+                result = other.getSpecies();
+            } else {
+                Elementum el = new ElementWrapper(this.species.getFirstElement(), this.species.getSecondElement());
+                result = Species.getRandomSpecies(el);
+            }
+        }
+        Engimon child = new Engimon(result, this, other);
+        Skill uniqueSkill = result.getUniqueSkill();
+        boolean uniqueSkillLearned = false;
+        List<Skill> thisSkills = this.getAllSkills();
+        List<Skill> otherSkills = other.getAllSkills();
+        if (thisSkills.contains(uniqueSkill) || otherSkills.contains(uniqueSkill)) {
+            for (Skill skill : this.getAllSkills()) {
+                if (skill.equals(uniqueSkill)) {
+                    child.addSkill(new Skill(skill, skill.getMasteryLevel()));
+                    thisSkills.remove(skill);
+                    uniqueSkillLearned = true;
+                    break;
+                }
+            }
+            if (!uniqueSkillLearned) {
+                for (Skill skill : other.getAllSkills()) {
+                    if (skill.equals(uniqueSkill)) {
+                        child.addSkill(new Skill(skill, skill.getMasteryLevel()));
+                        otherSkills.remove(skill);
+                        uniqueSkillLearned = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!uniqueSkillLearned) {
+            child.addSkill(uniqueSkill);
+        }
+
+        int maxSkills = thisSkills.size() + otherSkills.size() > 3 ? 3 : thisSkills.size() + otherSkills.size();
+    
+        for (int i = 0; i < maxSkills; i++) {
+            if (thisSkills.isEmpty()) {
+
+            }
+            // boolean thisChosen = false;
+            // int parentAMaxMastery = -1;
+            // int parentBMaxMastery = -1;
+            // int parentASlot = -1;
+            // int parentBSlot = -1;
+            // for (int j = thisSkills.size() - 1; j >= 0; j--) {
+            //     if (thisSkills[j].getMasteryLevel() >= parentAMaxMastery) {
+            //         parentAMaxMastery = thisSkills[j].getMasteryLevel();
+            //         parentASlot = j;
+            //     }
+            // }
+
+            // for (int j = otherSkills.size() - 1; j >= 0; j--)
+            // {
+            //     if (otherSkills[j].getMasteryLevel() >= parentBMaxMastery)
+            //     {
+            //         parentBMaxMastery = otherSkills[j].getMasteryLevel();
+            //         parentBSlot = j;
+            //     }
+            // }
+        }
+
+
+
+        return null;
     }
 
 }
