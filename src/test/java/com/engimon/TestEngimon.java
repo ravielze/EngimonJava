@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 public class TestEngimon {
 
+    @SuppressWarnings("unused")
     private Skill skill0 = new Skill(Element.ELECTRIC, 0, "Tidak Berguna", 0.0D);
     private Skill skill1 = new Skill(Element.ELECTRIC, 1, "SambarListrik", 50.0D);
     private Skill skill2 = new Skill(Element.ELECTRIC, 2, "KilatListrik", 50.0D);
@@ -127,7 +128,7 @@ public class TestEngimon {
     void testhasParent() {
         Engimon engimon1 = new Engimon(species1);
         Engimon engimon2 = new Engimon(species2);
-        Engimon engimon3 = new Engimon(species1, engimon1, engimon2, "NewEngi");
+        Engimon engimon3 = new Engimon(species1, engimon1, engimon2);
         assertEquals(true, engimon3.hasParent());
         assertEquals(false, engimon1.hasParent());
     }
@@ -159,7 +160,7 @@ public class TestEngimon {
     void testgetParentFirst() {
         Engimon engimon1 = new Engimon(species1);
         Engimon engimon2 = new Engimon(species2);
-        Engimon engimon3 = new Engimon(species1, engimon1, engimon2, "NewEngi");
+        Engimon engimon3 = new Engimon(species1, engimon1, engimon2);
         assertEquals(engimon1, engimon3.getParentFirst());
     }
 
@@ -169,7 +170,7 @@ public class TestEngimon {
 
         Engimon engimon1 = new Engimon(species1);
         Engimon engimon2 = new Engimon(species2);
-        Engimon engimon3 = new Engimon(species1, engimon1, engimon2, "NewEngi");
+        Engimon engimon3 = new Engimon(species1, engimon1, engimon2);
         assertEquals(engimon2, engimon3.getParentSecond());
 
     }
@@ -287,10 +288,10 @@ public class TestEngimon {
         try {
             Engimon engimon1 = new Engimon(species1);
             Engimon engimon2 = new Engimon(species2);
-            Engimon engimon3 = new Engimon(species1, engimon1, engimon2, "Engi 1");
-            Engimon engimon4 = new Engimon(species1, engimon1, engimon2, "Engi 2");
-            Engimon engimon5 = new Engimon(species2, engimon1, engimon3, "Engi 3");
-            Engimon engimon6 = new Engimon(species2, engimon1, engimon2, "Engi 4");
+            Engimon engimon3 = new Engimon(species1, engimon1, engimon2);
+            Engimon engimon4 = new Engimon(species1, engimon1, engimon2);
+            Engimon engimon5 = new Engimon(species2, engimon1, engimon3);
+            Engimon engimon6 = new Engimon(species2, engimon1, engimon2);
             // Cek parent
             assertEquals(false, engimon3.equals(engimon4));
             assertEquals(false, engimon4.equals(engimon5));
