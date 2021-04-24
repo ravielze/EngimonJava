@@ -55,19 +55,16 @@ public class StartPage extends JPanel implements Screen {
         row.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 40));
 
         for (String label : labels) {
-            JPanel panel = new JPanel();
-            JLabel engimon = new JLabel(label);
-            engimon.setBorder(BorderFactory.createEmptyBorder(20,30,20,30));
-            panel.setBorder(BorderFactory.createLineBorder(Color.black));
-            panel.add(engimon);
-            panel.addMouseListener(new MouseAdapter()  
+            Button button = new Button(label);
+            button.setPadding(30, 20);
+            button.addMouseListener(new MouseAdapter()  
             {  
                 public void mouseClicked(MouseEvent e)  
                 {  
                     mediator.chooseEngimon(label);
                 }  
             });
-            row.add(panel);
+            row.add(button);
         }
         this.engimonPicker.add(row);
     }
