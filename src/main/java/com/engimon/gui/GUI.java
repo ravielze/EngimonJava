@@ -8,16 +8,24 @@ import java.awt.*;
 public class GUI implements GUIMediator {
     private JFrame frame;
     private StartPage startPage;
+    private Map map;
 
     public void chooseEngimon(String a) {
         // Pick engimon
         // Ganti frame
         System.out.println(a);
+        
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(map);
+        frame.setTitle("Map");
+        frame.revalidate();
     }
     public GUI() {
         frame = new JFrame();
         startPage = new StartPage();
+        map = new Map();
         startPage.setMediator(this);
+        map.setMediator(this);
 
 
 
@@ -27,11 +35,6 @@ public class GUI implements GUIMediator {
         // Initialize other here;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        // scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        // scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        // frame.add(scrollPane);
-        
         frame.add(startPage);
         frame.setVisible(true);
 

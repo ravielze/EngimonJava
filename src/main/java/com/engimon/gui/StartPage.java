@@ -3,7 +3,6 @@ package com.engimon.gui;
 import javax.swing.*;
 import java.awt.event.*; 
 import java.awt.*;
-import javax.swing.BorderFactory; 
 import java.awt.Dimension;
 public class StartPage extends JPanel implements Screen {
     private GUIMediator mediator;
