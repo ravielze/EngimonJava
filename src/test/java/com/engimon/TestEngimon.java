@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 public class TestEngimon {
 
+    @SuppressWarnings("unused")
     private Skill skill0 = new Skill(Element.ELECTRIC, 0, "Tidak Berguna", 0.0D);
     private Skill skill1 = new Skill(Element.ELECTRIC, 1, "SambarListrik", 50.0D);
     private Skill skill2 = new Skill(Element.ELECTRIC, 2, "KilatListrik", 50.0D);

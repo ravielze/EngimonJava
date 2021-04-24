@@ -317,34 +317,73 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         int maxSkills = thisSkills.size() + otherSkills.size() > 3 ? 3 : thisSkills.size() + otherSkills.size();
     
         for (int i = 0; i < maxSkills; i++) {
-            if (thisSkills.isEmpty()) {
-
+            boolean thisChosen = false;
+            int parentAMaxMastery = -1;
+            int parentBMaxMastery = -1;
+            int parentASlot = -1;
+            int parentBSlot = -1;
+            for (int j = thisSkills.size() - 1; j >= 0; j--) {
+                if (thisSkills.get(j).getMasteryLevel() >= parentAMaxMastery) {
+                    parentAMaxMastery = thisSkills.get(j).getMasteryLevel();
+                    parentASlot = j;
+                }
             }
-            // boolean thisChosen = false;
-            // int parentAMaxMastery = -1;
-            // int parentBMaxMastery = -1;
-            // int parentASlot = -1;
-            // int parentBSlot = -1;
-            // for (int j = thisSkills.size() - 1; j >= 0; j--) {
-            //     if (thisSkills[j].getMasteryLevel() >= parentAMaxMastery) {
-            //         parentAMaxMastery = thisSkills[j].getMasteryLevel();
-            //         parentASlot = j;
-            //     }
-            // }
 
-            // for (int j = otherSkills.size() - 1; j >= 0; j--)
-            // {
-            //     if (otherSkills[j].getMasteryLevel() >= parentBMaxMastery)
-            //     {
-            //         parentBMaxMastery = otherSkills[j].getMasteryLevel();
-            //         parentBSlot = j;
-            //     }
-            // }
+            for (int j = otherSkills.size() - 1; j >= 0; j--)
+            {
+                if (otherSkills.get(j).getMasteryLevel() >= parentBMaxMastery)
+                {
+                    parentBMaxMastery = otherSkills.get(j).getMasteryLevel();
+                    parentBSlot = j;
+                }
+            }
+            if (parentASlot == -1) // YANG KEPILIH DARI PARENT B karena parentA udh habis slotnya
+            {
+                child.addSkill(new Skill(otherSkills.get(parentBSlot), otherSkills.get(parentBSlot).getMasteryLevel()));
+                otherSkills.remove(parentBSlot);
+                continue;
+            }
+            else if (parentBSlot == -1) // YANG KEPILIH DARI PARENT A karena parentB udh habis slotnya
+            {
+                child.addSkill(new Skill(thisSkills.get(parentASlot), thisSkills.get(parentASlot).getMasteryLevel()));
+                thisSkills.remove(parentASlot);
+                continue;
+            }
+            Skill chosen;
+            if (parentAMaxMastery >= parentBMaxMastery) {
+                chosen = thisSkills.get(parentASlot);
+                thisChosen = true;
+            } else {
+                chosen = otherSkills.get(parentBSlot);
+                thisChosen = false;
+            }
+            List<Skill> toCheck = thisChosen ? otherSkills : thisSkills;
+            for (int j = 0; j < toCheck.size(); j++)
+            {
+                if (toCheck.get(j).equals(chosen))
+                {
+                    if (toCheck.get(j).getMasteryLevel() == chosen.getMasteryLevel()) // poin 5.d.ii.2
+                    {
+                        chosen.addMasteryLevel();
+                    }
+                    else // poin 5.d.ii.2
+                    {
+                        chosen.setMasteryLevel(Math.max(chosen.getMasteryLevel(), toCheck.get(j).getMasteryLevel()));
+                    }
+                    break;
+                }
+            }
+            child.addSkill(chosen);
+            if (thisChosen) {
+                thisSkills.remove(parentASlot);
+            } else {
+                otherSkills.remove(parentBSlot);
+            }
         }
 
 
 
-        return null;
+        return child;
     }
 
 }

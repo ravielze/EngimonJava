@@ -36,7 +36,7 @@ public class TestSpecies {
         String[] pesan = { "aku bisa bikin api", "aku takut petir" };
         try{
             Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
-            Species spesies = new Species(Element.FIRE, Element.ELECTRIC, 1, 1, "ApiPetir", pesan);
+            new Species(Element.FIRE, Element.ELECTRIC, 1, 1, "ApiPetir", pesan);
             Species.setSpeciesList(speciesList);
             assertEquals(speciesList, Species.getSpeciesList());
         }
@@ -105,7 +105,7 @@ public class TestSpecies {
             Species spesies = new Species(Element.FIRE, Element.ELECTRIC, 1, 1, "ApiPetir", pesan);
             assertEquals(true, spesies.equals(spesies));
             assertEquals(false, spesies.equals(null));
-            assertEquals(false, spesies.equals("objek berbeda"));
+            assertEquals(false, spesies.equals((Object) new String("objek berbeda")));
             assertEquals(false, spesies.equals(new Species(Element.FIRE, 2, 2, "Apii", pesan)));
         }
         catch (SkillNotFound e){
