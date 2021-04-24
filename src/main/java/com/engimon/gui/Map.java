@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Map extends JPanel implements Screen {
     private GUIMediator mediator;
-    private final int size = 30;
+    private final int size = 20;
     private Cell[][] grid;
     @Override
     public void setMediator (GUIMediator m) {
@@ -15,7 +15,7 @@ public class Map extends JPanel implements Screen {
 
     @Override 
     public String getName() {
-        return "Start Page";
+        return "Map";
     }
 
     public Map() {
@@ -23,14 +23,11 @@ public class Map extends JPanel implements Screen {
         this.grid = new Cell[size][size];
         prepareGui();
     }
-
+    
     private void prepareGui() {
+        setMenu();
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);
-
-        JPanel row1 = new JPanel();
-        row1.setLayout(new FlowLayout(FlowLayout.LEFT));
-        row1.add(new JLabel("Nanti disini bakal ada menu"));
 
 
         JPanel row2 = new JPanel();
@@ -45,9 +42,19 @@ public class Map extends JPanel implements Screen {
             row2.add(row);
         }
 
-        this.add(row1);
         this.add(row2);
+    }
+    
+    private void setMenu() {
+        String[] labels = {"Inventory", "Breeding", "Save", "Help"};
+        JPanel row = new JPanel();
+        row.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-
+        for (String label : labels) {
+            Button button = new Button(label);
+            button.setPadding(10, 20);
+            row.add(button);
+        }
+        this.add(row);
     }
 }

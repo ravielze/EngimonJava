@@ -24,7 +24,6 @@ public class StartPage extends JPanel implements Screen {
     }
 
     private void prepareGui() {
-        System.out.println("Sampe sini");
 
         JLabel labelBacotan = new JLabel(bacotan);
 
