@@ -3,6 +3,7 @@ package com.engimon.entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.engimon.entity.engimon.ActiveEngimon;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.entity.enums.Direction;
@@ -15,33 +16,33 @@ import com.engimon.exception.PlayerException.PlayerError;
 import com.engimon.inventory.Inventory;
 import com.engimon.inventory.Storable;
 import com.engimon.map.Map;
+import com.engimon.map.Moveable;
 import com.engimon.map.biome.Cell;
 import com.engimon.map.biome.LivingEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Player implements LivingEntity {
+public class Player implements LivingEntity, Moveable {
 
-    private Engimon activeEngimon;
+    private ActiveEngimon activeEngimon;
     private Inventory<Storable> inventory;
     private Cell currentCell;
-    private Cell engimonCell;
 
-    public Player(@NotNull Engimon firstEngimon, @NotNull Cell spawnPoint) {
-        this.activeEngimon = firstEngimon;
+    public Player(@NotNull Engimon firstEngimon, @NotNull Cell spawnPoint, @NotNull Cell engimonSpawnPoint) {
+        this.activeEngimon = new ActiveEngimon(firstEngimon, engimonSpawnPoint);
         this.inventory = new Inventory<>(30);
         this.currentCell = spawnPoint;
-        this.engimonCell = null;
         spawnPoint.setOccupier(this);
     }
 
     public void switchEngimon(@NotNull Engimon eng) {
-        if (activeEngimon != null)
-            inventory.add(activeEngimon);
+        ActiveEngimon tempActiveEngimon = this.activeEngimon;
         if (inventory.contains(eng)) {
-            activeEngimon = eng;
+            activeEngimon = new ActiveEngimon(eng, tempActiveEngimon.getCell());
             inventory.remove(eng);
         }
+        if (activeEngimon != null)
+            inventory.add(new Engimon(tempActiveEngimon));
     }
 
     @NotNull
@@ -49,18 +50,11 @@ public class Player implements LivingEntity {
         return this.activeEngimon;
     }
 
-    // TODO control flow belom dicek
     public void move(@NotNull Direction dir) throws CellException {
         int x = currentCell.getX();
         int y = currentCell.getY();
         Cell target = Map.getInstance().getCell(x + dir.getX(), y + dir.getY());
-        currentCell.move(target);
-        if (this.engimonCell == null) {
-            currentCell.setOccupier(activeEngimon);
-        } else {
-            engimonCell.move(currentCell);
-        }
-        this.engimonCell = currentCell;
+        currentCell.transferEntity(target);
         this.currentCell = target;
     }
 
@@ -76,8 +70,7 @@ public class Player implements LivingEntity {
                 .collect(Collectors.toList());
     }
 
-    // TODO remove wildengimon dari map, control flow diatur disini
-    public void battle(WildEngimon we) throws EngimonDeadException, PlayerException {
+    public void battle(WildEngimon we) throws EngimonDeadException, PlayerException, InventoryFull {
         if (activeEngimon == null) {
             throw new PlayerException(PlayerError.NO_ACTIVE_ENGIMON);
         }
@@ -87,12 +80,15 @@ public class Player implements LivingEntity {
             activeEngimon.reduceLife();
         } else {
             activeEngimon.addExperience(we.getLevel() * 35);
-            we.reduceLife();
+            try {
+                we.reduceLife();
+            } catch (EngimonDeadException ex){
+                if (ex.getEngimon().equals(we)){
+                    we.kill();
+                    inventory.add(new Engimon(we));
+                }
+            }
         }
-    }
-
-    public void catchWildEngimon(WildEngimon we) throws InventoryFull {
-        inventory.add(new Engimon(we));
     }
 
 }

@@ -1,5 +1,9 @@
 package com.engimon.map.biome.cells;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
@@ -22,4 +26,11 @@ public class GrasslandCell extends Cell {
         return el.isOneOf(Element.GROUND) || el.isOneOf(Element.ELECTRIC);
     }
 
+    private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
+        inpStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
+        outStream.defaultWriteObject();
+    }
 }

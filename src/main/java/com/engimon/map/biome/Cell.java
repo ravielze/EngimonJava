@@ -54,6 +54,18 @@ public abstract class Cell implements Serializable {
         return true;
     }
 
+    public boolean allowSpawn(CellOccupier co){
+        if (this.isOccupied()){
+            return false;
+        }
+        if (co instanceof WildEngimon){
+            WildEngimon we = (WildEngimon) co;
+            return allowPass(we.getSpecies());
+        }
+        //todo buat 
+        return true;
+    }
+
     public boolean isOccupied() {
         return this.occupied != null;
     }
@@ -66,7 +78,7 @@ public abstract class Cell implements Serializable {
         return this.occupied;
     }
 
-    public void move(Cell other) throws CellException {
+    public void transferEntity(Cell other) throws CellException {
         if (this.occupied == null) {
             throw new CellException(ErrorCause.CELL_EMPTY);
         }
