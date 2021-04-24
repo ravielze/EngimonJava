@@ -190,7 +190,11 @@ public class Engimon implements LivingEntity, Storable, Comparable<Engimon>, Ser
         int compareSpecies = Comparator.comparing(Species::getElements).thenComparing(Species::getFirstElement)
                 .thenComparing(Species::getSecondElement).compare(this.getSpecies(), o.getSpecies());
         if (compareSpecies == 0) {
-            return Comparator.comparing(Engimon::getLevel).thenComparing(Engimon::getName).compare(this, o);
+            int compareEngi = Comparator.comparing(Engimon::getLevel).compare(this, o);
+            if (compareEngi == 0) {
+                return Math.max(Math.min(this.getName().compareTo(o.getName()), 1), -1);
+            }
+            return compareEngi;
         }
         return compareSpecies;
     }
