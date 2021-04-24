@@ -3,6 +3,7 @@ package com.engimon.entity.skill;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,7 +14,7 @@ import com.engimon.entity.enums.Element;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Skill extends Elementum {
+public class Skill extends Elementum implements Comparable<Skill> {
 
     private static final long serialVersionUID = 1244181908986208537L;
     private static Map<Integer, Skill> skillList = new TreeMap<Integer, Skill>();
@@ -89,10 +90,7 @@ public class Skill extends Elementum {
 
     public void addMasteryLevel() {
         this.masteryLevel++;
-    }
-
-    public void setMasteryLevel(int level) {
-        this.masteryLevel = level;
+        this.masteryLevel = Math.min(this.masteryLevel, 3);
     }
 
     @Override
@@ -120,6 +118,16 @@ public class Skill extends Elementum {
 
     private void writeObject(ObjectOutputStream aOutputStream) throws IOException, ClassNotFoundException {
         aOutputStream.defaultWriteObject();
+    }
+
+    @Override
+    public int compareTo(Skill o) {
+        return Comparator.comparing(Skill::getMasteryLevel).compare(this, o);
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.valueOf(this.skillId).hashCode();
     }
 
 }
