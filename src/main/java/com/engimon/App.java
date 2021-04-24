@@ -10,6 +10,7 @@ import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
 import com.engimon.inventory.Inventory;
+import com.engimon.gui.GUI;
 
 /**
  * Hello world!
@@ -65,11 +66,12 @@ public class App {
     }
 
     public static void main(String[] args) {
-        load();
+        // load();
         // JFrame jf = new JFrame();
         // jf.setSize(500, 500);
         // jf.setTitle("Test");
         // jf.setVisible(true);
         // jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GUI gui = new GUI();
     }
 }
