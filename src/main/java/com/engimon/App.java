@@ -65,7 +65,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        load();
+        // load();
         // JFrame jf = new JFrame();
         // jf.setSize(500, 500);
         // jf.setTitle("Test");
