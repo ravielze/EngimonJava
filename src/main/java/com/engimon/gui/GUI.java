@@ -16,7 +16,9 @@ public class GUI implements GUIMediator {
         System.out.println(a);
         
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(map);
+        JScrollPane scrollPane = new JScrollPane(map, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        frame.getContentPane().add(scrollPane);
         frame.setTitle("Map");
         frame.revalidate();
     }
@@ -34,8 +36,10 @@ public class GUI implements GUIMediator {
         frame.setTitle("Start Page");
         // Initialize other here;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        frame.add(startPage);
+        JScrollPane scrollPane = new JScrollPane(startPage, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
+        // frame.add(startPage);
+        frame.add(scrollPane);
         frame.setVisible(true);
 
     }

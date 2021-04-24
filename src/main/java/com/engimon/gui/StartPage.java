@@ -26,10 +26,8 @@ public class StartPage extends JPanel implements Screen {
     private void prepareGui() {
         System.out.println("Sampe sini");
 
-        // JButton button1 = new JButton("Hello world"); // Ganti ke gambar professor
         JLabel labelBacotan = new JLabel(bacotan);
 
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 
         JPanel row1 = new JPanel();
         row1.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -44,6 +42,7 @@ public class StartPage extends JPanel implements Screen {
         row2.setLayout(new FlowLayout(FlowLayout.CENTER));
         row2.add(labelBacotan);
 
+        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);
         this.add(row1);
         this.add(row2);
