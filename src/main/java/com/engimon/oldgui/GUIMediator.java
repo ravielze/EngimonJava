@@ -1,4 +1,4 @@
-package com.engimon.gui;
+package com.engimon.oldgui;
 
 
 public interface GUIMediator {

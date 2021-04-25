@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import com.engimon.entity.Player;
+import com.engimon.entity.engimon.ActiveEngimon;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
@@ -57,12 +58,12 @@ public abstract class Cell implements Serializable {
     public boolean allowSpawn(CellOccupier co){
         if (this.isOccupied()){
             return false;
-        }
-        if (co instanceof WildEngimon){
+        } else if (co instanceof ActiveEngimon || co instanceof Player){
+            return true;
+        } else if (co instanceof WildEngimon){
             WildEngimon we = (WildEngimon) co;
             return allowPass(we.getSpecies());
         }
-        //todo buat 
         return true;
     }
 
