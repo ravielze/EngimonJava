@@ -16,8 +16,14 @@ public class GridCell extends EComponent {
     public <T extends Cell> GridCell(T cell) {
         this.placeholder = new JLabel("");
         
-        placeholder.setBorder(BorderFactory.createLineBorder(cell.getColor(), padding));
         add(placeholder);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
+        if (cell.isOccupied()) {
+            System.out.printf("Cell {%d, %d} is occupied by %s\n", cell.getX(), cell.getY(), cell.getOccupier());
+            placeholder.setBorder(BorderFactory.createLineBorder(Color.BLACK, padding));
+            return;
+        }
+        placeholder.setBorder(BorderFactory.createLineBorder(cell.getColor(), padding));
+
     }
 }

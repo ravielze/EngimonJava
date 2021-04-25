@@ -14,6 +14,7 @@ public class EngimonPicker extends EButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
+                EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }
         });
     }

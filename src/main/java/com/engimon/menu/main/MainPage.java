@@ -1,5 +1,8 @@
 package com.engimon.menu.main;
 
+import com.engimon.entity.Game;
+import com.engimon.entity.enums.Direction;
+import com.engimon.exception.CellException;
 import com.engimon.map.Map;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
@@ -37,7 +40,52 @@ public class MainPage extends EPage {
         update();
         menuList.add(help);
         menuList.add(inv);
-        System.out.println(map.getSize());
+        // setFocusable(true);
+        // requestFocusInWindow();
+        this.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // TODO Auto-generated method stub
+                try {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_W:
+                            Game.getPlayer().move(Direction.NORTH);
+                            update();
+
+                            break;
+                        case KeyEvent.VK_A:
+                            Game.getPlayer().move(Direction.WEST);
+                            update();
+
+                            break;
+                        case KeyEvent.VK_S:
+                            Game.getPlayer().move(Direction.SOUTH);
+                            update();
+
+                            break;
+                        case KeyEvent.VK_D:
+                            Game.getPlayer().move(Direction.EAST);
+                            update();
+
+                            break;
+                    }
+                } catch (CellException er) {
+                    
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
+            }
+
+        });
     }
 
     @Override

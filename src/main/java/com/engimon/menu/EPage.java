@@ -1,6 +1,5 @@
 package com.engimon.menu;
 
-import javax.swing.JPanel;
 
 import com.engimon.gui.BaseLayout;
 

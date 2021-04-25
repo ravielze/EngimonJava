@@ -16,6 +16,7 @@ public class MapGrid extends EComponent {
                 try {
                     Cell cell = map.getCell(x, y);
                     row.add(new GridCell(cell));
+                    
                 } catch (CellException e) {
                     
                 }

@@ -29,8 +29,8 @@ public class EMenu extends JFrame {
         setSize(200, 300);
         setTitle("Engimon - Gotta Farm Them All");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // changePage(START_PAGE);
-        changePage(MAIN_PAGE);
+        changePage(START_PAGE);
+        // changePage(MAIN_PAGE);
         setVisible(true);
     }
 
@@ -38,8 +38,12 @@ public class EMenu extends JFrame {
         if (p != null) {
             getContentPane().removeAll();
             p.update();
+            p.setFocusable(true);
+            p.requestFocusInWindow();
             JScrollPane pane = new JScrollPane(p, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            // pane.setFocusable(true);
+            // p.requestFocusInWindow();
             getContentPane().add(pane);
             revalidate();
         }
