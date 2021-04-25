@@ -1,5 +1,6 @@
 package com.engimon.map.biome.cells;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -32,5 +33,11 @@ public class GrasslandCell extends Cell {
 
     private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
         outStream.defaultWriteObject();
+    }
+
+    @Override
+    public Color getColor() {
+        // TODO Auto-generated method stub
+        return Color.decode("#32a600");
     }
 }

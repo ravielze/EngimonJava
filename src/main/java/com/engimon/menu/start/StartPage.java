@@ -1,7 +1,6 @@
 package com.engimon.menu.start;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
@@ -9,7 +8,7 @@ import com.engimon.menu.component.EButton;
 public class StartPage extends EPage {
 
     public StartPage() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        super();
         update();
     }
 

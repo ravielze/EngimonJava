@@ -11,8 +11,9 @@ import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
+import com.engimon.menu.main.Colorable;
 
-public abstract class Cell implements Serializable {
+public abstract class Cell implements Serializable, Colorable {
 
     private static final long serialVersionUID = -6351841280611348432L;
 
