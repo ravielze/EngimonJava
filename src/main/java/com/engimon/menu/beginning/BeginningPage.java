@@ -25,7 +25,7 @@ public class BeginningPage extends EPage {
     public void update() {
         removeAll();
 
-        EText text = new EText(this, bacotan);
+        EText text = new EText(bacotan);
         ERow pickerRow1 = new ERow();
         ERow pickerRow2 = new ERow();
 
@@ -42,34 +42,34 @@ public class BeginningPage extends EPage {
         add(pickerRow1);
         add(pickerRow2);
         // GameConfig.getStarterEngimon().forEach(x -> {
-        //     EngimonPicker ep = new EngimonPicker(x);
-        //     ep.setPadding(30, 20);
-        //     buttons.add(ep);
+        // EngimonPicker ep = new EngimonPicker(x);
+        // ep.setPadding(30, 20);
+        // buttons.add(ep);
         // });
         // int perRow = 3;
         // int cur = 0;
         // for (String l : array) {
-        //     if (cur == perRow) {
-        //         picker.add(new ArrayList<EngimonPicker>(buttons));
-        //         buttons = new ArrayList<EngimonPicker>(6);
-        //         cur = 0;
-        //         add(picker.);
-        //         picker.removeAll();
-        //     }
-        //     EngimonPicker ep = new EngimonPicker(l);
-        //     ep.setPadding(30, 20);
-        //     buttons.add(ep);
-        //     cur += 1;
+        // if (cur == perRow) {
+        // picker.add(new ArrayList<EngimonPicker>(buttons));
+        // buttons = new ArrayList<EngimonPicker>(6);
+        // cur = 0;
+        // add(picker.);
+        // picker.removeAll();
+        // }
+        // EngimonPicker ep = new EngimonPicker(l);
+        // ep.setPadding(30, 20);
+        // buttons.add(ep);
+        // cur += 1;
         // }
         // if (cur == perRow) {
-        //     picker.add(new ArrayList<EngimonPicker>(buttons));
+        // picker.add(new ArrayList<EngimonPicker>(buttons));
         // }
 
         // picker.add(buttons);
         // picker.justifyFlexStart();
 
-        
-        // add(new ERow(new FlowLayout(FlowLayout.CENTER), new FlowLayout(FlowLayout.CENTER, 20, 40), 3, buttons));
+        // add(new ERow(new FlowLayout(FlowLayout.CENTER), new
+        // FlowLayout(FlowLayout.CENTER, 20, 40), 3, buttons));
     }
 
 }

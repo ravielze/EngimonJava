@@ -1,10 +1,15 @@
 package com.engimon.menu;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+import com.engimon.common.ResourceReader;
 import com.engimon.menu.beginning.BeginningPage;
 import com.engimon.menu.main.MainPage;
 import com.engimon.menu.start.StartPage;
@@ -26,12 +31,23 @@ public class EMenu extends JFrame {
 
     public EMenu() {
         setLayout(new GridLayout(1, 0));
-        setSize(200, 300);
+        setSize(new Dimension(800, 900));
+        setResizable(false);
         setTitle("Engimon - Gotta Farm Them All");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         changePage(START_PAGE);
-        // changePage(MAIN_PAGE);
+        setIcon();
         setVisible(true);
+    }
+
+    private void setIcon() {
+        ResourceReader rr = new ResourceReader("Images/Others/gamelogo.png");
+        try {
+            BufferedImage image = ImageIO.read(rr.getStream());
+            setIconImage(image);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void changePage(EPage p) {

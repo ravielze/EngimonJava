@@ -1,29 +1,34 @@
 package com.engimon.menu.component;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import com.engimon.menu.EComponent;
-import com.engimon.menu.EPage;
 
-import org.jetbrains.annotations.NotNull;
+public class EButton extends JButton implements EComponent {
 
-public class EButton extends EComponent {
-
-    private JButton button;
-
-    public EButton(@NotNull EPage page, @NotNull String displayText, @NotNull MouseAdapter event) {
-        super(page);
-        button = new JButton(displayText);
-        this.add(button);
+    public EButton(String displayText, int textSize, MouseAdapter event) {
+        super(displayText);
         // this.setBorder(BorderFactory.createLineBorder(Color.black));
-        button.addMouseListener(event);
+        addMouseListener(event);
+        setPreferredSize(new Dimension(150, 50));
+        setFont(new Font("Arial", Font.PLAIN, textSize));
+    }
+
+    public EButton(String displayText, int textSize, int width, int height, MouseAdapter event) {
+        super(displayText);
+        // this.setBorder(BorderFactory.createLineBorder(Color.black));
+        addMouseListener(event);
+        setPreferredSize(new Dimension(width, height));
+        setFont(new Font("Arial", Font.PLAIN, textSize));
     }
 
     public void setPadding(int x, int y) {
-        button.setBorder(BorderFactory.createEmptyBorder(y, x, y, x));
+        setBorder(BorderFactory.createEmptyBorder(y, x, y, x));
     }
 
 }

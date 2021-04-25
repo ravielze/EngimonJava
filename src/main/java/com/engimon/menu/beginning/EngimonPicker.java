@@ -10,7 +10,7 @@ import java.awt.event.*;
 public class EngimonPicker extends EButton {
 
     public EngimonPicker(Engimon eng) {
-        super(EMenu.BEGINNING_PAGE, eng.getName(), new MouseAdapter() {
+        super(eng.getName(), 20, new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
@@ -20,7 +20,7 @@ public class EngimonPicker extends EButton {
     }
 
     public EngimonPicker(String eng) {
-        super(EMenu.BEGINNING_PAGE, eng, new MouseAdapter() {
+        super(eng, 20, new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println(eng);

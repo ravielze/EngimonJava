@@ -20,21 +20,21 @@ import com.engimon.menu.component.EText;
 public class MainPage extends EPage {
 
     private Map map = Map.getInstance();
-    private EButton help = new EButton(this, "Help", new MouseAdapter() {
+    private EButton help = new EButton("Help", 20, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("HELP CLICKED");
         }
     });
 
-    private EButton inv = new EButton(this, "Inventory", new MouseAdapter() {
+    private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INVENTORY CLICKED");
         }
     });
 
-    private EText message = new EText(this, "");
+    private EText message = new EText("");
 
     private List<EButton> menuList = new ArrayList<EButton>();
 
