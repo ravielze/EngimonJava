@@ -56,12 +56,12 @@ public abstract class Cell implements Serializable, Colorable {
         return true;
     }
 
-    public boolean allowSpawn(CellOccupier co){
-        if (this.isOccupied()){
+    public boolean allowSpawn(CellOccupier co) {
+        if (this.isOccupied()) {
             return false;
-        } else if (co instanceof ActiveEngimon || co instanceof Player){
+        } else if (co instanceof ActiveEngimon || co instanceof Player) {
             return true;
-        } else if (co instanceof WildEngimon){
+        } else if (co instanceof WildEngimon) {
             WildEngimon we = (WildEngimon) co;
             return allowPass(we.getSpecies());
         }
@@ -88,6 +88,8 @@ public abstract class Cell implements Serializable, Colorable {
             CellOccupier occupier = other.getOccupier();
             if (occupier instanceof Player) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_PLAYER);
+            } else if (occupier instanceof ActiveEngimon) {
+                throw new CellException(ErrorCause.CELL_OCCUPIED_BY_ACTIVE_ENGIMON);
             } else if (occupier instanceof LivingEntity) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OTHER);
             } else {

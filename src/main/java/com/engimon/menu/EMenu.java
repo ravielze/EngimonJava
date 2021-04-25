@@ -36,16 +36,19 @@ public class EMenu extends JFrame {
 
     public void changePage(EPage p) {
         if (p != null) {
+            setVisible(false);
             getContentPane().removeAll();
             p.update();
-            p.setFocusable(true);
-            p.requestFocusInWindow();
+            p.revalidate();
+            // p.setFocusable(true);
+            // p.requestFocusInWindow();
             JScrollPane pane = new JScrollPane(p, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            // pane.setFocusable(true);
-            // p.requestFocusInWindow();
+            pane.setFocusable(true);
+            pane.requestFocusInWindow();
             getContentPane().add(pane);
             revalidate();
+            setVisible(true);
         }
     }
 
