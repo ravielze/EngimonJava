@@ -282,38 +282,38 @@ public class TestEngimon {
         assertEquals("Pikaco/ELECTRIC/Lv.1", engimon1.toString());
     }
 
-    @Test
-    @DisplayName("Test equals ")
-    void testequals() {
-        try {
-            Engimon engimon1 = new Engimon(species1);
-            Engimon engimon2 = new Engimon(species2);
-            Engimon engimon3 = new Engimon(species1, engimon1, engimon2);
-            Engimon engimon4 = new Engimon(species1, engimon1, engimon2);
-            Engimon engimon5 = new Engimon(species2, engimon1, engimon3);
-            Engimon engimon6 = new Engimon(species2, engimon1, engimon2);
-            // Cek parent
-            assertEquals(false, engimon3.equals(engimon4));
-            assertEquals(false, engimon4.equals(engimon5));
-            // Cek exp
-            engimon3.addExperience(100);
-            assertEquals(false, engimon3.equals(engimon4));
-            engimon4.addExperience(100);
-            // Cek life
-            engimon3.reduceLife();
-            assertEquals(false, engimon3.equals(engimon4));
-            engimon4.reduceLife();
-            // Cek skill
-            engimon3.addSkill(skill2);
-            assertEquals(false, engimon3.equals(engimon4));
-            // Cek species
-            assertEquals(false, engimon3.equals(engimon6));
-        } catch (EngimonDeadException e) {
-            e.getMessage();
-        } catch (EngimonStateException e) {
-            e.getMessage();
-        }
-    }
+    // @Test
+    // @DisplayName("Test equals ")
+    // void testequals() {
+    // try {
+    // Engimon engimon1 = new Engimon(species1);
+    // Engimon engimon2 = new Engimon(species2);
+    // Engimon engimon3 = new Engimon(species1, engimon1, engimon2);
+    // Engimon engimon4 = new Engimon(species1, engimon1, engimon2);
+    // Engimon engimon5 = new Engimon(species2, engimon1, engimon3);
+    // Engimon engimon6 = new Engimon(species2, engimon1, engimon2);
+    // // Cek parent
+    // assertEquals(false, engimon3.equals(engimon4));
+    // assertEquals(false, engimon4.equals(engimon5));
+    // // Cek exp
+    // engimon3.addExperience(100);
+    // assertEquals(false, engimon3.equals(engimon4));
+    // engimon4.addExperience(100);
+    // // Cek life
+    // engimon3.reduceLife();
+    // assertEquals(false, engimon3.equals(engimon4));
+    // engimon4.reduceLife();
+    // // Cek skill
+    // engimon3.addSkill(skill2);
+    // assertEquals(false, engimon3.equals(engimon4));
+    // // Cek species
+    // assertEquals(false, engimon3.equals(engimon6));
+    // } catch (EngimonDeadException e) {
+    // e.getMessage();
+    // } catch (EngimonStateException e) {
+    // e.getMessage();
+    // }
+    // }
 
     @Test
     @DisplayName("Test getPower ")
