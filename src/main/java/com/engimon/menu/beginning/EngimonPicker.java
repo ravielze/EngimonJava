@@ -17,4 +17,13 @@ public class EngimonPicker extends EButton {
             }
         });
     }
+
+    public EngimonPicker(String eng) {
+        super(EMenu.BEGINNING_PAGE, eng, new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println(eng);
+            }
+        });
+    }
 }
