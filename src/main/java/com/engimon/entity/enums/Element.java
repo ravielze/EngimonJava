@@ -1,6 +1,6 @@
 package com.engimon.entity.enums;
 
-public enum Element {
+public enum Element{
 
     NONE(999999), FIRE(0), WATER(1), ELECTRIC(2), GROUND(3), ICE(4);
 

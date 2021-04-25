@@ -2,9 +2,13 @@ package com.engimon.entity.engimon;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
 
 import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
@@ -20,13 +24,28 @@ public class Species extends Elementum {
     private int speciesId;
     private static Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
 
+    @NotNull
     public static Map<Integer, Species> getSpeciesList() {
         return speciesList;
     }
 
-    public static void setSpeciesList(Map<Integer, Species> x) {
+    public static void setSpeciesList(@NotNull Map<Integer, Species> x) {
         speciesList.clear();
         speciesList.putAll(x);
+    }
+
+    @Nullable
+    public static Species getSpecies(int idx){
+        return speciesList.getOrDefault(idx, null);
+    }
+
+    @NotNull
+    public static Species getRandomSpecies(Elementum el){
+        List<Species> filtered = speciesList.values().stream().filter(x -> x.equals(el)).collect(Collectors.toList());
+        SecureRandom sr = new SecureRandom();
+        Collections.shuffle(filtered);
+        int randomIndex = sr.nextInt(filtered.size());
+        return filtered.get(randomIndex);
     }
 
     private Skill uniqueSkill;

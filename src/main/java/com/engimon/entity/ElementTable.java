@@ -1,5 +1,6 @@
 package com.engimon.entity;
 
+import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -41,6 +42,12 @@ public class ElementTable {
             instance = new ElementTable();
         }
         return instance.getMult(attack, defense);
+    }
+
+    public static double getMaxMultiplier(Element el, Elementum e) {
+        double a = ElementTable.getMultiplier(e.getFirstElement(), el);
+        double b = ElementTable.getMultiplier(e.getSecondElement(), el);
+        return Math.max(a,b);
     }
 
     private double getMult(Element attack, Element defense) {
