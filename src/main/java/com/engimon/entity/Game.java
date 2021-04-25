@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class Game {
 
     private static final String gameFileName = "game.dat";
-    private Player player;
+    public static Player player;
     private StaticSerializer staticSerializer;
 
     public Game(Player player){
@@ -30,9 +30,11 @@ public class Game {
         Map.getInstance();
         //TODO load from csv
         Cell[] cells = Map.getInstance().getTwoSpawnableCell();
-        game.player = new Player(firstEngimon, cells[0], cells[1]);
+        player = new Player(firstEngimon, cells[0], cells[1]);
         //TODO random spawn wild engimon
     }
+
+    public static Player getPlayer() {return player;}
 
     public static void save(Player player){
         Game game = new Game(player);
