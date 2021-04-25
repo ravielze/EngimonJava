@@ -48,6 +48,14 @@ public class Species extends Elementum {
         return filtered.get(randomIndex);
     }
 
+    public static Species getRandomSpecies(){
+        List<Species> filtered = new ArrayList<Species>(speciesList.values());
+        SecureRandom sr = new SecureRandom();
+        Collections.shuffle(filtered);
+        int randomIndex = sr.nextInt(filtered.size());
+        return filtered.get(randomIndex);
+    }
+
     private Skill uniqueSkill;
 
     public Species(@NotNull Element firstElement, int speciesId, int uniqueSkillId, @NotNull String name,

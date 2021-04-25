@@ -8,6 +8,7 @@ import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.EText;
+import com.engimon.sound.BackgroundSound;
 
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class MainPage extends EPage {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("HELP CLICKED");
+            BackgroundSound.getInstance().play("beginning_sound");
         }
     });
 
@@ -28,6 +30,7 @@ public class MainPage extends EPage {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INVENTORY CLICKED");
+            BackgroundSound.getInstance().play("battle_sound");
         }
     });
 
