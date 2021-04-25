@@ -5,9 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import com.engimon.entity.ElementTable;
 import com.engimon.entity.enums.Element;
@@ -102,6 +105,10 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
 
     public List<Skill> getAllSkills() {
         return skills;
+    }
+
+    public int getSkillCount(){
+        return skills.size();
     }
 
     @NotNull
@@ -264,16 +271,11 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         return level * Math.max(a, b) + sum;
     }
 
-    public Engimon breed(Engimon other) throws EngimonStateException {
-        //TODO
-        if (this.getLevel() < 4 || other.getLevel() < 4){
-            throw new EngimonStateException(this, EngimonStateException.StateError.ENGIMON_CANT_BREED);
-        }
-        Species result = null;
+    private Species breedSpecies(Engimon other){
+        Species result;
         if (((Elementum) this.species).equals(other.getSpecies())) {
             result = this.getSpecies();
-        }
-        if (result == null) {
+        } else {
             Element thisMajor = getSpecies().getMajorElement(other.getSpecies());
             Element otherMajor = other.getSpecies().getMajorElement(this.getSpecies());
             if (ElementTable.getMultiplier(thisMajor, otherMajor) > ElementTable.getMultiplier(otherMajor, thisMajor)) {
@@ -285,104 +287,47 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
                 result = Species.getRandomSpecies(el);
             }
         }
+        return result;
+    }
+
+    public Engimon breed(Engimon other) throws EngimonStateException {
+        if (this.getLevel() < 4 || other.getLevel() < 4){
+            throw new EngimonStateException(this, EngimonStateException.StateError.ENGIMON_CANT_BREED);
+        }
+        Species result = breedSpecies(other);
         Engimon child = new Engimon(result, this, other);
+
         Skill uniqueSkill = result.getUniqueSkill();
-        boolean uniqueSkillLearned = false;
-        List<Skill> thisSkills = this.getAllSkills();
-        List<Skill> otherSkills = other.getAllSkills();
-        if (thisSkills.contains(uniqueSkill) || otherSkills.contains(uniqueSkill)) {
-            for (Skill skill : this.getAllSkills()) {
-                if (skill.equals(uniqueSkill)) {
-                    child.addSkill(new Skill(skill, skill.getMasteryLevel()));
-                    thisSkills.remove(skill);
-                    uniqueSkillLearned = true;
-                    break;
-                }
-            }
-            if (!uniqueSkillLearned) {
-                for (Skill skill : other.getAllSkills()) {
-                    if (skill.equals(uniqueSkill)) {
-                        child.addSkill(new Skill(skill, skill.getMasteryLevel()));
-                        otherSkills.remove(skill);
-                        uniqueSkillLearned = true;
+        List<Skill> thisSkills = new ArrayList<>(this.getAllSkills());
+        List<Skill> otherSkills = new ArrayList<>(other.getAllSkills());
+
+        Set<Skill> skills = new HashSet<>(8);
+        thisSkills.forEach(x -> skills.add(new Skill(x, x.getMasteryLevel())));
+        otherSkills.forEach(z -> {
+            Skill x = new Skill(z, z.getMasteryLevel());
+            if (!skills.add(x)){
+                for (Skill y : skills){
+                    if (y.equals(x) && y.getMasteryLevel() == x.getMasteryLevel()){
+                        y.addMasteryLevel();
+                        break;
+                    } else if (y.equals(x) && y.getMasteryLevel() < x.getMasteryLevel()){
+                        skills.remove(y);
+                        skills.add(x);
+                        break;
+                    } else if (y.equals(x)){
                         break;
                     }
                 }
             }
+        });
+        List<Skill> sortSkills = new ArrayList<>(skills);
+        Collections.sort(sortSkills);
+        sortSkills.remove(uniqueSkill);
+        child.addSkill(uniqueSkill);
+        int take = 4-child.getSkillCount();
+        for (int i = 0; i < take; i++){
+            child.addSkill(sortSkills.get(i));
         }
-        if (!uniqueSkillLearned) {
-            child.addSkill(uniqueSkill);
-        }
-
-        int maxSkills = thisSkills.size() + otherSkills.size() > 3 ? 3 : thisSkills.size() + otherSkills.size();
-    
-        for (int i = 0; i < maxSkills; i++) {
-            boolean thisChosen = false;
-            int parentAMaxMastery = -1;
-            int parentBMaxMastery = -1;
-            int parentASlot = -1;
-            int parentBSlot = -1;
-            for (int j = thisSkills.size() - 1; j >= 0; j--) {
-                if (thisSkills.get(j).getMasteryLevel() >= parentAMaxMastery) {
-                    parentAMaxMastery = thisSkills.get(j).getMasteryLevel();
-                    parentASlot = j;
-                }
-            }
-
-            for (int j = otherSkills.size() - 1; j >= 0; j--)
-            {
-                if (otherSkills.get(j).getMasteryLevel() >= parentBMaxMastery)
-                {
-                    parentBMaxMastery = otherSkills.get(j).getMasteryLevel();
-                    parentBSlot = j;
-                }
-            }
-            if (parentASlot == -1) // YANG KEPILIH DARI PARENT B karena parentA udh habis slotnya
-            {
-                child.addSkill(new Skill(otherSkills.get(parentBSlot), otherSkills.get(parentBSlot).getMasteryLevel()));
-                otherSkills.remove(parentBSlot);
-                continue;
-            }
-            else if (parentBSlot == -1) // YANG KEPILIH DARI PARENT A karena parentB udh habis slotnya
-            {
-                child.addSkill(new Skill(thisSkills.get(parentASlot), thisSkills.get(parentASlot).getMasteryLevel()));
-                thisSkills.remove(parentASlot);
-                continue;
-            }
-            Skill chosen;
-            if (parentAMaxMastery >= parentBMaxMastery) {
-                chosen = thisSkills.get(parentASlot);
-                thisChosen = true;
-            } else {
-                chosen = otherSkills.get(parentBSlot);
-                thisChosen = false;
-            }
-            List<Skill> toCheck = thisChosen ? otherSkills : thisSkills;
-            for (int j = 0; j < toCheck.size(); j++)
-            {
-                if (toCheck.get(j).equals(chosen))
-                {
-                    if (toCheck.get(j).getMasteryLevel() == chosen.getMasteryLevel()) // poin 5.d.ii.2
-                    {
-                        chosen.addMasteryLevel();
-                    }
-                    else // poin 5.d.ii.2
-                    {
-                        chosen.setMasteryLevel(Math.max(chosen.getMasteryLevel(), toCheck.get(j).getMasteryLevel()));
-                    }
-                    break;
-                }
-            }
-            child.addSkill(chosen);
-            if (thisChosen) {
-                thisSkills.remove(parentASlot);
-            } else {
-                otherSkills.remove(parentBSlot);
-            }
-        }
-
-
-
         return child;
     }
 
