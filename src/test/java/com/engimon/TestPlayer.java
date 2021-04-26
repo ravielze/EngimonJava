@@ -14,6 +14,7 @@ import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.EngimonStateException;
 import com.engimon.exception.PlayerException;
 import com.engimon.exception.SkillNotFound;
+import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.map.Map;
 
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,7 @@ public class TestPlayer {
 
     private Skill skill1 = new Skill(Element.ELECTRIC, 1, "SambarListrik", 100.0D);
     private Skill skill2 = new Skill(Element.ELECTRIC, 2, "KilatListrik", 50.0D);
+    private Skill skill3 = new Skill(Element.ELECTRIC, 3, "Bananana", 50.0D);
     private Species species1;
     private Species species2;
     {
@@ -53,8 +55,9 @@ public class TestPlayer {
         try {
             Map map = new Map(20);
             Player p1 = new Player(engimon1, map.getCell(2, 2), map.getCell(2, 3));
+            p1.addEngimon(engimon2);
             p1.switchEngimon(engimon2);
-            assertEquals(engimon2, p1.getActiveEngimon());
+            assertEquals(engimon2.getSpecies(), p1.getActiveEngimon().getSpecies());
         } catch (CellException e) {
         }
     }
@@ -65,7 +68,7 @@ public class TestPlayer {
         try {
             Map map = new Map(20);
             Player p1 = new Player(engimon1, map.getCell(2, 2), map.getCell(2, 3));
-            assertEquals(engimon1, p1.getActiveEngimon());
+            assertEquals(engimon1.getSpecies(), p1.getActiveEngimon().getSpecies());
         } catch (CellException e) {
 
         }
@@ -75,7 +78,7 @@ public class TestPlayer {
     @DisplayName("Test move")
     void testmove() {
         try {
-            Map map = new Map(20);
+            Map map = Map.getInstance();
             Player p1 = new Player(engimon1, map.getCell(2, 2), map.getCell(2, 1));
             p1.move(Direction.NORTH);
             assertEquals(p1, map.getCell(2, 3).getOccupier());
@@ -103,7 +106,7 @@ public class TestPlayer {
         try {
             Map map = new Map(20);
             Player p1 = new Player(engimon1, map.getCell(2, 2), map.getCell(2, 3));
-            assertEquals(null, p1.getItems());
+            assertEquals(0, p1.getItems().size());
         } catch (CellException e) {
             assert (false);
         }
@@ -112,9 +115,9 @@ public class TestPlayer {
     @Test
     @DisplayName("Test battle")
     void testbattle() {
-        Map map = new Map(20);
+        Map map = Map.getInstance();
         try {
-            engimon1.addSkill(skill1);
+            engimon1.addSkill(skill3);
             engimon1.addSkill(skill2);
             engimon1.addExperience(10);
             Player p1 = new Player(engimon1, map.getCell(2, 2), map.getCell(2, 3));
@@ -122,7 +125,11 @@ public class TestPlayer {
             p1.battle(musuh);
             assertEquals(map.getCell(1, 2).getOccupier() == null, true);
         } catch (EngimonStateException e) {
-            assert (false);
+            if (e.getStateError() == StateError.ENGIMON_CANT_SPAWN) {
+                assert (true);
+            } else {
+                assert (false);
+            }
         } catch (PlayerException e) {
             assert (false);
         } catch (CellException e) {

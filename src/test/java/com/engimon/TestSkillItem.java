@@ -28,7 +28,7 @@ public class TestSkillItem {
     void testgetAmount() {
         Skill skillE = new Skill(Element.ELECTRIC, 101, "Lightning Stiletto", 84);
         SkillItem skillItem1 = new SkillItem(skillE);
-        assertEquals(0, skillItem1.getAmount());
+        assertEquals(1, skillItem1.getAmount());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TestSkillItem {
         } catch (EngimonStateException e) {
             assert (false);
         } catch (SkillItemExpired e) {
-            assert (false);
+            assert (true);
         }
     }
 
@@ -62,17 +62,26 @@ public class TestSkillItem {
     @DisplayName("Test SkillItem - learn(@NotNull Engimon eng, int index)")
     void testlearn2() {
         try {
-            Species species1 = new Species(Element.ELECTRIC, 101, 102, "Keqingmon", new String[] { "nowhere to hide" });
+            new Skill(Element.ELECTRIC, 99, "AAAA", 11);
+            Species species1 = new Species(Element.ELECTRIC, 101, 99, "Keqingmon", new String[] { "nowhere to hide" });
             Engimon engimon1 = new Engimon(species1);
             Skill skillE = new Skill(Element.ELECTRIC, 101, "Lightning Stiletto", 84);
             SkillItem skillItem1 = new SkillItem(skillE);
             Skill skillQ = new Skill(Element.ELECTRIC, 102, "Starward Sword", 188);
             SkillItem skillItem2 = new SkillItem(skillQ);
-            skillItem1.learn(engimon1);
-            skillItem2.learn(engimon1, 101);
-            assertEquals(-1, skillItem1.getAmount());
-            assertEquals(-1, skillItem2.getAmount());
-            assertEquals(engimon1.getAllSkills().size(), 1);
+            try {
+                skillItem1.learn(engimon1);
+            } catch (SkillItemExpired ex) {
+                assert (true);
+            }
+            try {
+                skillItem2.learn(engimon1, 1);
+            } catch (SkillItemExpired ex) {
+                assert (true);
+            }
+            assertEquals(0, skillItem1.getAmount());
+            assertEquals(0, skillItem2.getAmount());
+            assertEquals(engimon1.getAllSkills().size(), 2);
         } catch (SkillNotFound e) {
             assert (false);
         } catch (EngimonStateException e) {
@@ -90,7 +99,7 @@ public class TestSkillItem {
         SkillItem skillItem2 = new SkillItem(skillQ);
         assertEquals(true, skillItem1.equals(skillItem1));
         assertEquals(false, skillItem1.equals(null));
-        assertEquals(false, skillItem1.equals(skillE));
+        assertEquals(false, skillItem1.equals((Object) "ba"));
         assertEquals(false, skillItem1.equals(skillItem2));
         assertEquals(true, skillItem1.equals(skillItem3));
     }
@@ -100,7 +109,7 @@ public class TestSkillItem {
     void testtoString() {
         Skill skillE = new Skill(Element.ELECTRIC, 101, "Lightning Stiletto", 84);
         SkillItem skillItem1 = new SkillItem(skillE);
-        assertEquals("Lightning Stiletto x0", skillItem1.toString());
+        assertEquals("Lightning Stiletto/ELECTRIC/Power 84.00 x1", skillItem1.toString());
     }
 
     @Test
@@ -112,7 +121,7 @@ public class TestSkillItem {
         Skill skillQ = new Skill(Element.ELECTRIC, 102, "Starward Sword", 188);
         SkillItem skillItem2 = new SkillItem(skillQ);
         assertEquals(0, skillItem1.compareTo(skillItem3));
-        assertEquals(1, skillItem1.compareTo(skillItem2));
-        assertEquals(-1, skillItem2.compareTo(skillItem1));
+        assertEquals(-1, skillItem1.compareTo(skillItem2));
+        assertEquals(1, skillItem2.compareTo(skillItem1));
     }
 }

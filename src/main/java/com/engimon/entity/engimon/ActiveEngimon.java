@@ -52,4 +52,9 @@ public class ActiveEngimon extends Engimon implements Moveable, LivingEntity {
         this.currentCell = cell;
     }
 
+    @Override
+    public @NotNull String toString() {
+        return super.toString();
+    }
+
 }
