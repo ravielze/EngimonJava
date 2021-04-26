@@ -173,7 +173,7 @@ public class Skill extends Elementum implements Comparable<Skill> {
     }
 
     public Image getSkillIcon() {
-        if (this.masteryLevel == 1 || this.getElements() == 2) {
+        if (this.masteryLevel == 1) {
             return getElementIcon();
         }
         return ResourceReader.getImage("Icons/" + getFirstElement().toString() + "_" + this.masteryLevel + ".png", 50,

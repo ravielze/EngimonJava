@@ -9,12 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class TestMap {
-    @Test
-    @DisplayName("Test Map - getInstance()")
-    void testgetInstance() {
-        Map map = new Map(30);
-        assertEquals(Map.getInstance(), map);
-    }
 
     @Test
     @DisplayName("Test Map - setInstance(Map map)")

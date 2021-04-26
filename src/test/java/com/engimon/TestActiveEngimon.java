@@ -46,7 +46,7 @@ public class TestActiveEngimon {
         try {
             Map map = new Map(20);
             ActiveEngimon ae1 = new ActiveEngimon(engimon1, map.getCell(2, 3));
-            assertEquals(map.getCell(2, 3).getOccupier(), ae1.getCell());
+            assertEquals(map.getCell(2, 3).getOccupier(), ae1);
         } catch (CellException e) {
 
         }
@@ -59,7 +59,8 @@ public class TestActiveEngimon {
             Map map = new Map(20);
             ActiveEngimon ae1 = new ActiveEngimon(engimon1, map.getCell(2, 3));
             ae1.move(Direction.NORTH);
-            assertEquals(ae1.getCell(), map.getCell(2, 4).getOccupier());
+            assertEquals(ae1.getCell().getX(), map.getCell(2, 4).getX());
+            assertEquals(ae1.getCell().getY(), map.getCell(2, 4).getY());
         } catch (CellException e) {
 
         }

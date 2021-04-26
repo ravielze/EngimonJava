@@ -17,10 +17,23 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
 
     public SkillItem(Skill skill) {
         this.skill = skill;
+        this.amount = 1;
+    }
+
+    public SkillItem(Skill skill, int amount) {
+        this.skill = skill;
+        this.amount = amount;
     }
 
     public int getAmount() {
         return this.amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+        if (this.amount <= 0) {
+            this.amount = 1;
+        }
     }
 
     @NotNull
@@ -54,6 +67,9 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
             return true;
         if (o == null)
             return false;
+        if ((o instanceof Skill)) {
+            return this.skill.equals((Skill) o);
+        }
         if (!(o instanceof SkillItem)) {
             return false;
         }
