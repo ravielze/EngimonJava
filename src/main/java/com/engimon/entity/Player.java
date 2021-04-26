@@ -11,6 +11,7 @@ import com.engimon.entity.engimon.ActiveEngimon;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.entity.enums.Direction;
+import com.engimon.entity.skill.Skill;
 import com.engimon.entity.skill.SkillItem;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
@@ -121,7 +122,17 @@ public class Player implements LivingEntity, Moveable, Serializable {
                 if (ex.getEngimon().equals(we)) {
                     we.kill();
                     inventory.add(new Engimon(we));
-                    inventory.add(new SkillItem(we.getRandomSkill()));
+                    Skill sk = we.getRandomSkill();
+                    boolean found = false;
+                    for (SkillItem ski : getItems()) {
+                        if (ski.equals((Object) sk)) {
+                            ski.setAmount(ski.getAmount() + 1);
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        inventory.add(new SkillItem(sk));
+                    }
                 }
             }
         }
