@@ -108,28 +108,32 @@ public abstract class Elementum implements Serializable {
 
     public Image getAura() {
         if (getElements() == 1) {
-            return ResourceReader.getImage("Aura/" + firstElement.toString() + ".png", 100, 100);
+            return ResourceReader.getImage("Images/Elements/Aura/" + firstElement.toString() + ".png", 100, 100);
         } else {
             if (firstElement.getIndex() > secondElement.getIndex()) {
                 return ResourceReader.getImage(
-                        "Aura/" + secondElement.toString() + "_" + firstElement.toString() + ".png", 100, 100);
+                        "Images/Elements/Aura/" + secondElement.toString() + "_" + firstElement.toString() + ".png",
+                        100, 100);
             } else {
                 return ResourceReader.getImage(
-                        "Aura/" + firstElement.toString() + "_" + secondElement.toString() + ".png", 100, 100);
+                        "Images/Elements/Aura/" + firstElement.toString() + "_" + secondElement.toString() + ".png",
+                        100, 100);
             }
         }
     }
 
     public Image getElementIcon() {
         if (getElements() == 1) {
-            return ResourceReader.getImage("Icons/" + firstElement.toString() + ".png", 50, 50);
+            return ResourceReader.getImage("Images/Elements/Icons/" + firstElement.toString() + ".png", 50, 50);
         } else {
             if (firstElement.getIndex() > secondElement.getIndex()) {
-                return ResourceReader
-                        .getImage("Icons/" + secondElement.toString() + "_" + firstElement.toString() + ".png", 50, 50);
+                return ResourceReader.getImage(
+                        "Images/Elements/Icons/" + secondElement.toString() + "_" + firstElement.toString() + ".png",
+                        50, 50);
             } else {
-                return ResourceReader
-                        .getImage("Icons/" + firstElement.toString() + "_" + secondElement.toString() + ".png", 50, 50);
+                return ResourceReader.getImage(
+                        "Images/Elements/Icons/" + firstElement.toString() + "_" + secondElement.toString() + ".png",
+                        50, 50);
             }
         }
     }

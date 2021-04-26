@@ -24,14 +24,23 @@ public class Game {
         return runningGame;
     }
 
-    public Player player;
+    private Player player;
+    private Spawner spawner;
     private StaticSerializer staticSerializer;
 
     public Game(Player player) {
         if (player != null) {
             this.staticSerializer = StaticSerializer.save();
             this.player = player;
+            this.spawner = Spawner.getInstance();
         }
+    }
+
+    public static void firstLoad() {
+        DataReader dr = new DataReader(new ResourceReader("skill.csv"));
+        Skill.load(dr);
+        DataReader dr2 = new DataReader(new ResourceReader("species.csv"));
+        Species.load(dr2);
     }
 
     public Game() {
@@ -40,14 +49,13 @@ public class Game {
     public static void create(@NotNull Engimon firstEngimon) {
         Game game = new Game();
         Map.getInstance();
-        DataReader dr = new DataReader(new ResourceReader("skill.csv"));
-        Skill.load(dr);
-        DataReader dr2 = new DataReader(new ResourceReader("species.csv"));
-        Species.load(dr2);
         Cell[] cells = Map.getInstance().getTwoSpawnableCell();
         game.player = new Player(firstEngimon, cells[0], cells[1]);
         // TODO random spawn wild engimon
         runningGame = game;
+        game.spawner = new Spawner();
+        Thread spawningThread = new Thread(new Spawning());
+        spawningThread.start();
     }
 
     public Player getPlayer() {
@@ -61,6 +69,7 @@ public class Game {
             ObjectOutputStream oot = new ObjectOutputStream(fout);
             oot.writeObject(game.player);
             oot.writeObject(game.staticSerializer);
+            oot.writeObject(game.spawner);
             oot.flush();
             oot.close();
         } catch (Exception ex) {
@@ -76,6 +85,7 @@ public class Game {
             Player player = (Player) oit.readObject();
             game.player = player;
             StaticSerializer.load(((StaticSerializer) oit.readObject()));
+            game.spawner = (Spawner) oit.readObject();
             oit.close();
             runningGame = game;
         } catch (Exception ex) {

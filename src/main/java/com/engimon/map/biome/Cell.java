@@ -97,6 +97,11 @@ public abstract class Cell implements Serializable, Colorable {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OBSTACLE);
             }
         }
+        if (this.occupied instanceof WildEngimon) {
+            if (!other.allowPass(((WildEngimon) this.occupied).getSpecies())) {
+                return;
+            }
+        }
         if (this.occupied instanceof LivingEntity) {
             other.setOccupier(this.occupied);
             this.setOccupier(null);
