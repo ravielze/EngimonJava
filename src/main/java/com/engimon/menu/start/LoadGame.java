@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.engimon.entity.Game;
+import com.engimon.menu.EMenu;
 import com.engimon.menu.component.EButton;
 
 public class LoadGame extends EButton {
@@ -15,7 +16,8 @@ public class LoadGame extends EButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.load();
-                // TODO change to map
+                EMenu.MAIN_PAGE.update();
+                EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }
         });
         setBackground(new Color(201, 226, 101));

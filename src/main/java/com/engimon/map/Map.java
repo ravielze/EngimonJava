@@ -5,7 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
@@ -36,6 +39,43 @@ public class Map implements Serializable {
     public static void setInstance(Map map) {
         instance = map;
     }
+
+    // public static Table<Integer, Integer, Serializable> wrap() {
+    // Table<Integer, Integer, Serializable> result = HashBasedTable.create();
+    // Map map = getInstance();
+    // try {
+    // for (int i = 0; i < map.getSize(); i++) {
+    // for (int j = 0; j < map.getSize(); j++) {
+    // if (map.getCell(i, j).isOccupied()) {
+    // CellOccupier ent = map.getCell(i, j).getOccupier();
+    // if (ent instanceof Serializable) {
+    // result.put(i, j, (Serializable) ent);
+    // }
+    // }
+    // }
+    // }
+    // } catch (CellException ignored) {
+    // }
+    // return result;
+    // }
+
+    // public static void unwrap(Table<Integer, Integer, Serializable> bungkus) {
+    // Map map = getInstance();
+    // try {
+    // for (int i = 0; i < map.getSize(); i++) {
+    // for (int j = 0; j < map.getSize(); j++) {
+    // Serializable x = bungkus.get(i, j);
+    // if (x != null) {
+    // if (x instanceof CellOccupier) {
+    // CellOccupier ent = (CellOccupier) x;
+    // map.getCell(i, j).setOccupier(ent);
+    // }
+    // }
+    // }
+    // }
+    // } catch (CellException ignored) {
+    // }
+    // }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
         inpStream.defaultReadObject();
@@ -144,6 +184,28 @@ public class Map implements Serializable {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.storage.toString();
+    }
+
+    public static List<WildEngimon> getSurroundingEngimon(int x, int y) {
+        Map map = Map.getInstance();
+        List<WildEngimon> wildEngimon = new ArrayList<WildEngimon>();
+        for (int xi = x - 1; xi <= x + 1; xi++) {
+            for (int yi = y - 1; yi <= y + 1; yi++) {
+                try {
+                    Cell cell = map.getCell(xi, yi);
+                    if (cell.isOccupied() && cell.getOccupier() instanceof WildEngimon) {
+                        wildEngimon.add((WildEngimon) cell.getOccupier());
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+        return wildEngimon;
     }
 
 }

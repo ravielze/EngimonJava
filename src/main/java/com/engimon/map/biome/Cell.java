@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import com.engimon.entity.Player;
 import com.engimon.entity.engimon.ActiveEngimon;
@@ -14,9 +13,7 @@ import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.menu.main.Colorable;
 
-public abstract class Cell implements Serializable, Colorable {
-
-    private static final long serialVersionUID = -6351841280611348432L;
+public abstract class Cell implements Colorable {
 
     private int x, y;
 
@@ -46,6 +43,8 @@ public abstract class Cell implements Serializable, Colorable {
     public int getY() {
         return this.y;
     }
+
+    public abstract Image getSprite();
 
     protected abstract boolean allowPass(Elementum el);
 
@@ -97,17 +96,10 @@ public abstract class Cell implements Serializable, Colorable {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OBSTACLE);
             }
         }
-        if (this.occupied instanceof WildEngimon) {
-            if (!other.allowPass(((WildEngimon) this.occupied).getSpecies())) {
-                return;
-            }
-        }
         if (this.occupied instanceof LivingEntity) {
             other.setOccupier(this.occupied);
             this.setOccupier(null);
         }
     }
-
-    public abstract Image getSprite();
 
 }

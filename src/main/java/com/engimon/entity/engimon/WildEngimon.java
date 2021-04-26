@@ -71,4 +71,9 @@ public class WildEngimon extends Engimon implements LivingEntity, Moveable {
         return super.toString();
     }
 
+    @Override
+    public void restate() {
+        this.currentCell.setOccupier(this);
+    }
+
 }

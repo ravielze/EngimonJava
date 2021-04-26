@@ -189,7 +189,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
     }
 
     @NotNull
-    protected String interact() {
+    public String interact() {
         return this.species.interact();
     }
 

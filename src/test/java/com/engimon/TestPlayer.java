@@ -12,9 +12,9 @@ import com.engimon.entity.skill.Skill;
 import com.engimon.exception.CellException;
 import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.EngimonStateException;
+import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.exception.PlayerException;
 import com.engimon.exception.SkillNotFound;
-import com.engimon.exception.EngimonStateException.StateError;
 import com.engimon.map.Map;
 
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class TestPlayer {
 
+    @SuppressWarnings("unused")
     private Skill skill1 = new Skill(Element.ELECTRIC, 1, "SambarListrik", 100.0D);
     private Skill skill2 = new Skill(Element.ELECTRIC, 2, "KilatListrik", 50.0D);
     private Skill skill3 = new Skill(Element.ELECTRIC, 3, "Bananana", 50.0D);

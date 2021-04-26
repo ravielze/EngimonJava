@@ -5,13 +5,14 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
 
-public class PowerplantCell extends Cell {
+public class PowerplantCell extends Cell implements Serializable {
 
     private static final long serialVersionUID = -6222841280611348432L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/powerplant.png", 24, 24);
@@ -48,4 +49,8 @@ public class PowerplantCell extends Cell {
         outStream.defaultWriteObject();
     }
 
+    @Override
+    public String toString() {
+        return "{PL : " + ((this.getOccupier() == null) ? "NULL" : this.getOccupier().toString()) + "}";
+    }
 }

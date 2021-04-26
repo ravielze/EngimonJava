@@ -12,9 +12,11 @@ import javax.swing.JScrollPane;
 import com.engimon.common.ResourceReader;
 import com.engimon.menu.beginning.BeginningPage;
 import com.engimon.menu.breeding.BreedingChooser;
+import com.engimon.menu.help.Help;
 import com.engimon.menu.inventory.Inventory;
 import com.engimon.menu.main.MainPage;
 import com.engimon.menu.start.StartPage;
+import com.engimon.menu.switch_engimon.SwitchEngimon;
 
 public class EMenu extends JFrame {
 
@@ -23,6 +25,8 @@ public class EMenu extends JFrame {
     public static final MainPage MAIN_PAGE = new MainPage();
     public static final BreedingChooser BREEDING_CHOOSER = new BreedingChooser();
     public static final Inventory INVENTORY = new Inventory();
+    public static final SwitchEngimon SWITCH_ENGIMON = new SwitchEngimon();
+    public static final Help HELP = new Help();
 
     private static EMenu instance;
 

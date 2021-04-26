@@ -25,14 +25,12 @@ public class Game {
     }
 
     private Player player;
-    private Spawner spawner;
     private StaticSerializer staticSerializer;
 
     public Game(Player player) {
         if (player != null) {
             this.staticSerializer = StaticSerializer.save();
             this.player = player;
-            this.spawner = Spawner.getInstance();
         }
     }
 
@@ -57,7 +55,6 @@ public class Game {
         runningGame = game;
         Thread spawningThread = new Thread(new EntityTicking());
         spawningThread.start();
-        game.spawner = Spawner.getInstance();
     }
 
     public Player getPlayer() {
@@ -71,7 +68,6 @@ public class Game {
             ObjectOutputStream oot = new ObjectOutputStream(fout);
             oot.writeObject(game.player);
             oot.writeObject(game.staticSerializer);
-            oot.writeObject(game.spawner);
             oot.flush();
             oot.close();
         } catch (Exception ex) {
@@ -86,8 +82,8 @@ public class Game {
             ObjectInputStream oit = new ObjectInputStream(fin);
             Player player = (Player) oit.readObject();
             game.player = player;
+            game.player.restate();
             StaticSerializer.load(((StaticSerializer) oit.readObject()));
-            game.spawner = (Spawner) oit.readObject();
             oit.close();
             runningGame = game;
         } catch (Exception ex) {

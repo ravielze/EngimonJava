@@ -141,4 +141,14 @@ public class Player implements LivingEntity, Moveable, Serializable {
     public void addEngimon(Engimon e) {
         this.inventory.add(e);
     }
+
+    @Override
+    public void restate() {
+        this.currentCell.setOccupier(this);
+        this.activeEngimon.restate();
+    }
+
+    public Cell getPosition() {
+        return currentCell;
+    }
 }

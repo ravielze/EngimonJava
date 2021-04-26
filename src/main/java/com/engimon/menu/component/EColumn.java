@@ -4,7 +4,6 @@ import java.awt.Component;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 
 import com.engimon.menu.EComponent;
 

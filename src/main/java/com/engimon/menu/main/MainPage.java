@@ -1,6 +1,8 @@
 package com.engimon.menu.main;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -8,11 +10,15 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
+
 import com.engimon.entity.Game;
 import com.engimon.entity.Player;
+import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.entity.enums.Direction;
 import com.engimon.exception.CellException;
 import com.engimon.map.Map;
+import com.engimon.map.biome.Cell;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
@@ -22,56 +28,50 @@ import com.engimon.menu.component.EText;
 
 public class MainPage extends EPage {
 
-    private Map map = Map.getInstance();
+    private EButton inv = EButtonFactory.CreateDefaultFontButton("Inventory", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("INVENTORY CLICKED");
+                    EMenu.getInstance().changePage(EMenu.INVENTORY);
+                }
+            });
 
-    // private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
-    //     @Override
-    //     public void mouseClicked(MouseEvent e) {
-    //         System.out.println("INVENTORY CLICKED");
-    //         EMenu.getInstance().changePage(EMenu.INVENTORY);
-    //     }
-    // });
+    private EButton switchb = EButtonFactory.CreateDefaultFontButton("Switch", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    EMenu.getInstance().changePage(EMenu.SWITCH_ENGIMON);
+                }
+            });
 
-    private EButton inv = EButtonFactory.CreateDefaultFontButton("Inventory", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("INVENTORY CLICKED");
-            EMenu.getInstance().changePage(EMenu.INVENTORY);
-        }
-    });
-    
-    private EButton switchb = EButtonFactory.CreateDefaultFontButton("Switch", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("SWITCH CLICKED");
-        }
-    });
+    private EButton interact = EButtonFactory.CreateDefaultFontButton("Interact", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    setMessage(Game.getRunningGame().getPlayer().getActiveEngimon().interact());
+                }
+            });
 
-    private EButton interact = EButtonFactory.CreateDefaultFontButton("Interact", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("INTERACT CLICKED");
-        }
-    });
-
-    private EButton breed = EButtonFactory.CreateDefaultFontButton("Breed", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
-        }
-    });
+    private EButton breed = EButtonFactory.CreateDefaultFontButton("Breed", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
+                }
+            });
 
     private EButton save = EButtonFactory.CreateDefaultFontButton("Save", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("SAVE CLICKED");
+            Game.save(Game.getRunningGame().getPlayer());
         }
     });
 
     private EButton help = EButtonFactory.CreateDefaultFontButton("Help", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("HELP CLICKED");
+            EMenu.getInstance().changePage(EMenu.HELP);
         }
     });
 
@@ -81,6 +81,7 @@ public class MainPage extends EPage {
 
     public MainPage() {
         super();
+        message.setFont(new Font("Arial", Font.PLAIN, 25));
         update();
         menuList.add(inv);
         menuList.add(switchb);
@@ -137,18 +138,25 @@ public class MainPage extends EPage {
 
     @Override
     public synchronized void update() {
+        Map map = Map.getInstance();
         removeAll();
+        List<WildEngimon> wildEngimons = new ArrayList<WildEngimon>();
+        if (Game.getRunningGame() != null) {
+            Cell currentPos = Game.getRunningGame().getPlayer().getPosition();
+            wildEngimons = Map.getSurroundingEngimon(currentPos.getX(), currentPos.getY());
+        }
+
         ERow menuRow = new ERow();
         menuRow.justifyFlexStart();
         menuRow.add(menuList);
 
         ERow gridRow = new ERow();
         gridRow.add(new MapGrid(map));
+        gridRow.add(new BattleList(wildEngimons));
 
         ERow messageRow = new ERow();
-        message.setText("Hello world");
         messageRow.add(message);
-
+        add(Box.createRigidArea(new Dimension(0, 20)));
         add(menuRow);
         add(gridRow);
         add(messageRow);
@@ -157,5 +165,6 @@ public class MainPage extends EPage {
 
     public void setMessage(String message) {
         this.message.setText(message);
+        update();
     }
 }
