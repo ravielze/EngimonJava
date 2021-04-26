@@ -45,6 +45,7 @@ public class Breeding extends EPage {
 
         ERow firstParentRow = new ERow();
         // TODO : Add first parent image before breeding stats
+        firstParentRow.add(new EImage(firstEngimon.getIcon(), 100, 100));
         firstParentRow.add(new BreedingStats(firstEngimon));
         add(firstParentRow);
 
@@ -53,6 +54,8 @@ public class Breeding extends EPage {
 
         ERow secondParentRow = new ERow();
         secondParentRow.add(new BreedingStats(secondEngimon));
+        secondParentRow.add(new EImage(secondEngimon.getIcon(), 100, 100));
+
         // TODO : Add second parent image after breeding stats
         add(secondParentRow);
 

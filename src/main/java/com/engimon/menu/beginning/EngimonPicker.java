@@ -23,7 +23,7 @@ public class EngimonPicker extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
-                if (Game.getRunningGame() != null) {
+                if (Game.getRunningGame() != null) { // REMOVE THIS IN THE REAL GAMEPLAY
                     Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
                     Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
                 }
@@ -36,12 +36,6 @@ public class EngimonPicker extends JPanel {
     }
 
     public EngimonPicker(String eng) {
-        // super(eng, 20, new MouseAdapter() {
-        //     @Override
-        //     public void mouseClicked(MouseEvent e) {
-        //         System.out.println(eng);
-        //     }
-        // });
 
         add(EButtonFactory.CreateDefaultFontButton(eng, Color.decode("#03ffd9"), new MouseAdapter() {
             @Override
