@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 
 import com.engimon.common.ResourceReader;
 import com.engimon.menu.beginning.BeginningPage;
+import com.engimon.menu.breeding.BreedingChooser;
+import com.engimon.menu.inventory.Inventory;
 import com.engimon.menu.main.MainPage;
 import com.engimon.menu.start.StartPage;
 
@@ -19,6 +21,8 @@ public class EMenu extends JFrame {
     public static final StartPage START_PAGE = new StartPage();
     public static final BeginningPage BEGINNING_PAGE = new BeginningPage();
     public static final MainPage MAIN_PAGE = new MainPage();
+    public static final BreedingChooser BREEDING_CHOOSER = new BreedingChooser();
+    public static final Inventory INVENTORY = new Inventory();
 
     private static EMenu instance;
 
@@ -32,7 +36,7 @@ public class EMenu extends JFrame {
     public EMenu() {
         setLayout(new GridLayout(1, 0));
         setSize(new Dimension(800, 900));
-        setResizable(false);
+        // setResizable(false);
         setTitle("Engimon - Gotta Farm Them All");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         changePage(START_PAGE);
@@ -56,12 +60,12 @@ public class EMenu extends JFrame {
             getContentPane().removeAll();
             p.update();
             p.revalidate();
-            // p.setFocusable(true);
-            // p.requestFocusInWindow();
+            p.setFocusable(true);
+            p.requestFocusInWindow();
             JScrollPane pane = new JScrollPane(p, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            pane.setFocusable(true);
-            pane.requestFocusInWindow();
+            // pane.setFocusable(true);
+            // pane.requestFocusInWindow();
             getContentPane().add(pane);
             revalidate();
             setVisible(true);
