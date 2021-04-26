@@ -26,36 +26,38 @@ import com.engimon.menu.component.EText;
 
 public class MainPage extends EPage {
 
-    private Map map = Map.getInstance();
+    private EButton inv = EButtonFactory.CreateDefaultFontButton("Inventory", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("INVENTORY CLICKED");
+                    EMenu.getInstance().changePage(EMenu.INVENTORY);
+                }
+            });
 
-    private EButton inv = EButtonFactory.CreateDefaultFontButton("Inventory", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("INVENTORY CLICKED");
-            EMenu.getInstance().changePage(EMenu.INVENTORY);
-        }
-    });
-    
-    private EButton switchb = EButtonFactory.CreateDefaultFontButton("Switch", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            EMenu.getInstance().changePage(EMenu.SWITCH_ENGIMON);
-        }
-    });
+    private EButton switchb = EButtonFactory.CreateDefaultFontButton("Switch", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    EMenu.getInstance().changePage(EMenu.SWITCH_ENGIMON);
+                }
+            });
 
-    private EButton interact = EButtonFactory.CreateDefaultFontButton("Interact", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            setMessage(Game.getRunningGame().getPlayer().getActiveEngimon().interact());
-        }
-    });
+    private EButton interact = EButtonFactory.CreateDefaultFontButton("Interact", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    setMessage(Game.getRunningGame().getPlayer().getActiveEngimon().interact());
+                }
+            });
 
-    private EButton breed = EButtonFactory.CreateDefaultFontButton("Breed", Color.decode("#ffc847"), new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
-        }
-    });
+    private EButton breed = EButtonFactory.CreateDefaultFontButton("Breed", Color.decode("#ffc847"),
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
+                }
+            });
 
     private EButton save = EButtonFactory.CreateDefaultFontButton("Save", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
@@ -134,6 +136,7 @@ public class MainPage extends EPage {
 
     @Override
     public synchronized void update() {
+        Map map = Map.getInstance();
         removeAll();
         ERow menuRow = new ERow();
         menuRow.justifyFlexStart();

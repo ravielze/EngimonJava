@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.engimon.entity.Game;
+import com.engimon.map.Map;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.component.EButton;
 
@@ -16,6 +17,7 @@ public class LoadGame extends EButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.load();
+                EMenu.MAIN_PAGE.update();
                 EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }
         });

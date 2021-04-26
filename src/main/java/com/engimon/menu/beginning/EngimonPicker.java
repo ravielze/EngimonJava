@@ -24,10 +24,10 @@ public class EngimonPicker extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
                 if (Game.getRunningGame() != null) { // REMOVE THIS IN THE REAL GAMEPLAY
-                    Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
-                    Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
+                    // Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
+                    // Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
                 }
-                
+
                 EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }
         }));
@@ -40,7 +40,7 @@ public class EngimonPicker extends JPanel {
         add(EButtonFactory.CreateDefaultFontButton(eng, Color.decode("#03ffd9"), new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+
             }
         }));
     }

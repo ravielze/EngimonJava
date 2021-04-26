@@ -20,7 +20,6 @@ public class GridCell extends JPanel implements EComponent {
         setPreferredSize(new Dimension(24, 24));
         // this.setBorder(BorderFactory.createLineBorder(Color.black));
         if (cell.isOccupied()) {
-            System.out.printf("Cell {%d, %d} is occupied by %s\n", cell.getX(), cell.getY(), cell.getOccupier());
             if (cell.getOccupier() instanceof Player) {
                 add(new EImage("Images/Others/player_sprite-min.png", 20, 20));
             } else if (cell.getOccupier() instanceof Engimon) {

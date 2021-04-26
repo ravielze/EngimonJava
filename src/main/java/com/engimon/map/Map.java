@@ -9,12 +9,14 @@ import java.security.SecureRandom;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
+import com.engimon.map.biome.CellOccupier;
 import com.engimon.map.biome.cells.CaveCell;
 import com.engimon.map.biome.cells.GrasslandCell;
 import com.engimon.map.biome.cells.MountainCell;
 import com.engimon.map.biome.cells.PowerplantCell;
 import com.engimon.map.biome.cells.SeaCell;
 import com.engimon.map.biome.cells.TundraCell;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 
@@ -36,6 +38,43 @@ public class Map implements Serializable {
     public static void setInstance(Map map) {
         instance = map;
     }
+
+    // public static Table<Integer, Integer, Serializable> wrap() {
+    // Table<Integer, Integer, Serializable> result = HashBasedTable.create();
+    // Map map = getInstance();
+    // try {
+    // for (int i = 0; i < map.getSize(); i++) {
+    // for (int j = 0; j < map.getSize(); j++) {
+    // if (map.getCell(i, j).isOccupied()) {
+    // CellOccupier ent = map.getCell(i, j).getOccupier();
+    // if (ent instanceof Serializable) {
+    // result.put(i, j, (Serializable) ent);
+    // }
+    // }
+    // }
+    // }
+    // } catch (CellException ignored) {
+    // }
+    // return result;
+    // }
+
+    // public static void unwrap(Table<Integer, Integer, Serializable> bungkus) {
+    // Map map = getInstance();
+    // try {
+    // for (int i = 0; i < map.getSize(); i++) {
+    // for (int j = 0; j < map.getSize(); j++) {
+    // Serializable x = bungkus.get(i, j);
+    // if (x != null) {
+    // if (x instanceof CellOccupier) {
+    // CellOccupier ent = (CellOccupier) x;
+    // map.getCell(i, j).setOccupier(ent);
+    // }
+    // }
+    // }
+    // }
+    // } catch (CellException ignored) {
+    // }
+    // }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
         inpStream.defaultReadObject();
@@ -144,6 +183,11 @@ public class Map implements Serializable {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.storage.toString();
     }
 
 }

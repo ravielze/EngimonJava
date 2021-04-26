@@ -57,4 +57,9 @@ public class ActiveEngimon extends Engimon implements Moveable, LivingEntity {
         return super.toString();
     }
 
+    @Override
+    public void restate() {
+        this.currentCell.setOccupier(this);
+    }
+
 }

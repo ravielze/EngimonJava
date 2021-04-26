@@ -28,7 +28,13 @@ public class Spawner implements Serializable {
         return instance;
     }
 
-    private Map map;
+    synchronized public static void setInstance(Spawner spawner) {
+        instance = spawner;
+        for (WildEngimon we : instance.wildEngimons) {
+            we.restate();
+        }
+    }
+
     private int wildEngimonSpawned = 0;
     private List<WildEngimon> wildEngimons = new ArrayList<>(20);
 
@@ -46,7 +52,7 @@ public class Spawner implements Serializable {
     public synchronized void spawn() {
         if (wildEngimonSpawned >= GameConfig.MAX_WILD_ENGIMON)
             return;
-        map = Map.getInstance();
+        Map map = Map.getInstance();
         SecureRandom sr = new SecureRandom();
         int x = sr.nextInt(map.getSize());
         int y = sr.nextInt(map.getSize());

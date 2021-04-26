@@ -5,13 +5,14 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
 
-public class TundraCell extends Cell {
+public class TundraCell extends Cell implements Serializable {
 
     private static final long serialVersionUID = -4675737389227767603L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/tundra.png", 24, 24);
@@ -48,4 +49,8 @@ public class TundraCell extends Cell {
         return TundraCell.IMAGE;
     }
 
+    @Override
+    public String toString() {
+        return "{TU : " + ((this.getOccupier() == null) ? "NULL" : this.getOccupier().toString()) + "}";
+    }
 }

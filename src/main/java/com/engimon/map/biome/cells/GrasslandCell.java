@@ -5,13 +5,14 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
 
-public class GrasslandCell extends Cell {
+public class GrasslandCell extends Cell implements Serializable {
 
     private static final long serialVersionUID = 4976989679027883563L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/grassland.png", 24, 24);
@@ -46,5 +47,10 @@ public class GrasslandCell extends Cell {
     @Override
     public Image getSprite() {
         return GrasslandCell.IMAGE;
+    }
+
+    @Override
+    public String toString() {
+        return "{GL : " + ((this.getOccupier() == null) ? "NULL" : this.getOccupier().toString()) + "}";
     }
 }
