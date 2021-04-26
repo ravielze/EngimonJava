@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import com.engimon.common.DataReader;
 import com.engimon.common.ResourceReader;
 import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
@@ -40,6 +41,33 @@ public class Species extends Elementum {
     @Nullable
     public static Species getSpecies(int idx) {
         return speciesList.getOrDefault(idx, null);
+    }
+
+    public static void load(DataReader dr) {
+        List<String[]> data = dr.getResult();
+        data.remove(0);
+        for (String[] each : data) {
+            if (each.length != 8)
+                continue;
+            int speciesId = Integer.valueOf(each[0]);
+            String name = each[1];
+            Element firstElement = Element.valueOf(each[2]);
+            Element secondElement = Element.valueOf(each[3]);
+            String[] message = each[4].split(",");
+            int uniqueSkillId = Integer.valueOf(each[5]);
+            String spriteFilepath = each[6];
+            String iconFilepath = each[7];
+            try {
+                if (secondElement != Element.NONE) {
+                    new Species(firstElement, secondElement, speciesId, uniqueSkillId, name, message, iconFilepath,
+                            spriteFilepath);
+                } else {
+                    new Species(firstElement, speciesId, uniqueSkillId, name, message, iconFilepath, spriteFilepath);
+                }
+            } catch (SkillNotFound snf) {
+                snf.printStackTrace();
+            }
+        }
     }
 
     @NotNull
@@ -191,6 +219,11 @@ public class Species extends Elementum {
         }
         Species species = (Species) o;
         return speciesId == species.speciesId;
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return String.format("%s/%s", getName(), getElementString());
     }
 
     @NotNull
