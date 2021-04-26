@@ -21,16 +21,4 @@ public final class GameConfig {
         return starters;
     }
 
-    public static Engimon getEngimon() {
-        try {
-            new Skill(Element.ELECTRIC, 0, "Tidak Berguna", 0.0D);
-
-            Species species1 = new Species(Element.ELECTRIC, 101, 0, "Pikaco",
-                    new String[] { "sheeshhhh", "pikapika" });
-            Engimon engimon1 = new Engimon(species1);
-            return engimon1;
-        } catch (SkillNotFound ignored) {
-            return null;
-        }
-    }
 }

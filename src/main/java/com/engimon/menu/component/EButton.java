@@ -11,6 +11,13 @@ import com.engimon.menu.EComponent;
 
 public class EButton extends JButton implements EComponent {
 
+    public EButton(String displayText, MouseAdapter event) {
+        super(displayText);
+        addMouseListener(event);
+        setFont(new Font("Arial", Font.PLAIN, 20));
+
+    }
+
     public EButton(String displayText, int textSize, MouseAdapter event) {
         super(displayText);
         // this.setBorder(BorderFactory.createLineBorder(Color.black));

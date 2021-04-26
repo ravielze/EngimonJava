@@ -12,6 +12,7 @@ import com.engimon.entity.Player;
 import com.engimon.entity.enums.Direction;
 import com.engimon.exception.CellException;
 import com.engimon.map.Map;
+import com.engimon.menu.EMenu;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.ERow;
@@ -20,19 +21,50 @@ import com.engimon.menu.component.EText;
 public class MainPage extends EPage {
 
     private Map map = Map.getInstance();
+
+    private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("INVENTORY CLICKED");
+            EMenu.getInstance().changePage(EMenu.INVENTORY);
+        }
+    });
+    
+    private EButton switchb = new EButton("Switch", 20, new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("SWITCH CLICKED");
+        }
+    });
+
+    private EButton interact = new EButton("Interact", 20, new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("INTERACT CLICKED");
+        }
+    });
+
+    private EButton breed = new EButton("Breed", 20, new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
+        }
+    });
+
+    private EButton save = new EButton("Save", 20, new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("SAVE CLICKED");
+        }
+    });
+
     private EButton help = new EButton("Help", 20, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("HELP CLICKED");
         }
     });
-
-    private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("INVENTORY CLICKED");
-        }
-    });
+    
 
     private EText message = new EText("");
 
@@ -41,10 +73,13 @@ public class MainPage extends EPage {
     public MainPage() {
         super();
         update();
-        menuList.add(help);
         menuList.add(inv);
-        // setFocusable(true);
-        // requestFocusInWindow();
+        menuList.add(switchb);
+        menuList.add(interact);
+        menuList.add(breed);
+        menuList.add(save);
+        menuList.add(help);
+
         this.addKeyListener(new KeyListener() {
 
             @Override
@@ -53,16 +88,16 @@ public class MainPage extends EPage {
                 Direction d = Direction.NORTH;
                 switch (e.getKeyCode()) {
                 case KeyEvent.VK_W:
-                    d = Direction.NORTH;
-                    break;
-                case KeyEvent.VK_A:
-                    d = Direction.WEST;
-                    break;
-                case KeyEvent.VK_S:
                     d = Direction.SOUTH;
                     break;
-                case KeyEvent.VK_D:
+                case KeyEvent.VK_A:
                     d = Direction.EAST;
+                    break;
+                case KeyEvent.VK_S:
+                    d = Direction.NORTH;
+                    break;
+                case KeyEvent.VK_D:
+                    d = Direction.WEST;
                     break;
                 default:
                     return;

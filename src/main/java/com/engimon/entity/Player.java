@@ -32,6 +32,7 @@ public class Player implements LivingEntity, Moveable {
     public Player(@NotNull Engimon firstEngimon, @NotNull Cell spawnPoint, @NotNull Cell engimonSpawnPoint) {
         this.activeEngimon = new ActiveEngimon(firstEngimon, engimonSpawnPoint);
         this.inventory = new Inventory<>(30);
+        this.inventory.add(firstEngimon);
         this.currentCell = spawnPoint;
         spawnPoint.setOccupier(this);
     }
@@ -109,4 +110,7 @@ public class Player implements LivingEntity, Moveable {
         }
     }
 
+    public void addEngimon(Engimon e) {
+        this.inventory.add(e);
+    }
 }
