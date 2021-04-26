@@ -34,6 +34,12 @@
       <artifactId>guava</artifactId>
       <version>29.0-jre</version>
     </dependency>
+  
+    <dependency>
+      <groupId>com.github.mizool.technology.table-access</groupId>
+      <artifactId>table-access-business</artifactId>
+      <version>0.31</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName>

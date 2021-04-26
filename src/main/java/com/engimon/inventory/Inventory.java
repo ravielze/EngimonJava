@@ -43,7 +43,7 @@ public class Inventory<T> extends LinkedList<T> {
         if (size() + 1 > capacity) {
             throw new InventoryFull();
         }
-        super.add(index, element);
+        super.add(index, element); 
     }
 
     @Override
