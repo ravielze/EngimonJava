@@ -9,7 +9,6 @@ import java.util.TreeMap;
 
 import com.engimon.entity.engimon.Species;
 import com.engimon.entity.skill.Skill;
-import com.google.common.collect.Table;
 
 public class StaticSerializer implements Serializable {
 
@@ -18,7 +17,7 @@ public class StaticSerializer implements Serializable {
     private Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
     private com.engimon.map.Map gameMap;
     private Spawner spawner;
-    private Table<Integer, Integer, Serializable> mapOccupier;
+    // private Table<Integer, Integer, Serializable> mapOccupier;
 
     public StaticSerializer() {
     }
