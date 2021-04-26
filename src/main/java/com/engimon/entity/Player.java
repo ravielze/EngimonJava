@@ -12,6 +12,7 @@ import com.engimon.exception.CellException;
 import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.InventoryFull;
 import com.engimon.exception.PlayerException;
+import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.exception.PlayerException.PlayerError;
 import com.engimon.inventory.Inventory;
 import com.engimon.inventory.Storable;
@@ -46,7 +47,7 @@ public class Player implements LivingEntity, Moveable {
     }
 
     @NotNull
-    public Engimon getActiveEngimon() {
+    public ActiveEngimon getActiveEngimon() {
         return this.activeEngimon;
     }
 
@@ -54,8 +55,25 @@ public class Player implements LivingEntity, Moveable {
         int x = currentCell.getX();
         int y = currentCell.getY();
         Cell target = Map.getInstance().getCell(x + dir.getX(), y + dir.getY());
-        currentCell.transferEntity(target);
-        this.currentCell = target;
+        try {
+            currentCell.transferEntity(target);
+            Direction d = Direction.getDirection(this.activeEngimon.getCell(), currentCell);
+            this.activeEngimon.move(d);
+            this.currentCell = target;
+        } catch (CellException ex) {
+            if (ex.getErrorCause() == ErrorCause.CELL_OCCUPIED_BY_ACTIVE_ENGIMON) {
+                this.swapPosition();
+            } else {
+                throw ex;
+            }
+        }
+    }
+
+    public void swapPosition() {
+        Cell engimonCell = this.activeEngimon.getCell();
+        this.activeEngimon.reposition(this.currentCell);
+        engimonCell.setOccupier(this);
+        this.currentCell = engimonCell;
     }
 
     @NotNull
@@ -82,8 +100,8 @@ public class Player implements LivingEntity, Moveable {
             activeEngimon.addExperience(we.getLevel() * 35);
             try {
                 we.reduceLife();
-            } catch (EngimonDeadException ex){
-                if (ex.getEngimon().equals(we)){
+            } catch (EngimonDeadException ex) {
+                if (ex.getEngimon().equals(we)) {
                     we.kill();
                     inventory.add(new Engimon(we));
                 }

@@ -35,13 +35,22 @@ public class Species extends Elementum {
     }
 
     @Nullable
-    public static Species getSpecies(int idx){
+    public static Species getSpecies(int idx) {
         return speciesList.getOrDefault(idx, null);
     }
 
     @NotNull
-    public static Species getRandomSpecies(Elementum el){
+    public static Species getRandomSpecies(Elementum el) {
         List<Species> filtered = speciesList.values().stream().filter(x -> x.equals(el)).collect(Collectors.toList());
+        SecureRandom sr = new SecureRandom();
+        Collections.shuffle(filtered);
+        int randomIndex = sr.nextInt(filtered.size());
+        return filtered.get(randomIndex);
+    }
+
+    @NotNull
+    public static Species getRandomSpecies() {
+        List<Species> filtered = new ArrayList<>(speciesList.values());
         SecureRandom sr = new SecureRandom();
         Collections.shuffle(filtered);
         int randomIndex = sr.nextInt(filtered.size());

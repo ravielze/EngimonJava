@@ -1,13 +1,18 @@
 package com.engimon.common;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import javax.imageio.ImageIO;
 
 public final class ResourceReader {
 
@@ -28,9 +33,10 @@ public final class ResourceReader {
             throw new IllegalArgumentException("file not found! " + fileName);
         }
         this.inputStream = inputStream;
-        try{
-            this.file = new File(resource.toURI());
-        } catch (URISyntaxException ignored){}
+        try {
+            this.file = new File(new URI(resource.toString().replace(" ", "%20")).getSchemeSpecificPart());
+        } catch (URISyntaxException ignored) {
+        }
     }
 
     public final String getFilename() {
@@ -45,7 +51,19 @@ public final class ResourceReader {
         return new InputStreamReader(this.inputStream, StandardCharsets.UTF_8);
     }
 
-    public final File getFile(){
+    public static final Image getImage(String fileName, int width, int height) {
+        ResourceReader rr = new ResourceReader(fileName);
+        try {
+            BufferedImage image = ImageIO.read(rr.getStream());
+            Image resized = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return resized;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public final File getFile() {
         return this.file;
     }
 

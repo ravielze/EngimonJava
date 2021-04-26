@@ -13,20 +13,20 @@ import com.engimon.map.biome.LivingEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ActiveEngimon extends Engimon implements Moveable, LivingEntity{
+public class ActiveEngimon extends Engimon implements Moveable, LivingEntity {
     private Cell currentCell;
 
-    public ActiveEngimon(){
+    public ActiveEngimon() {
         // Constructor for Serializable
     }
 
-    public ActiveEngimon(@NotNull Engimon engimon, @NotNull Cell lastCell){
+    public ActiveEngimon(@NotNull Engimon engimon, @NotNull Cell lastCell) {
         super(engimon);
         this.currentCell = lastCell;
         lastCell.setOccupier(this);
     }
-    
-    public Cell getCell(){
+
+    public Cell getCell() {
         return currentCell;
     }
 
@@ -46,5 +46,10 @@ public class ActiveEngimon extends Engimon implements Moveable, LivingEntity{
         currentCell.transferEntity(target);
         this.currentCell = target;
     }
-    
+
+    public void reposition(Cell cell) {
+        cell.setOccupier(this);
+        this.currentCell = cell;
+    }
+
 }

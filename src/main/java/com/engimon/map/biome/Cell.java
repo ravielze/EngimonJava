@@ -6,12 +6,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import com.engimon.entity.Player;
+import com.engimon.entity.engimon.ActiveEngimon;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
+import com.engimon.menu.main.Colorable;
 
-public abstract class Cell implements Serializable {
+public abstract class Cell implements Serializable, Colorable {
 
     private static final long serialVersionUID = -6351841280611348432L;
 
@@ -54,15 +56,15 @@ public abstract class Cell implements Serializable {
         return true;
     }
 
-    public boolean allowSpawn(CellOccupier co){
-        if (this.isOccupied()){
+    public boolean allowSpawn(CellOccupier co) {
+        if (this.isOccupied()) {
             return false;
-        }
-        if (co instanceof WildEngimon){
+        } else if (co instanceof ActiveEngimon || co instanceof Player) {
+            return true;
+        } else if (co instanceof WildEngimon) {
             WildEngimon we = (WildEngimon) co;
             return allowPass(we.getSpecies());
         }
-        //todo buat 
         return true;
     }
 
@@ -70,15 +72,15 @@ public abstract class Cell implements Serializable {
         return this.occupied != null;
     }
 
-    public void setOccupier(CellOccupier entity) {
+    synchronized public void setOccupier(CellOccupier entity) {
         this.occupied = entity;
     }
 
-    public CellOccupier getOccupier() {
+    synchronized public CellOccupier getOccupier() {
         return this.occupied;
     }
 
-    public void transferEntity(Cell other) throws CellException {
+    synchronized public void transferEntity(Cell other) throws CellException {
         if (this.occupied == null) {
             throw new CellException(ErrorCause.CELL_EMPTY);
         }
@@ -86,6 +88,8 @@ public abstract class Cell implements Serializable {
             CellOccupier occupier = other.getOccupier();
             if (occupier instanceof Player) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_PLAYER);
+            } else if (occupier instanceof ActiveEngimon) {
+                throw new CellException(ErrorCause.CELL_OCCUPIED_BY_ACTIVE_ENGIMON);
             } else if (occupier instanceof LivingEntity) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OTHER);
             } else {

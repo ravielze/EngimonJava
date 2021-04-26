@@ -62,10 +62,34 @@ public class Map implements Serializable {
         massPopulate(TundraCell.class, 4, 3, 0.4D);
     }
 
-    public Cell getCell(int x, int y) throws CellException {
+    synchronized public Cell getCell(int x, int y) throws CellException {
         if (!isInRange(x, y))
             throw new CellException(ErrorCause.CELL_NOT_FOUND);
         return storage.get(x, y);
+    }
+
+    public Cell[] getTwoSpawnableCell() {
+        SecureRandom sr = new SecureRandom();
+        int x = sr.nextInt(this.size);
+        int y = sr.nextInt(this.size);
+        Cell playerCell;
+        Cell engiCell;
+        while (true) {
+            try {
+                playerCell = getCell(x, y);
+                int delta = populateRandomSpread(sr);
+                int choice = sr.nextInt(2);
+                if (choice == 1) {
+                    engiCell = getCell(x + delta, y);
+                } else {
+                    engiCell = getCell(x, y + delta);
+                }
+                if (!playerCell.isOccupied() && !engiCell.isOccupied()) {
+                    return new Cell[] { playerCell, engiCell };
+                }
+            } catch (CellException notFoundIgnored) {
+            }
+        }
     }
 
     public int getSize() {

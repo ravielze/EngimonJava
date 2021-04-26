@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.engimon.entity.Spawner;
 import com.engimon.entity.enums.Direction;
 import com.engimon.exception.CellException;
 import com.engimon.exception.EngimonStateException;
@@ -15,14 +16,14 @@ import com.engimon.map.biome.LivingEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class WildEngimon extends Engimon implements LivingEntity, Moveable{
+public class WildEngimon extends Engimon implements LivingEntity, Moveable {
 
     private static final long serialVersionUID = -4173057657086613937L;
     private Cell currentCell;
 
-    public WildEngimon(@NotNull Species species, int level, @NotNull Cell spawnPoint) throws EngimonStateException{
+    public WildEngimon(@NotNull Species species, int level, @NotNull Cell spawnPoint) throws EngimonStateException {
         super(species);
-        if (!spawnPoint.allowSpawn(this)){
+        if (!spawnPoint.allowSpawn(this)) {
             throw new EngimonStateException(this, StateError.ENGIMON_CANT_SPAWN);
         }
         this.currentCell = spawnPoint;
@@ -56,6 +57,7 @@ public class WildEngimon extends Engimon implements LivingEntity, Moveable{
     public void kill() {
         this.currentCell.setOccupier(null);
         this.currentCell = null;
+        Spawner.getInstance().reducePopulation();
     }
 
 }
