@@ -1,6 +1,14 @@
 package com.engimon.menu.main;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.engimon.entity.Game;
+import com.engimon.entity.Player;
 import com.engimon.entity.enums.Direction;
 import com.engimon.exception.CellException;
 import com.engimon.map.Map;
@@ -10,15 +18,10 @@ import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.EText;
 import com.engimon.sound.BackgroundSound;
 
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class MainPage extends EPage {
 
     private Map map = Map.getInstance();
-    private EButton help = new EButton(this, "Help", new MouseAdapter() {
+    private EButton help = new EButton("Help", 20, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("HELP CLICKED");
@@ -26,7 +29,7 @@ public class MainPage extends EPage {
         }
     });
 
-    private EButton inv = new EButton(this, "Inventory", new MouseAdapter() {
+    private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INVENTORY CLICKED");
@@ -34,7 +37,7 @@ public class MainPage extends EPage {
         }
     });
 
-    private EText message = new EText(this, "");
+    private EText message = new EText("");
 
     private List<EButton> menuList = new ArrayList<EButton>();
 
@@ -49,43 +52,38 @@ public class MainPage extends EPage {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                // TODO Auto-generated method stub
+                Player player = Game.getRunningGame().getPlayer();
+                Direction d = Direction.NORTH;
+                switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    d = Direction.NORTH;
+                    break;
+                case KeyEvent.VK_A:
+                    d = Direction.WEST;
+                    break;
+                case KeyEvent.VK_S:
+                    d = Direction.SOUTH;
+                    break;
+                case KeyEvent.VK_D:
+                    d = Direction.EAST;
+                    break;
+                default:
+                    return;
+                }
                 try {
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_W:
-                            Game.getPlayer().move(Direction.NORTH);
-                            update();
-
-                            break;
-                        case KeyEvent.VK_A:
-                            Game.getPlayer().move(Direction.WEST);
-                            update();
-
-                            break;
-                        case KeyEvent.VK_S:
-                            Game.getPlayer().move(Direction.SOUTH);
-                            update();
-
-                            break;
-                        case KeyEvent.VK_D:
-                            Game.getPlayer().move(Direction.EAST);
-                            update();
-
-                            break;
-                    }
+                    player.move(d);
+                    update();
+                    return;
                 } catch (CellException er) {
-                    
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
             }
 
         });
@@ -105,7 +103,7 @@ public class MainPage extends EPage {
 
         ERow gridRow = new ERow();
         gridRow.add(new MapGrid(map));
-        
+
         ERow messageRow = new ERow();
         message.setText("Hello world");
         messageRow.add(message);
@@ -113,6 +111,7 @@ public class MainPage extends EPage {
         add(menuRow);
         add(gridRow);
         add(messageRow);
+        revalidate();
     }
 
     public void setMessage(String message) {

@@ -88,6 +88,8 @@ public abstract class Cell implements Serializable, Colorable {
             CellOccupier occupier = other.getOccupier();
             if (occupier instanceof Player) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_PLAYER);
+            } else if (occupier instanceof ActiveEngimon) {
+                throw new CellException(ErrorCause.CELL_OCCUPIED_BY_ACTIVE_ENGIMON);
             } else if (occupier instanceof LivingEntity) {
                 throw new CellException(ErrorCause.CELL_OCCUPIED_BY_OTHER);
             } else {

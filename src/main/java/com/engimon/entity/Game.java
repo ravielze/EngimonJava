@@ -14,29 +14,40 @@ import org.jetbrains.annotations.NotNull;
 public class Game {
 
     private static final String gameFileName = "game.dat";
-    public static Player player;
+    private static Game runningGame;
+
+    public static Game getRunningGame() {
+        return runningGame;
+    }
+
+    public Player player;
     private StaticSerializer staticSerializer;
 
-    public Game(Player player){
-        if (player != null){
+    public Game(Player player) {
+        if (player != null) {
             this.staticSerializer = StaticSerializer.save();
             this.player = player;
         }
     }
-    public Game(){}
 
-    public static void create(@NotNull Engimon firstEngimon){
-        Game game = new Game();
-        Map.getInstance();
-        //TODO load from csv
-        Cell[] cells = Map.getInstance().getTwoSpawnableCell();
-        player = new Player(firstEngimon, cells[0], cells[1]);
-        //TODO random spawn wild engimon
+    public Game() {
     }
 
-    public static Player getPlayer() {return player;}
+    public static void create(@NotNull Engimon firstEngimon) {
+        Game game = new Game();
+        Map.getInstance();
+        // TODO load from csv
+        Cell[] cells = Map.getInstance().getTwoSpawnableCell();
+        game.player = new Player(firstEngimon, cells[0], cells[1]);
+        // TODO random spawn wild engimon
+        runningGame = game;
+    }
 
-    public static void save(Player player){
+    public Player getPlayer() {
+        return player;
+    }
+
+    public static void save(Player player) {
         Game game = new Game(player);
         try {
             FileOutputStream fout = new FileOutputStream(gameFileName);
@@ -50,7 +61,7 @@ public class Game {
         }
     }
 
-    public static void load(){
+    public static void load() {
         Game game = new Game(null);
         try {
             FileInputStream fin = new FileInputStream(gameFileName);
@@ -59,6 +70,7 @@ public class Game {
             game.player = player;
             StaticSerializer.load(((StaticSerializer) oit.readObject()));
             oit.close();
+            runningGame = game;
         } catch (Exception ex) {
             ex.printStackTrace();
         }

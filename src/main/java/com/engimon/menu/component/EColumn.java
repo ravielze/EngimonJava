@@ -3,14 +3,17 @@ package com.engimon.menu.component;
 import java.awt.Component;
 
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
 import com.engimon.menu.EComponent;
 
-public class EColumn extends EComponent {
+public class EColumn extends JPanel implements EComponent {
+
     public EColumn() {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
     }
+
     @Override
     public Component add(Component comp) {
         ERow row = new ERow();
@@ -25,6 +28,7 @@ public class EColumn extends EComponent {
             }
         }
     }
+
     public void justifyFlexEnd() {
         for (Component c : getComponents()) {
             if (c instanceof ERow) {

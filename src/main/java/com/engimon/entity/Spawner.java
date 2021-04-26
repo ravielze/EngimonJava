@@ -10,7 +10,6 @@ import com.engimon.map.Map;
 
 public class Spawner {
 
-    // TODO
     private static Spawner instance;
 
     synchronized public static Spawner getInstance() {
