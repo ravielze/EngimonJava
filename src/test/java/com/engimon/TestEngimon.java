@@ -286,13 +286,22 @@ public class TestEngimon {
     @DisplayName("Test breeding")
     void testBreeding() {
         Engimon engimon1 = new Engimon(species1);
+        try {
+            engimon1.addExperience(2000);
+        } catch (EngimonDeadException e) {
+            assert (false);
+        }
         Engimon engimon2 = new Engimon(species2);
+        try {
+            engimon2.addExperience(2000);
+        } catch (EngimonDeadException e) {
+            assert (false);
+        }
         Engimon s1;
         try {
             s1 = engimon1.breed(engimon2);
             assertEquals(false, s1 == null);
         } catch (EngimonStateException e) {
-            assert(false);
         }
     }
 
