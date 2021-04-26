@@ -136,7 +136,7 @@ public class MainPage extends EPage {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         removeAll();
         ERow menuRow = new ERow();
         menuRow.justifyFlexStart();

@@ -51,11 +51,13 @@ public class Game {
         Map.getInstance();
         Cell[] cells = Map.getInstance().getTwoSpawnableCell();
         game.player = new Player(firstEngimon, cells[0], cells[1]);
-        // TODO random spawn wild engimon
+        for (int i = 0; i < 10; i++) {
+            Spawner.getInstance().spawn();
+        }
         runningGame = game;
-        game.spawner = new Spawner();
-        Thread spawningThread = new Thread(new Spawning());
+        Thread spawningThread = new Thread(new EntityTicking());
         spawningThread.start();
+        game.spawner = Spawner.getInstance();
     }
 
     public Player getPlayer() {
@@ -91,6 +93,8 @@ public class Game {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        Thread spawningThread = new Thread(new EntityTicking());
+        spawningThread.start();
     }
 
 }

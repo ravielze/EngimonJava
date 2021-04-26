@@ -121,6 +121,7 @@ public class Player implements LivingEntity, Moveable, Serializable {
                 if (ex.getEngimon().equals(we)) {
                     we.kill();
                     inventory.add(new Engimon(we));
+                    inventory.add(new SkillItem(we.getRandomSkill()));
                 }
             }
         }
