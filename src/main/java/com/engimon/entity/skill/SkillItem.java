@@ -1,5 +1,6 @@
 package com.engimon.entity.skill;
 
+import java.awt.Image;
 import java.util.Comparator;
 
 import com.engimon.entity.engimon.Engimon;
@@ -63,6 +64,10 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
     public int compareTo(@NotNull SkillItem o) {
         return Comparator.comparing(Skill::getBasePower).thenComparing(Skill::getSkillName).compare(this.skill,
                 o.skill);
+    }
+
+    public Image getElementIcon() {
+        return this.skill.getElementIcon();
     }
 
 }

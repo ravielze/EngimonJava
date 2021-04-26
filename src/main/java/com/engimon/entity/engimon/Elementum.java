@@ -1,10 +1,12 @@
 package com.engimon.entity.engimon;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import com.engimon.common.ResourceReader;
 import com.engimon.entity.ElementTable;
 import com.engimon.entity.enums.Element;
 
@@ -65,12 +67,8 @@ public abstract class Elementum implements Serializable {
             return false;
         }
         Elementum other = (Elementum) o;
-        return 
-        (other.firstElement == this.firstElement
-        && other.secondElement == this.secondElement)
-        ||
-        (other.secondElement == this.firstElement
-        && other.firstElement == this.secondElement);
+        return (other.firstElement == this.firstElement && other.secondElement == this.secondElement)
+                || (other.secondElement == this.firstElement && other.firstElement == this.secondElement);
     }
 
     @NotNull
@@ -106,5 +104,33 @@ public abstract class Elementum implements Serializable {
 
     private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
         outStream.defaultWriteObject();
+    }
+
+    public Image getAura() {
+        if (getElements() == 1) {
+            return ResourceReader.getImage("Aura/" + firstElement.toString() + ".png", 100, 100);
+        } else {
+            if (firstElement.getIndex() > secondElement.getIndex()) {
+                return ResourceReader.getImage(
+                        "Aura/" + secondElement.toString() + "_" + firstElement.toString() + ".png", 100, 100);
+            } else {
+                return ResourceReader.getImage(
+                        "Aura/" + firstElement.toString() + "_" + secondElement.toString() + ".png", 100, 100);
+            }
+        }
+    }
+
+    public Image getElementIcon() {
+        if (getElements() == 1) {
+            return ResourceReader.getImage("Icons/" + firstElement.toString() + ".png", 100, 100);
+        } else {
+            if (firstElement.getIndex() > secondElement.getIndex()) {
+                return ResourceReader.getImage(
+                        "Icons/" + secondElement.toString() + "_" + firstElement.toString() + ".png", 100, 100);
+            } else {
+                return ResourceReader.getImage(
+                        "Icons/" + firstElement.toString() + "_" + secondElement.toString() + ".png", 100, 100);
+            }
+        }
     }
 }

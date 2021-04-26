@@ -1,5 +1,6 @@
 package com.engimon.entity.engimon;
 
+import java.awt.Image;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import com.engimon.common.ResourceReader;
 import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
 import com.engimon.exception.SkillNotFound;
@@ -23,6 +25,7 @@ public class Species extends Elementum {
     private List<String> message;
     private int speciesId;
     private static Map<Integer, Species> speciesList = new TreeMap<Integer, Species>();
+    private String iconFilepath, spriteFilepath;
 
     @NotNull
     public static Map<Integer, Species> getSpeciesList() {
@@ -64,6 +67,33 @@ public class Species extends Elementum {
         super(firstElement);
         this.speciesId = speciesId;
         this.name = name;
+        this.iconFilepath = "";
+        this.spriteFilepath = "";
+        this.uniqueSkill = Skill.getSkill(uniqueSkillId);
+        if (this.uniqueSkill == null) {
+            throw new SkillNotFound(uniqueSkillId);
+        }
+        this.message = new ArrayList<String>();
+        if (message.length > 0) {
+            for (String each : message) {
+                if (each == null)
+                    continue;
+                if (each.length() == 0)
+                    continue;
+                this.message.add(each);
+            }
+        }
+        speciesList.put(speciesId, this);
+    }
+
+    public Species(@NotNull Element firstElement, int speciesId, int uniqueSkillId, @NotNull String name,
+            @NotNull String[] message, @NotNull String iconFilepath, @NotNull String spriteFilepath)
+            throws SkillNotFound {
+        super(firstElement);
+        this.speciesId = speciesId;
+        this.name = name;
+        this.iconFilepath = iconFilepath;
+        this.spriteFilepath = spriteFilepath;
         this.uniqueSkill = Skill.getSkill(uniqueSkillId);
         if (this.uniqueSkill == null) {
             throw new SkillNotFound(uniqueSkillId);
@@ -86,6 +116,33 @@ public class Species extends Elementum {
         super(firstElement, secondElement);
         this.speciesId = speciesId;
         this.name = name;
+        this.iconFilepath = "";
+        this.spriteFilepath = "";
+        this.uniqueSkill = Skill.getSkill(uniqueSkillId);
+        if (this.uniqueSkill == null) {
+            throw new SkillNotFound(uniqueSkillId);
+        }
+        this.message = new ArrayList<String>();
+        if (message.length > 0) {
+            for (String each : message) {
+                if (each == null)
+                    continue;
+                if (each.length() == 0)
+                    continue;
+                this.message.add(each);
+            }
+        }
+        speciesList.put(speciesId, this);
+    }
+
+    public Species(@NotNull Element firstElement, @NotNull Element secondElement, int speciesId, int uniqueSkillId,
+            @NotNull String name, @NotNull String[] message, @NotNull String iconFilepath,
+            @NotNull String spriteFilepath) throws SkillNotFound {
+        super(firstElement, secondElement);
+        this.speciesId = speciesId;
+        this.name = name;
+        this.iconFilepath = iconFilepath;
+        this.spriteFilepath = spriteFilepath;
         this.uniqueSkill = Skill.getSkill(uniqueSkillId);
         if (this.uniqueSkill == null) {
             throw new SkillNotFound(uniqueSkillId);
@@ -139,6 +196,18 @@ public class Species extends Elementum {
     @NotNull
     public String getElementString() {
         return super.toString();
+    }
+
+    public Image getIcon() {
+        if (this.iconFilepath.isEmpty())
+            return null;
+        return ResourceReader.getImage(this.iconFilepath, 100, 100);
+    }
+
+    public Image getSprite() {
+        if (this.spriteFilepath.isEmpty())
+            return null;
+        return ResourceReader.getImage(this.spriteFilepath, 20, 20);
     }
 
 }

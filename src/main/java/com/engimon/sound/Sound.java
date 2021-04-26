@@ -1,7 +1,5 @@
 package com.engimon.sound;
 
-import java.io.File;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,7 +14,8 @@ public class Sound {
         ResourceReader rr = new ResourceReader(filePath);
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(rr.getStream());
-            // AudioInputStream ais = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+            // AudioInputStream ais = AudioSystem.getAudioInputStream(new
+            // File(filePath).getAbsoluteFile());
             this.clip = AudioSystem.getClip();
             clip.open(ais);
             clip.loop(Clip.LOOP_CONTINUOUSLY);

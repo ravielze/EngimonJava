@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import javax.annotation.Nullable;
 
+import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 
@@ -131,9 +132,12 @@ public class Skill extends Elementum implements Comparable<Skill> {
         return Integer.valueOf(this.skillId).hashCode();
     }
 
-    public Image getIcon() {
-        // TODO image
-        return null;
+    public Image getSkillIcon() {
+        if (this.masteryLevel == 1) {
+            return getElementIcon();
+        }
+        return ResourceReader.getImage("Icons/" + getFirstElement().toString() + "_" + this.masteryLevel + ".png", 50,
+                50);
     }
 
 }

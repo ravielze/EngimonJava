@@ -334,18 +334,19 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
     }
 
     public Image getIcon() {
-        // TODO image
-        return null;
+        return this.species.getIcon();
+    }
+
+    public Image getElementIcon() {
+        return this.species.getElementIcon();
     }
 
     public Image getSprite() {
-        // TODO image
-        return null;
+        return this.species.getSprite();
     }
 
     public Image getAura() {
-        // TODO image
-        return null;
+        return this.species.getAura();
     }
 
 }
