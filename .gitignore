@@ -6,4 +6,6 @@ target
 *.log
 *.txt
 *.dat
+docs
 Engi Images
+.factorypath

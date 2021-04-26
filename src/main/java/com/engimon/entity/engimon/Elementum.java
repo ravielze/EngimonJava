@@ -1,10 +1,13 @@
 package com.engimon.entity.engimon;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import com.engimon.common.ResourceReader;
+import com.engimon.entity.ElementTable;
 import com.engimon.entity.enums.Element;
 
 import org.jetbrains.annotations.NotNull;
@@ -54,16 +57,36 @@ public abstract class Elementum implements Serializable {
         return el == this.firstElement || el == this.secondElement;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (o == null)
+            return false;
+        if (!(o instanceof Elementum)) {
+            return false;
+        }
+        Elementum other = (Elementum) o;
+        return (other.firstElement == this.firstElement && other.secondElement == this.secondElement)
+                || (other.secondElement == this.firstElement && other.firstElement == this.secondElement);
+    }
+
     @NotNull
     public Element getMajorElement(@NotNull Elementum elementum) {
-        // TODO tunggu ada mapping element
-        return Element.NONE;
+
+        double maxFirst = ElementTable.getMaxMultiplier(getFirstElement(), elementum);
+        double maxSecond = ElementTable.getMaxMultiplier(getSecondElement(), elementum);
+
+        return maxFirst > maxSecond ? getFirstElement() : getSecondElement();
     }
 
     @NotNull
     public Element getMinorElement(@NotNull Elementum elementum) {
-        // TODO tunggu ada mapping element
-        return Element.NONE;
+
+        double maxFirst = ElementTable.getMaxMultiplier(getFirstElement(), elementum);
+        double maxSecond = ElementTable.getMaxMultiplier(getSecondElement(), elementum);
+
+        return maxFirst > maxSecond ? getSecondElement() : getFirstElement();
     }
 
     @Override
@@ -81,5 +104,37 @@ public abstract class Elementum implements Serializable {
 
     private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
         outStream.defaultWriteObject();
+    }
+
+    public Image getAura() {
+        if (getElements() == 1) {
+            return ResourceReader.getImage("Images/Elements/Aura/" + firstElement.toString() + ".png", 100, 100);
+        } else {
+            if (firstElement.getIndex() > secondElement.getIndex()) {
+                return ResourceReader.getImage(
+                        "Images/Elements/Aura/" + secondElement.toString() + "_" + firstElement.toString() + ".png",
+                        100, 100);
+            } else {
+                return ResourceReader.getImage(
+                        "Images/Elements/Aura/" + firstElement.toString() + "_" + secondElement.toString() + ".png",
+                        100, 100);
+            }
+        }
+    }
+
+    public Image getElementIcon() {
+        if (getElements() == 1) {
+            return ResourceReader.getImage("Images/Elements/Icons/" + firstElement.toString() + ".png", 50, 50);
+        } else {
+            if (firstElement.getIndex() > secondElement.getIndex()) {
+                return ResourceReader.getImage(
+                        "Images/Elements/Icons/" + secondElement.toString() + "_" + firstElement.toString() + ".png",
+                        50, 50);
+            } else {
+                return ResourceReader.getImage(
+                        "Images/Elements/Icons/" + firstElement.toString() + "_" + secondElement.toString() + ".png",
+                        50, 50);
+            }
+        }
     }
 }

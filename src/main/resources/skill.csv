@@ -1,0 +1,46 @@
+idskill,skillname,element1,element2,basepower
+1,"Charge Beam",ELECTRIC,NONE,1
+2,"Electro Ball",ELECTRIC,NONE,2
+3,Thunderbolt,ELECTRIC,NONE,3
+4,Discharge,ELECTRIC,GROUND,1
+5,"Magnetic Flux",ELECTRIC,GROUND,2
+6,Magnitude,ELECTRIC,GROUND,3
+7,"Shock Wave",ELECTRIC,ICE,1
+8,"Aurora Beam",ELECTRIC,ICE,2
+9,"Freeze Shock",ELECTRIC,ICE,3
+10,"Flame Charge",FIRE,ELECTRIC,1
+11,"Heat Flash",FIRE,ELECTRIC,2
+12,"Flare Blitz",FIRE,ELECTRIC,3
+13,"Fiery Dance",FIRE,NONE,1
+14,"Heat Wave",FIRE,NONE,2
+15,"Fire Blast",FIRE,NONE,3
+16,Incinerate,FIRE,GROUND,1
+17,"Lava Plume",FIRE,GROUND,2
+18,Inferno,FIRE,GROUND,3
+19,"Burning Jealousy",FIRE,ICE,1
+20,"Icycle Blast",FIRE,ICE,2
+21,"Blazing Frost",FIRE,ICE,3
+22,"Blue Flare",FIRE,WATER,1
+23,"Hot Pump",FIRE,WATER,2
+24,"Magma Storm",FIRE,WATER,3
+25,"Mud Bomb",GROUND,NONE,1
+26,Fissure,GROUND,NONE,2
+27,Earthquake,GROUND,NONE,3
+28,Freeze-Dry,GROUND,ICE,1
+29,Avalanche,GROUND,ICE,2
+30,"Tectonic Rage",GROUND,ICE,3
+31,"Ice Shard",ICE,NONE,1
+32,"Glacial Lance",ICE,NONE,2
+33,"Max Hailstorm",ICE,NONE,3
+34,Electrify,WATER,ELECTRIC,1
+35,"Electro Charge",WATER,ELECTRIC,2
+36,"Thunder Wave",WATER,ELECTRIC,3
+37,Dive,WATER,NONE,1
+38,"Water Gun",WATER,NONE,2
+39,Whirlpool,WATER,NONE,3
+40,Mud-Slap,WATER,GROUND,1
+41,"Shore Up",WATER,GROUND,2
+42,Waterfall,WATER,GROUND,3
+43,"Frost Breath",WATER,ICE,1
+44,Hail,WATER,ICE,2
+45,"Subzero Slammer",WATER,ICE,3
