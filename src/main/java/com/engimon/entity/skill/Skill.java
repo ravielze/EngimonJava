@@ -4,10 +4,13 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -49,6 +52,18 @@ public class Skill extends Elementum implements Comparable<Skill> {
                 new Skill(firstElement, skillId, skillName, basePower);
             }
         }
+    }
+
+    @NotNull
+    public static Skill getRandomSkill(Elementum el, List<Skill> ignoredSkill) {
+        List<Skill> filtered = skillList.values().stream().filter(x -> x.elementEquals(el) && !ignoredSkill.contains(x))
+                .collect(Collectors.toList());
+        if (filtered.isEmpty())
+            return null;
+        SecureRandom sr = new SecureRandom();
+        Collections.shuffle(filtered);
+        int randomIndex = sr.nextInt(filtered.size());
+        return filtered.get(randomIndex);
     }
 
     private int skillId;
@@ -114,6 +129,10 @@ public class Skill extends Elementum implements Comparable<Skill> {
     public void addMasteryLevel() {
         this.masteryLevel++;
         this.masteryLevel = Math.min(this.masteryLevel, 3);
+    }
+
+    public boolean elementEquals(Elementum el) {
+        return super.equals(el);
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.engimon.entity;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,10 +13,10 @@ import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.entity.enums.Direction;
 import com.engimon.entity.skill.SkillItem;
 import com.engimon.exception.CellException;
+import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.exception.EngimonDeadException;
 import com.engimon.exception.InventoryFull;
 import com.engimon.exception.PlayerException;
-import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.exception.PlayerException.PlayerError;
 import com.engimon.inventory.Inventory;
 import com.engimon.inventory.Storable;
@@ -23,11 +27,23 @@ import com.engimon.map.biome.LivingEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Player implements LivingEntity, Moveable {
+public class Player implements LivingEntity, Moveable, Serializable {
 
     private ActiveEngimon activeEngimon;
     private Inventory<Storable> inventory;
     private Cell currentCell;
+
+    private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
+        inpStream.defaultReadObject();
+    }
+
+    private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
+        outStream.defaultWriteObject();
+    }
+
+    public Player() {
+        // Serializable
+    }
 
     public Player(@NotNull Engimon firstEngimon, @NotNull Cell spawnPoint, @NotNull Cell engimonSpawnPoint) {
         this.activeEngimon = new ActiveEngimon(firstEngimon, engimonSpawnPoint);

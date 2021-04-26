@@ -19,7 +19,7 @@ import com.engimon.map.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class A {
+public class TestPlayer {
 
     private Skill skill1 = new Skill(Element.ELECTRIC, 1, "SambarListrik", 100.0D);
     private Skill skill2 = new Skill(Element.ELECTRIC, 2, "KilatListrik", 50.0D);

@@ -72,7 +72,10 @@ public class Species extends Elementum {
 
     @NotNull
     public static Species getRandomSpecies(Elementum el) {
-        List<Species> filtered = speciesList.values().stream().filter(x -> x.equals(el)).collect(Collectors.toList());
+        List<Species> filtered = speciesList.values().stream().filter(x -> x.elementEquals(el))
+                .collect(Collectors.toList());
+        if (filtered.isEmpty())
+            return null;
         SecureRandom sr = new SecureRandom();
         Collections.shuffle(filtered);
         int randomIndex = sr.nextInt(filtered.size());
@@ -206,6 +209,10 @@ public class Species extends Elementum {
 
     public int getSpeciesId() {
         return this.speciesId;
+    }
+
+    public boolean elementEquals(Elementum el) {
+        return super.equals(el);
     }
 
     @Override
