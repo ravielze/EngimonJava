@@ -1,12 +1,16 @@
 package com.engimon.menu.main;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.Box;
 
 import com.engimon.entity.Game;
 import com.engimon.entity.Player;
@@ -24,14 +28,6 @@ public class MainPage extends EPage {
 
     private Map map = Map.getInstance();
 
-    // private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
-    //     @Override
-    //     public void mouseClicked(MouseEvent e) {
-    //         System.out.println("INVENTORY CLICKED");
-    //         EMenu.getInstance().changePage(EMenu.INVENTORY);
-    //     }
-    // });
-
     private EButton inv = EButtonFactory.CreateDefaultFontButton("Inventory", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -43,14 +39,14 @@ public class MainPage extends EPage {
     private EButton switchb = EButtonFactory.CreateDefaultFontButton("Switch", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("SWITCH CLICKED");
+            EMenu.getInstance().changePage(EMenu.SWITCH_ENGIMON);
         }
     });
 
     private EButton interact = EButtonFactory.CreateDefaultFontButton("Interact", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("INTERACT CLICKED");
+            setMessage(Game.getRunningGame().getPlayer().getActiveEngimon().interact());
         }
     });
 
@@ -64,7 +60,7 @@ public class MainPage extends EPage {
     private EButton save = EButtonFactory.CreateDefaultFontButton("Save", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("SAVE CLICKED");
+            Game.save(Game.getRunningGame().getPlayer());
         }
     });
 
@@ -81,6 +77,7 @@ public class MainPage extends EPage {
 
     public MainPage() {
         super();
+        message.setFont(new Font("Arial", Font.PLAIN, 25));
         update();
         menuList.add(inv);
         menuList.add(switchb);
@@ -146,9 +143,8 @@ public class MainPage extends EPage {
         gridRow.add(new MapGrid(map));
 
         ERow messageRow = new ERow();
-        message.setText("Hello world");
         messageRow.add(message);
-
+        add(Box.createRigidArea(new Dimension(0, 20)));
         add(menuRow);
         add(gridRow);
         add(messageRow);
@@ -157,5 +153,6 @@ public class MainPage extends EPage {
 
     public void setMessage(String message) {
         this.message.setText(message);
+        update();
     }
 }

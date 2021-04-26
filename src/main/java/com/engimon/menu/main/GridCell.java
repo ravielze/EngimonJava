@@ -1,17 +1,17 @@
 package com.engimon.menu.main;
 
-import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.engimon.entity.Player;
+import com.engimon.entity.engimon.Engimon;
 import com.engimon.map.biome.Cell;
 import com.engimon.menu.EComponent;
+import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
+import com.engimon.menu.component.ERow;
 
 public class GridCell extends JPanel implements EComponent {
 
@@ -22,9 +22,11 @@ public class GridCell extends JPanel implements EComponent {
         if (cell.isOccupied()) {
             System.out.printf("Cell {%d, %d} is occupied by %s\n", cell.getX(), cell.getY(), cell.getOccupier());
             if (cell.getOccupier() instanceof Player) {
-                add(new EImage("Images/Others/player_sprite-min.png", 24, 24));
-            } else {
-                setBackground(Color.BLACK);
+                add(new EImage("Images/Others/player_sprite-min.png", 20, 20));
+            } else if (cell.getOccupier() instanceof Engimon) {
+                EColumn row = new EColumn();
+                row.add(new EImage(((Engimon) cell.getOccupier()).getSprite(), 16, 16));
+                add(row);
             }
             return;
         }

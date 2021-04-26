@@ -7,7 +7,8 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;
 
-import com.engimon.entity.Cheat;
+import com.engimon.entity.GameConfig;
+import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EImage;
 import com.engimon.menu.component.ERow;
@@ -36,21 +37,24 @@ public class BeginningPage extends EPage {
         textRowContainer.add(textRow);
         textRow.add(text);
         textRow.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.decode("#a3a3a3"), Color.decode("#616161")));
-        ERow pickerRow1 = new ERow();
-        ERow pickerRow2 = new ERow();
-
-        List<EngimonPicker> buttons = new ArrayList<EngimonPicker>(6);
-        buttons.add(new EngimonPicker(Cheat.getEngimon()));
-        buttons.add(new EngimonPicker(Cheat.getSecondEngimon()));
-        buttons.add(new EngimonPicker(Cheat.getThirdEngimon()));
-        buttons.add(new EngimonPicker("Engimon4"));
-        buttons.add(new EngimonPicker("Engimon5"));
-        buttons.add(new EngimonPicker("Engimon6"));
-        buttons.subList(0, 3).forEach(x -> pickerRow1.add(x));
-        buttons.subList(3, 6).forEach(x -> pickerRow2.add(x));
         add(new EImage("Images/Others/prof.png", 100, 200));
         add(textRowContainer);
-        add(pickerRow1);
-        add(pickerRow2);
+        List<ERow> rowList = new ArrayList<ERow>();
+        int engiPerRow = 3;
+        int curRow = -1;
+        int item = 0;
+        List<Engimon> starters = GameConfig.getStarterEngimon();
+        for(Engimon en : starters) {
+            if (item == 0) {
+                curRow += 1;
+                rowList.add(new ERow());
+            }
+            rowList.get(curRow).add(new EngimonPicker(en));
+            item += 1;
+            item = item % engiPerRow;
+        }
+        for (ERow row : rowList) {
+            add(row);
+        }
     }
 }

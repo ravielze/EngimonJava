@@ -17,7 +17,6 @@ import javax.swing.JTextArea;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButtonFactory;
-import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
 import com.engimon.menu.component.ERow;
 
@@ -44,7 +43,6 @@ public class Breeding extends EPage {
 
 
         ERow firstParentRow = new ERow();
-        // TODO : Add first parent image before breeding stats
         firstParentRow.add(new EImage(firstEngimon.getIcon(), 100, 100));
         firstParentRow.add(new BreedingStats(firstEngimon));
         add(firstParentRow);
@@ -56,17 +54,19 @@ public class Breeding extends EPage {
         secondParentRow.add(new BreedingStats(secondEngimon));
         secondParentRow.add(new EImage(secondEngimon.getIcon(), 100, 100));
 
-        // TODO : Add second parent image after breeding stats
         add(secondParentRow);
 
         ERow resultRowContainer = new ERow();
         ERow resultRow = new ERow();
         resultRow.setPreferredSize(new Dimension(400,100));
-        resultRow.setBorder(BorderFactory.createLineBorder(Color.decode("#ff4278"), 20));
+        resultRow.setBorder(BorderFactory.createLineBorder(Color.decode("#ff4278"), 16));
         resultRow.setBackground(Color.decode("#ff4278"));
         resultRowContainer.add(resultRow);
+
         // TODO : add child image
         // resultRow.add(...image)
+        resultRow.add(new EImage(firstEngimon.getIcon(), 50, 50));
+        resultRow.add(Box.createRigidArea(new Dimension(20, 0)));
         JPanel resultColumn = new JPanel(new GridLayout(0,1));
         resultColumn.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         engimonNameEditArea.setFont(new Font("Arial", Font.PLAIN, 20));
