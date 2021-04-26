@@ -11,33 +11,23 @@ import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
 
-public class PowerplantCell extends Cell {
+public class CaveCell extends Cell {
 
-    private static final long serialVersionUID = -6222841280611348432L;
-    private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/powerplant.png", 24, 24);
+    private static final long serialVersionUID = -6217841280611348431L;
+    private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/cave.png", 24, 24);
 
-    public PowerplantCell(Integer x, Integer y) {
+    public CaveCell(Integer x, Integer y) {
         super(x, y);
     }
 
-    public PowerplantCell() {
+    public CaveCell() {
         super();
         // Constructor for Serializable Access
     }
 
     @Override
-    public Color getColor() {
-        return Color.decode("#7f00ff");
-    }
-
-    @Override
     protected boolean allowPass(Elementum el) {
-        return el.isOneOf(Element.ELECTRIC);
-    }
-
-    @Override
-    public Image getSprite() {
-        return PowerplantCell.IMAGE;
+        return el.isOneOf(Element.GROUND);
     }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
@@ -48,4 +38,13 @@ public class PowerplantCell extends Cell {
         outStream.defaultWriteObject();
     }
 
+    @Override
+    public Color getColor() {
+        return Color.decode("#949494");
+    }
+
+    @Override
+    public Image getSprite() {
+        return CaveCell.IMAGE;
+    }
 }

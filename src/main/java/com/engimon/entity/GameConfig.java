@@ -17,4 +17,7 @@ public final class GameConfig {
         return starters;
     }
 
+    public static int SPAWN_CHANCE = 50; // x%
+    public static int MAX_WILD_ENGIMON = 30;
+
 }
