@@ -16,7 +16,7 @@ public class GrasslandCell extends Cell {
     private static final long serialVersionUID = 4976989679027883563L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/grassland.png", 24, 24);
 
-    public GrasslandCell(int x, int y) {
+    public GrasslandCell(Integer x, Integer y) {
         super(x, y);
     }
 

@@ -1,28 +1,26 @@
 package com.engimon.sound;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import com.engimon.common.ResourceReader;
-
 public class Sound {
+    public static final Sound BATTLE_BGM = new Sound("Sounds/BGM/battle_bgm.wav");
+    public static final Sound BEGINNING = new Sound("Sounds/BGM/game_beginning.wav");
 
     private Clip clip;
 
     public Sound(String filePath) {
-        ResourceReader rr = new ResourceReader(filePath);
-        try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(rr.getStream());
-            // AudioInputStream ais = AudioSystem.getAudioInputStream(new
-            // File(filePath).getAbsoluteFile());
-            this.clip = AudioSystem.getClip();
-            clip.open(ais);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.stop();
-        } catch (Exception silenced) {
-
-        }
+        // ResourceReader rr = new ResourceReader(filePath);
+        // try {
+        // // BufferedInputStream bis = new BufferedInputStream(rr.getStream());
+        // // AudioInputStream ais =
+        // //
+        // AudioSystem.getAudioInputStream(getClass().getClassLoader().getResource(filePath));
+        // this.clip = AudioSystem.getClip();
+        // clip.open(ais);
+        // clip.loop(Clip.LOOP_CONTINUOUSLY);
+        // clip.stop();
+        // } catch (Exception silenced) {
+        // }
     }
 
     public void play() {

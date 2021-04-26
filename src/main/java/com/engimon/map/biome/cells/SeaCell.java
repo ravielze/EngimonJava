@@ -16,7 +16,7 @@ public class SeaCell extends Cell {
     private static final long serialVersionUID = -3167859968279015012L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/sea.png", 24, 24);
 
-    public SeaCell(int x, int y) {
+    public SeaCell(Integer x, Integer y) {
         super(x, y);
     }
 

@@ -58,9 +58,9 @@ public class Map implements Serializable {
                 storage.put(x, y, new GrasslandCell(x, y));
             }
         }
-        massPopulate(MountainCell.class, 4, 3, 0.45D);
-        massPopulate(SeaCell.class, 5, 4, 0.3D);
-        massPopulate(TundraCell.class, 4, 3, 0.4D);
+        massPopulate(SeaCell.class, 6, 9, 0.5D);
+        massPopulate(MountainCell.class, 6, 6, 0.5D);
+        massPopulate(TundraCell.class, 6, 6, 0.5D);
         massPopulate(PowerplantCell.class, 4, 3, 0.45D);
     }
 
@@ -127,6 +127,7 @@ public class Map implements Serializable {
         try {
             storage.put(x, y, clazz.getConstructor(Integer.class, Integer.class).newInstance(x, y));
         } catch (Exception ignored) {
+            ignored.printStackTrace();
         }
         for (int rx = -1; rx <= 1; rx++) {
             for (int ry = -1; ry <= 1; ry++) {

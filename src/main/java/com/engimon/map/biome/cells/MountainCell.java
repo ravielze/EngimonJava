@@ -16,7 +16,7 @@ public class MountainCell extends Cell {
     private static final long serialVersionUID = 3488408262249655249L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/mountain.png", 24, 24);
 
-    public MountainCell(int x, int y) {
+    public MountainCell(Integer x, Integer y) {
         super(x, y);
     }
 

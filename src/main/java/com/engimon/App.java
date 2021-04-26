@@ -8,10 +8,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import com.engimon.menu.EMenu;
 import com.engimon.sound.BackgroundSound;
 
-/**
- * Hello world!
- *
- */
 public class App {
 
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
