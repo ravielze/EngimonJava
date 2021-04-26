@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.engimon.entity.Game;
-import com.engimon.map.Map;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.component.EButton;
 

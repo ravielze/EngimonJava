@@ -1,9 +1,7 @@
 package com.engimon.menu;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 
 public abstract class EPage extends JPanel {
 

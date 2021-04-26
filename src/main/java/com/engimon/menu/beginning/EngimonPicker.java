@@ -1,19 +1,17 @@
 package com.engimon.menu.beginning;
 
-import com.engimon.entity.Cheat;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
+
 import com.engimon.entity.Game;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EMenu;
-import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
-import com.engimon.menu.component.ERow;
-
-import java.awt.Color;
-import java.awt.event.*;
-
-import javax.swing.JPanel;
 
 public class EngimonPicker extends JPanel {
 
@@ -23,10 +21,9 @@ public class EngimonPicker extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
-                if (Game.getRunningGame() != null) { // REMOVE THIS IN THE REAL GAMEPLAY
-                    // Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
-                    // Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
-                }
+                // REMOVE THIS IN THE REAL GAMEPLAY
+                // Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
+                // Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
 
                 EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }

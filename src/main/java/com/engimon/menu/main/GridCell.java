@@ -2,7 +2,6 @@ package com.engimon.menu.main;
 
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.engimon.entity.Player;
@@ -11,7 +10,6 @@ import com.engimon.map.biome.Cell;
 import com.engimon.menu.EComponent;
 import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
-import com.engimon.menu.component.ERow;
 
 public class GridCell extends JPanel implements EComponent {
 
