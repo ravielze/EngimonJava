@@ -5,12 +5,16 @@ import com.engimon.entity.skill.SkillItem;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.choose_engimon.ChooseEngimon;
 import com.engimon.menu.choose_engimon.EngimonCard;
+import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.ERow;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.Box;
 
 public class BreedingChooser extends ChooseEngimon {
 
@@ -23,20 +27,26 @@ public class BreedingChooser extends ChooseEngimon {
     public void update() {
         super.update();
         ERow row = new ERow();
-        row.add(EButtonFactory.CreateDefaultFontButton("Clear", Color.decode("#0aceff") , 200, 80,new MouseAdapter() {
+        EButton clearButton = EButtonFactory.CreateDefaultFontButton("Clear", Color.decode("#0aceff") , 200, 80,new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 restart();
             }
-        }));
-        
-        row.add(EButtonFactory.CreateDefaultFontButton("Confirm", Color.decode("#12c91b"), 200, 80, new MouseAdapter() {
+        });
+        // clearButton.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+        row.add(clearButton);
+        row.add(Box.createRigidArea(new Dimension(20,0)));
+        EButton confirmButton = EButtonFactory.CreateDefaultFontButton("Confirm", Color.decode("#12c91b"), 200, 80, new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (firstEngimon == null || secondEngimon == null) return;
                 EMenu.getInstance().changePage(new Breeding(firstEngimon, secondEngimon));
             }
-        }));
+        });
+        // confirmButton.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+
+        row.add(confirmButton);
+        
         add(row);
     }
 

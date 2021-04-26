@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import java.awt.GridLayout;
 
 import com.engimon.menu.EComponent;
 
@@ -11,6 +12,7 @@ public class EColumn extends JPanel implements EComponent {
 
     public EColumn() {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        // setLayout(new GridLayout(0, 1));
         setLayout(boxLayout);
     }
 

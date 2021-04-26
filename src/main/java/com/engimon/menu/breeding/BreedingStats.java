@@ -1,8 +1,5 @@
 package com.engimon.menu.breeding;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import java.awt.Color;
 
@@ -21,7 +18,7 @@ public class BreedingStats extends EColumn {
         for (Skill skill : e.getAllSkills()) {
             textToShow += skill.toString() + "\n";
         }
-        add(new ECard(textToShow, Color.decode("#29ff3e")));
-
+        add(new ECard(textToShow, Color.decode("#7dff81")));
     }
+    
 }

@@ -2,6 +2,8 @@ package com.engimon.menu.choose_engimon;
 
 import java.util.List;
 
+import javax.swing.Box;
+
 import com.engimon.entity.Game;
 import com.engimon.entity.Player;
 import com.engimon.entity.engimon.Engimon;
@@ -10,6 +12,7 @@ import com.engimon.inventory.Storable;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EColumn;
 
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -49,6 +52,7 @@ public abstract class ChooseEngimon extends EPage {
     }
 
     private void show(List<? extends Storable> list) {
+        add(Box.createRigidArea(new Dimension(0,100)));
         list.forEach(item -> {
             EngimonCard card = new EngimonCard(item);
             card.addMouseListener(new MouseAdapter(){

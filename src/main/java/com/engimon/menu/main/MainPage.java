@@ -1,5 +1,6 @@
 package com.engimon.menu.main;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,7 @@ import com.engimon.map.Map;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
+import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.EText;
 
@@ -22,7 +24,15 @@ public class MainPage extends EPage {
 
     private Map map = Map.getInstance();
 
-    private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
+    // private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
+    //     @Override
+    //     public void mouseClicked(MouseEvent e) {
+    //         System.out.println("INVENTORY CLICKED");
+    //         EMenu.getInstance().changePage(EMenu.INVENTORY);
+    //     }
+    // });
+
+    private EButton inv = EButtonFactory.CreateDefaultFontButton("Inventory", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INVENTORY CLICKED");
@@ -30,35 +40,35 @@ public class MainPage extends EPage {
         }
     });
     
-    private EButton switchb = new EButton("Switch", 20, new MouseAdapter() {
+    private EButton switchb = EButtonFactory.CreateDefaultFontButton("Switch", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("SWITCH CLICKED");
         }
     });
 
-    private EButton interact = new EButton("Interact", 20, new MouseAdapter() {
+    private EButton interact = EButtonFactory.CreateDefaultFontButton("Interact", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INTERACT CLICKED");
         }
     });
 
-    private EButton breed = new EButton("Breed", 20, new MouseAdapter() {
+    private EButton breed = EButtonFactory.CreateDefaultFontButton("Breed", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
         }
     });
 
-    private EButton save = new EButton("Save", 20, new MouseAdapter() {
+    private EButton save = EButtonFactory.CreateDefaultFontButton("Save", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("SAVE CLICKED");
         }
     });
 
-    private EButton help = new EButton("Help", 20, new MouseAdapter() {
+    private EButton help = EButtonFactory.CreateDefaultFontButton("Help", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("HELP CLICKED");

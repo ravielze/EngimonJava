@@ -12,6 +12,9 @@ import com.engimon.menu.view_engimon.ViewEngimon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+
 import java.awt.Color;
 
 public class Inventory extends ChooseEngimon {
@@ -19,21 +22,26 @@ public class Inventory extends ChooseEngimon {
 
     private EButton engimonTab;
     private EButton skillTab;
-    private ChooseMode mode  = ChooseMode.SKILLITEM;
+    private ChooseMode mode  = ChooseMode.ENGIMON;
     public Inventory() {
-        super(ChooseMode.SKILLITEM);
-
+        super(ChooseMode.ENGIMON);
+        skillTab.setBorder(BorderFactory.createLineBorder(Color.RED));
         engimonTab = EButtonFactory.CreateDefaultFontButton("Engimon", Color.decode("#0aceff"), new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mode = ChooseMode.ENGIMON;
+                engimonTab.setBorder(BorderFactory.createLineBorder(Color.RED));
+                skillTab.setBorder(BorderFactory.createEmptyBorder());
                 update();
             }
         });
+        engimonTab.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         skillTab = EButtonFactory.CreateDefaultFontButton("Skill", Color.decode("#0aceff"), new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mode = ChooseMode.SKILLITEM;
+                skillTab.setBorder(BorderFactory.createLineBorder(Color.RED));
+                engimonTab.setBorder(BorderFactory.createEmptyBorder());
                 update();
             }
         });
