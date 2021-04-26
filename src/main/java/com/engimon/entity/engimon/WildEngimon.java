@@ -3,9 +3,11 @@ package com.engimon.entity.engimon;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.SecureRandom;
 
 import com.engimon.entity.Spawner;
 import com.engimon.entity.enums.Direction;
+import com.engimon.entity.skill.Skill;
 import com.engimon.exception.CellException;
 import com.engimon.exception.EngimonStateException;
 import com.engimon.exception.EngimonStateException.StateError;
@@ -54,10 +56,19 @@ public class WildEngimon extends Engimon implements LivingEntity, Moveable {
         this.currentCell = target;
     }
 
+    public Skill getRandomSkill() {
+        return getAllSkills().get((new SecureRandom()).nextInt(getAllSkills().size()));
+    }
+
     public void kill() {
         this.currentCell.setOccupier(null);
         this.currentCell = null;
-        Spawner.getInstance().reducePopulation();
+        Spawner.getInstance().reducePopulation(this);
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return super.toString();
     }
 
 }

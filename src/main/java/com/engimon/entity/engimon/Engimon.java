@@ -330,6 +330,8 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         for (int i = 0; i < take; i++) {
             child.addSkill(sortSkills.get(i));
         }
+        this.level -= 3;
+        other.level -= 3;
         return child;
     }
 
