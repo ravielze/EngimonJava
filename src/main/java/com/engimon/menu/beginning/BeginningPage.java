@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.engimon.entity.Cheat;
 import com.engimon.menu.EPage;
+import com.engimon.menu.component.EImage;
 import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.EText;
 
@@ -38,38 +39,9 @@ public class BeginningPage extends EPage {
         buttons.add(new EngimonPicker("Engimon6"));
         buttons.subList(0, 3).forEach(x -> pickerRow1.add(x));
         buttons.subList(3, 6).forEach(x -> pickerRow2.add(x));
+        add(new EImage("Images/Others/prof.png", 50, 100));
         add(text);
         add(pickerRow1);
         add(pickerRow2);
-        // GameConfig.getStarterEngimon().forEach(x -> {
-        // EngimonPicker ep = new EngimonPicker(x);
-        // ep.setPadding(30, 20);
-        // buttons.add(ep);
-        // });
-        // int perRow = 3;
-        // int cur = 0;
-        // for (String l : array) {
-        // if (cur == perRow) {
-        // picker.add(new ArrayList<EngimonPicker>(buttons));
-        // buttons = new ArrayList<EngimonPicker>(6);
-        // cur = 0;
-        // add(picker.);
-        // picker.removeAll();
-        // }
-        // EngimonPicker ep = new EngimonPicker(l);
-        // ep.setPadding(30, 20);
-        // buttons.add(ep);
-        // cur += 1;
-        // }
-        // if (cur == perRow) {
-        // picker.add(new ArrayList<EngimonPicker>(buttons));
-        // }
-
-        // picker.add(buttons);
-        // picker.justifyFlexStart();
-
-        // add(new ERow(new FlowLayout(FlowLayout.CENTER), new
-        // FlowLayout(FlowLayout.CENTER, 20, 40), 3, buttons));
     }
-
 }

@@ -18,7 +18,7 @@ public class GridCell extends JPanel implements EComponent {
     public GridCell(Cell cell) {
         setSize(24, 24);
         setPreferredSize(new Dimension(24, 24));
-        this.setBorder(BorderFactory.createLineBorder(Color.black));
+        // this.setBorder(BorderFactory.createLineBorder(Color.black));
         if (cell.isOccupied()) {
             System.out.printf("Cell {%d, %d} is occupied by %s\n", cell.getX(), cell.getY(), cell.getOccupier());
             if (cell.getOccupier() instanceof Player) {
