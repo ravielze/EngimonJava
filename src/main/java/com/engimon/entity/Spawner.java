@@ -10,13 +10,18 @@ import com.engimon.map.Map;
 
 public class Spawner {
 
-    //TODO
+    // TODO
     private static Spawner instance;
-    public static Spawner getInstance() {return instance;}
+
+    synchronized public static Spawner getInstance() {
+        return instance;
+    }
+
     private Map map;
     private int wildEngimonSpawned = 0;
 
-    public Spawner() {}
+    public Spawner() {
+    }
 
     public void spawn() {
         map = Map.getInstance();
@@ -27,11 +32,11 @@ public class Spawner {
                 if (wildEngimonSpawned < GameConfig.MAX_WILD_ENGIMON && chance < sr.nextInt(100)) {
                     try {
                         new WildEngimon(Species.getRandomSpecies(), 2, map.getCell(x, y));
-                        wildEngimonSpawned ++;
+                        wildEngimonSpawned++;
                     } catch (EngimonStateException er) {
-                        
+
                     } catch (CellException er) {
-                        
+
                     }
                 }
             }
