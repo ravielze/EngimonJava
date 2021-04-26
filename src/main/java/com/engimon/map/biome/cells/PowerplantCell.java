@@ -11,23 +11,31 @@ import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
 
-public class SeaCell extends Cell {
+public class PowerplantCell extends Cell {
+    private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/powerplant.png", 24, 24);
 
-    private static final long serialVersionUID = -3167859968279015012L;
-    private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/sea.png", 24, 24);
-
-    public SeaCell(int x, int y) {
+    public PowerplantCell(int x, int y) {
         super(x, y);
     }
 
-    public SeaCell() {
+    public PowerplantCell() {
         super();
         // Constructor for Serializable Access
     }
 
     @Override
+    public Color getColor() {
+        return Color.decode("#7f00ff");
+    }
+
+    @Override
     protected boolean allowPass(Elementum el) {
-        return el.isOneOf(Element.WATER);
+        return el.isOneOf(Element.ELECTRIC);
+    }
+
+    @Override
+    public Image getSprite() {
+        return PowerplantCell.IMAGE;
     }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
@@ -36,17 +44,6 @@ public class SeaCell extends Cell {
 
     private void writeObject(ObjectOutputStream outStream) throws IOException, ClassNotFoundException {
         outStream.defaultWriteObject();
-    }
-
-    @Override
-    public Color getColor() {
-        return Color.decode("#00c3ff");
-
-    }
-
-    @Override
-    public Image getSprite() {
-        return SeaCell.IMAGE;
     }
 
 }

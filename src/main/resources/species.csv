@@ -1,1 +1,46 @@
 speciesid,nama,element1,element2,"[message-1,message-2,...,message-n]",idskillunik,sprite,icon
+1,Elekid,ELECTRIC,NONE,"[CHARGEEE,Bzzztt]",1,Sprites/ElectricEngimon/elekid_sprite.png,Icon/ElectricEngimon/elekid_image-min.png
+2,Mareep,ELECTRIC,NONE,"[Wow this is lit, Mmeee]",2,Sprites/ElectricEngimon/mareep_sprite.png,Icon/ElectricEngimon/mareep_image-min.png
+3,Pikachu,ELECTRIC,NONE,"[Want some coffee?, pika-pika]",3,Sprites/ElectricEngimon/pikachu_sprite.png,Icon/ElectricEngimon/pikachu_image-min.png
+4,"Alolan Golem",ELECTRIC,GROUND,"[Boulders are fun,Rockin it]",4,Sprites/ElectricGroundEngimon/alolan_golem_sprite.png,Icon/ElectricGroundEngimon/alolan_golem_image-min.png
+5,Helioptile,ELECTRIC,GROUND,"[Keep going!,Buzzing in]",5,Sprites/ElectricGroundEngimon/helioptile_sprite.png,Icon/ElectricGroundEngimon/helioptile_image-min.png
+6,Stunfisk,ELECTRIC,GROUND,"[Don't move!, Don't step on me...]",6,Sprites/ElectricGroundEngimon/stunfisk_sprite.png,Icon/ElectricGroundEngimon/stunfisk_image-min.png
+7,Pachirisu,ELECTRIC,ICE,"[Charged up,Ready to go]",7,Sprites/ElectricIceEngimon/pachirisu_sprite.png,Icon/ElectricIceEngimon/pachirisu_image-min.png
+8,Shinx,ELECTRIC,ICE,"[Take me home please,Let's wrap this up]",8,Sprites/ElectricIceEngimon/shinx_sprite.png,Icon/ElectricIceEngimon/shinx_image-min.png
+9,Tynamo,ELECTRIC,ICE,"[Swimming hurts,Have you ever felt shocked?]",9,Sprites/ElectricIceEngimon/tynamo_sprite.png,Icon/ElectricIceEngimon/tynamo_image-min.png
+10,Centiskorch,FIRE,ELECTRIC,"[Overloaddd,Don't touch me]",10,Sprites/FireElectricEngimon/centiskorch_sprite.png,Icon/FireElectricEngimon/centiskorch_image-min.png
+11,Tepig,FIRE,ELECTRIC,"[Hehehe,I like your smell]",11,Sprites/FireElectricEngimon/tepig_sprite.png,Icon/FireElectricEngimon/tepig_image-min.png
+12,Turtonator,FIRE,ELECTRIC,"[Zzz�,What do you want?]",12,Sprites/FireElectricEngimon/turtonator_sprite.png,Icon/FireElectricEngimon/turtonator_image-min.png
+13,Flareon,FIRE,NONE,"[Burn it all,What�s burnin?!]",13,Sprites/FireEngimon/flareon_sprite.png,Icon/FireEngimon/flareon_image-min.png
+14,Quilava,FIRE,NONE,"[Hot hot hot,I'm feeling hot]",14,Sprites/FireEngimon/quilava_sprite.png,Icon/FireEngimon/quilava_image-min.png
+15,Torkoal,FIRE,NONE,"[Just no,You're on fire today]",15,Sprites/FireEngimon/torkoal_sprite.png,Icon/FireEngimon/torkoal_image-min.png
+16,Camerupt,FIRE,GROUND,"[Eruption incoming,I love volcanoes]",16,Sprites/FireGroundEngimon/camerupt_sprite.png,Icon/FireGroundEngimon/camerupt_image-min.png
+17,Carkol,FIRE,GROUND,"[Nothing burns like coal,This is so coal]",17,Sprites/FireGroundEngimon/carkol_sprite.png,Icon/FireGroundEngimon/carkol_image-min.png
+18,Magcargo,FIRE,GROUND,"[Just burning along,Make it quick]",18,Sprites/FireGroundEngimon/magcargo_sprite.png,Icon/FireGroundEngimon/magcargo_image-min.png
+19,"Alolan Marowak",FIRE,ICE,"[I'm gonna hit you,Don't touch my bone]",19,Sprites/FireIceEngimon/alolan_marowak_sprite.png,Icon/FireIceEngimon/alolan_marowak_image-min.png
+20,Darmanitan,FIRE,ICE,"[Ohm�,Silence is gold]",20,Sprites/FireIceEngimon/darmanitan_sprite.png,Icon/FireIceEngimon/darmanitan_image-min.png
+21,Litwick,FIRE,ICE,"[Here to lighten your day,Feeling the chill?]",21,Sprites/FireIceEngimon/litwick_sprite.png,Icon/FireIceEngimon/litwick_image-min.png
+22,Milotic,FIRE,WATER,"[Burrpp,Excuse me]",22,Sprites/FireWaterEngimon/milotic_sprite.png,Icon/FireWaterEngimon/milotic_image-min.png
+23,Octillery,FIRE,WATER,"[Take me to the pool please,You're the best]",23,Sprites/FireWaterEngimon/octillery_sprite.png,Icon/FireWaterEngimon/octillery_image-min.png
+24,Volcanion,FIRE,WATER,"[Don't walk too fast,I'm tired]",24,Sprites/FireWaterEngimon/volcanion_sprite.png,Icon/FireWaterEngimon/volcanion_image-min.png
+25,Diglett,GROUND,NONE,"[Hihihi,Catch me if you can]",25,Sprites/GroundEngimon/diglett_sprite.png,Icon/GroundEngimon/diglett_image-min.png
+26,Drilbur,GROUND,NONE,"[This rocks,Wanna hug?]",26,Sprites/GroundEngimon/drilbur_sprite.png,Icon/GroundEngimon/drilbur_image-min.png
+27,Marowak,GROUND,NONE,"[Like my moves?,Nice job]",27,Sprites/GroundEngimon/marowak_sprite.png,Icon/GroundEngimon/marowak_image-min.png
+28,Mamoswine,GROUND,ICE,"[Move or i'll stomp you,Can't you go faster?]",28,Sprites/GroundIceEngimon/mamoswine_sprite.png,Icon/GroundIceEngimon/mamoswine_image-min.png
+29,Piloswine,GROUND,ICE,"[So warm�,You need my fur?]",29,Sprites/GroundIceEngimon/piloswine_sprite.png,Icon/GroundIceEngimon/piloswine_image-min.png
+30,Swinub,GROUND,ICE,"[Good night zzz�,We need to go now?]",30,Sprites/GroundIceEngimon/swinub_sprite.png,Icon/GroundIceEngimon/swinub_image-min.png
+31,"Alolan Vulpix",ICE,NONE,"[Let it frost!,Hehe you're funny]",31,Sprites/IceEngimon/alolan_vulpix_sprite.png,Icon/IceEngimon/alolan_vulpix_image-min.png
+32,Snorunt,ICE,NONE,"[Can we go home now?,Don't take my coat please]",32,Sprites/IceEngimon/snorunt_sprite.png,Icon/IceEngimon/snorunt_image-min.png
+33,Vanillish,ICE,NONE,"[Here's a treat for you,Chill out]",33,Sprites/IceEngimon/vanillish_sprite.png,Icon/IceEngimon/vanillish_image-min.png
+34,Chinchou,WATER,ELECTRIC,"[You're the buzz,I can be a lantern]",34,Sprites/WaterElectricEngimon/chinchou_sprite.png,Icon/WaterElectricEngimon/chinchou_image-min.png
+35,Lanturn,WATER,ELECTRIC,"[Not so dark now huh?,Let's swim it all]",35,Sprites/WaterElectricEngimon/lanturn_sprite.png,Icon/WaterElectricEngimon/lanturn_image-min.png
+36,Qwilfish,WATER,ELECTRIC,"[Be carefull!!!,My spikes are shocking]",36,Sprites/WaterElectricEngimon/qwilfish_sprite.png,Icon/WaterElectricEngimon/qwilfish_image-min.png
+37,Goldeen,WATER,NONE,"[Just keep swimming,Swimming swimming~]",37,Sprites/WaterEngimon/goldeen_sprite.png,Icon/WaterEngimon/goldeen_image-min.png
+38,Lapras,WATER,NONE,"[Do you like my song?,Let me sing for you]",38,Sprites/WaterEngimon/lapras_sprite.png,Icon/WaterEngimon/lapras_image-min.png
+39,Magikarp,WATER,NONE,"[Splash splash,Splashing intensifies]",39,Sprites/WaterEngimon/magikarp_sprite.png,Icon/WaterEngimon/magikarp_image-min.png
+40,Palpitoad,WATER,GROUND,"[Have some mud,Don't be mud at me]",40,Sprites/WaterGroundEngimon/palpitoad_sprite.png,Icon/WaterGroundEngimon/palpitoad_image-min.png
+41,Whiscash,WATER,GROUND,"[This whiskers are exquisite,Good taste]",41,Sprites/WaterGroundEngimon/whiscash_sprite.png,Icon/WaterGroundEngimon/whiscash_image-min.png
+42,Wooper,WATER,GROUND,"[I want some bubbles!,Going already?]",42,Sprites/WaterGroundEngimon/wooper_sprite.png,Icon/WaterGroundEngimon/wooper_image-min.png
+43,Dewgong,WATER,ICE,"[Water is life,Feeling cold?]",43,Sprites/WaterIceEngimon/dewgong_sprite.png,Icon/WaterIceEngimon/dewgong_image-min.png
+44,Sealeo,WATER,ICE,"[I wonder where my family is,You want some fish?]",44,Sprites/WaterIceEngimon/sealeo_sprite.png,Icon/WaterIceEngimon/sealeo_image-min.png
+45,Spheal,WATER,ICE,"[I love to roll,Nice to see you]",45,Sprites/WaterIceEngimon/spheal_sprite.png,Icon/WaterIceEngimon/spheal_image-min.png

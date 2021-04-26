@@ -11,6 +11,7 @@ import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
 import com.engimon.map.biome.cells.GrasslandCell;
 import com.engimon.map.biome.cells.MountainCell;
+import com.engimon.map.biome.cells.PowerplantCell;
 import com.engimon.map.biome.cells.SeaCell;
 import com.engimon.map.biome.cells.TundraCell;
 import com.google.common.collect.Table;
@@ -60,6 +61,7 @@ public class Map implements Serializable {
         massPopulate(MountainCell.class, 4, 3, 0.45D);
         massPopulate(SeaCell.class, 5, 4, 0.3D);
         massPopulate(TundraCell.class, 4, 3, 0.4D);
+        massPopulate(PowerplantCell.class, 4, 3, 0.45D);
     }
 
     synchronized public Cell getCell(int x, int y) throws CellException {

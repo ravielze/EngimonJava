@@ -201,13 +201,13 @@ public class Species extends Elementum {
     public Image getIcon() {
         if (this.iconFilepath.isEmpty())
             return null;
-        return ResourceReader.getImage(this.iconFilepath, 100, 100);
+        return ResourceReader.getImage("Images/Engimon/" + this.iconFilepath, 100, 100);
     }
 
     public Image getSprite() {
         if (this.spriteFilepath.isEmpty())
             return null;
-        return ResourceReader.getImage(this.spriteFilepath, 20, 20);
+        return ResourceReader.getImage("Images/Engimon/" + this.spriteFilepath, 20, 20);
     }
 
 }
