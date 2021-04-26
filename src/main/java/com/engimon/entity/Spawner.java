@@ -5,11 +5,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.engimon.entity.engimon.Species;
 import com.engimon.entity.engimon.WildEngimon;
+import com.engimon.entity.enums.Direction;
 import com.engimon.entity.skill.Skill;
+import com.engimon.exception.CellException;
 import com.engimon.map.Map;
+import com.engimon.map.biome.Cell;
 
 public class Spawner implements Serializable {
     private static final long serialVersionUID = 2993563572121342245L;
@@ -25,6 +30,7 @@ public class Spawner implements Serializable {
 
     private Map map;
     private int wildEngimonSpawned = 0;
+    private List<WildEngimon> wildEngimons = new ArrayList<>(20);
 
     public Spawner() {
     }
@@ -37,7 +43,7 @@ public class Spawner implements Serializable {
         outStream.defaultWriteObject();
     }
 
-    public void spawn() {
+    public synchronized void spawn() {
         if (wildEngimonSpawned >= GameConfig.MAX_WILD_ENGIMON)
             return;
         map = Map.getInstance();
@@ -46,7 +52,9 @@ public class Spawner implements Serializable {
         int y = sr.nextInt(map.getSize());
         int level = sr.nextInt(wildEngimonSpawned + 4) + 1;
         try {
-            WildEngimon we = new WildEngimon(Species.getRandomSpecies(), level, map.getCell(x, y));
+            Species s = Species.getRandomSpecies();
+            Cell cell = map.getCell(x, y);
+            WildEngimon we = new WildEngimon(s, level, cell);
             int skills = (sr.nextInt(3) + sr.nextInt(3)) % 3;
             int skillCount = 0;
             if (skills == 1) {
@@ -64,17 +72,27 @@ public class Spawner implements Serializable {
                 skillCount--;
             }
             wildEngimonSpawned++;
+            wildEngimons.add(we);
         } catch (Exception ignored) {
 
         }
     }
 
-    public void reducePopulation() {
+    public synchronized void reducePopulation(WildEngimon we) {
+        wildEngimons.remove(we);
         wildEngimonSpawned -= 1;
     }
 
-    public synchronized void print(String x) {
-        System.out.println(x);
+    public synchronized void randomMove() {
+        SecureRandom sr = new SecureRandom();
+        int x = sr.nextInt(wildEngimonSpawned);
+        int dir = sr.nextInt(Direction.values().length);
+        Direction d = Direction.values()[dir];
+        try {
+            wildEngimons.get(x).move(d);
+        } catch (CellException ex) {
+
+        }
     }
 
 }

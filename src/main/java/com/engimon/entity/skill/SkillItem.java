@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.exception.EngimonStateException;
+import com.engimon.exception.SkillItemExpired;
 import com.engimon.inventory.Storable;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,16 +29,22 @@ public class SkillItem implements Storable, Comparable<SkillItem> {
     }
 
     @NotNull
-    public Engimon learn(@NotNull Engimon eng) throws EngimonStateException {
+    public Engimon learn(@NotNull Engimon eng) throws EngimonStateException, SkillItemExpired {
         Engimon result = eng.addSkill(new Skill(this.skill, 1));
         this.amount--;
+        if (this.amount == 0) {
+            throw new SkillItemExpired(this);
+        }
         return result;
     }
 
     @NotNull
-    public Engimon learn(@NotNull Engimon eng, int index) throws EngimonStateException {
+    public Engimon learn(@NotNull Engimon eng, int index) throws EngimonStateException, SkillItemExpired {
         Engimon result = eng.replaceSkill(index, new Skill(this.skill, 1));
         this.amount--;
+        if (this.amount == 0) {
+            throw new SkillItemExpired(this);
+        }
         return result;
     }
 

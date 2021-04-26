@@ -229,7 +229,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
     @Override
     @NotNull
     public String toString() {
-        return String.format("%s/Lv.%d", super.toString(), getLevel());
+        return String.format("%s/Lv.%d", species.toString(), getLevel());
     }
 
     @Override
@@ -330,6 +330,8 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         for (int i = 0; i < take; i++) {
             child.addSkill(sortSkills.get(i));
         }
+        this.level -= 3;
+        other.level -= 3;
         return child;
     }
 
