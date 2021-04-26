@@ -282,6 +282,20 @@ public class TestEngimon {
         assertEquals("Pikaco/ELECTRIC/Lv.1", engimon1.toString());
     }
 
+    @Test
+    @DisplayName("Test breeding")
+    void testBreeding() {
+        Engimon engimon1 = new Engimon(species1);
+        Engimon engimon2 = new Engimon(species2);
+        Engimon s1;
+        try {
+            s1 = engimon1.breed(engimon2);
+            assertEquals(false, s1 == null);
+        } catch (EngimonStateException e) {
+            assert(false);
+        }
+    }
+
     // @Test
     // @DisplayName("Test equals ")
     // void testequals() {
