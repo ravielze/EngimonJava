@@ -69,7 +69,7 @@ public class MainPage extends EPage {
     private EButton help = EButtonFactory.CreateDefaultFontButton("Help", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("HELP CLICKED");
+            EMenu.getInstance().changePage(EMenu.HELP);
         }
     });
 
