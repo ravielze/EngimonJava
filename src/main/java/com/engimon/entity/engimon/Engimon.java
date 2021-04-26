@@ -229,7 +229,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
     @Override
     @NotNull
     public String toString() {
-        return String.format("%s/Lv.%d", super.toString(), getLevel());
+        return String.format("%s/Lv.%d", species.toString(), getLevel());
     }
 
     @Override
