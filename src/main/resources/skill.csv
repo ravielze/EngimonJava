@@ -1,46 +1,76 @@
 idskill,skillname,element1,element2,basepower
-1,"Charge Beam",ELECTRIC,NONE,1
-2,"Electro Ball",ELECTRIC,NONE,2
-3,Thunderbolt,ELECTRIC,NONE,3
-4,Discharge,ELECTRIC,GROUND,1
-5,"Magnetic Flux",ELECTRIC,GROUND,2
-6,Magnitude,ELECTRIC,GROUND,3
-7,"Shock Wave",ELECTRIC,ICE,1
-8,"Aurora Beam",ELECTRIC,ICE,2
-9,"Freeze Shock",ELECTRIC,ICE,3
-10,"Flame Charge",FIRE,ELECTRIC,1
-11,"Heat Flash",FIRE,ELECTRIC,2
-12,"Flare Blitz",FIRE,ELECTRIC,3
-13,"Fiery Dance",FIRE,NONE,1
-14,"Heat Wave",FIRE,NONE,2
-15,"Fire Blast",FIRE,NONE,3
-16,Incinerate,FIRE,GROUND,1
-17,"Lava Plume",FIRE,GROUND,2
-18,Inferno,FIRE,GROUND,3
-19,"Burning Jealousy",FIRE,ICE,1
-20,"Icycle Blast",FIRE,ICE,2
-21,"Blazing Frost",FIRE,ICE,3
-22,"Blue Flare",FIRE,WATER,1
-23,"Hot Pump",FIRE,WATER,2
-24,"Magma Storm",FIRE,WATER,3
-25,"Mud Bomb",GROUND,NONE,1
-26,Fissure,GROUND,NONE,2
-27,Earthquake,GROUND,NONE,3
-28,Freeze-Dry,GROUND,ICE,1
-29,Avalanche,GROUND,ICE,2
-30,"Tectonic Rage",GROUND,ICE,3
-31,"Ice Shard",ICE,NONE,1
-32,"Glacial Lance",ICE,NONE,2
-33,"Max Hailstorm",ICE,NONE,3
-34,Electrify,WATER,ELECTRIC,1
-35,"Electro Charge",WATER,ELECTRIC,2
-36,"Thunder Wave",WATER,ELECTRIC,3
-37,Dive,WATER,NONE,1
-38,"Water Gun",WATER,NONE,2
-39,Whirlpool,WATER,NONE,3
-40,Mud-Slap,WATER,GROUND,1
-41,"Shore Up",WATER,GROUND,2
-42,Waterfall,WATER,GROUND,3
-43,"Frost Breath",WATER,ICE,1
-44,Hail,WATER,ICE,2
-45,"Subzero Slammer",WATER,ICE,3
+1,Charge Beam,ELECTRIC,NONE,0.5
+2,Electro Ball,ELECTRIC,NONE,1.5
+3,Thunderbolt,ELECTRIC,NONE,2.5
+4,Discharge,ELECTRIC,GROUND,0.5
+5,Magnetic Flux,ELECTRIC,GROUND,1.5
+6,Magnitude,ELECTRIC,GROUND,2.5
+7,Shock Wave,ELECTRIC,ICE,0.5
+8,Aurora Beam,ELECTRIC,ICE,1.5
+9,Freeze Shock,ELECTRIC,ICE,2.5
+10,Flame Charge,FIRE,ELECTRIC,0.5
+11,Heat Flash,FIRE,ELECTRIC,1.5
+12,Flare Blitz,FIRE,ELECTRIC,2.5
+13,Fiery Dance,FIRE,NONE,0.5
+14,Heat Wave,FIRE,NONE,1.5
+15,Fire Blast,FIRE,NONE,2.5
+16,Incinerate,FIRE,GROUND,0.5
+17,Lava Plume,FIRE,GROUND,1.5
+18,Inferno,FIRE,GROUND,2.5
+19,Burning Jealousy,FIRE,ICE,0.5
+20,Icycle Blast,FIRE,ICE,1.5
+21,Blazing Frost,FIRE,ICE,2.5
+22,Blue Flare,FIRE,WATER,0.5
+23,Hot Pump,FIRE,WATER,1.5
+24,Magma Storm,FIRE,WATER,2.5
+25,Mud Bomb,GROUND,NONE,0.5
+26,Fissure,GROUND,NONE,1.5
+27,Earthquake,GROUND,NONE,2.5
+28,Freeze-Dry,GROUND,ICE,0.5
+29,Avalanche,GROUND,ICE,1.5
+30,Tectonic Rage,GROUND,ICE,2.5
+31,Ice Shard,ICE,NONE,0.5
+32,Glacial Lance,ICE,NONE,1.5
+33,Max Hailstorm,ICE,NONE,2.5
+34,Electrify,WATER,ELECTRIC,0.5
+35,Electro Charge,WATER,ELECTRIC,1.5
+36,Thunder Wave,WATER,ELECTRIC,2.5
+37,Dive,WATER,NONE,0.5
+38,Water Gun,WATER,NONE,1.5
+39,Whirlpool,WATER,NONE,2.5
+40,Mud-Slap,WATER,GROUND,0.5
+41,Shore Up,WATER,GROUND,1.5
+42,Waterfall,WATER,GROUND,2.5
+43,Frost Breath,WATER,ICE,0.5
+44,Hail,WATER,ICE,1.5
+45,Subzero Slammer,WATER,ICE,2.5
+46,Fusion Bolt,ELECTRIC,NONE,3.5
+47,Electroweb,ELECTRIC,NONE,4.5
+48,Nuzzle,ELECTRIC,GROUND,3.5
+49,Parabolic Charge,ELECTRIC,GROUND,4.5
+50,Thunder Fang,ELECTRIC,ICE,3.5
+51,Zap Cannon,ELECTRIC,ICE,4.5
+52,Will-O-Wisp,FIRE,ELECTRIC,3.5
+53,Sizzly Slide,FIRE,ELECTRIC,4.5
+54,Blast Burn,FIRE,NONE,3.5
+55,Fire Pledge,FIRE,NONE,4.5
+56,Inferno Overdrive,FIRE,GROUND,3.5
+57,Eruption,FIRE,GROUND,4.5
+58,Haze,FIRE,ICE,3.5
+59,Triple Axel,FIRE,ICE,4.5
+60,Fire Gun,FIRE,WATER,3.5
+61,Mystical Fire,FIRE,WATER,4.5
+62,Bulldoze,GROUND,NONE,3.5
+63,Earth Power,GROUND,NONE,4.5
+64,Precipice Blades,GROUND,ICE,3.5
+65,Stomping Tantrum,GROUND,ICE,4.5
+66,Icicle Crash,ICE,NONE,3.5
+67,Sheer Cold,ICE,NONE,4.5
+68,Stoked Sparksurfer,WATER,ELECTRIC,3.5
+69,Ion Deluge,WATER,ELECTRIC,4.5
+70,Aqua Jet,WATER,NONE,3.5
+71,Oceanic Operetta,WATER,NONE,4.5
+72,Crabhammer,WATER,GROUND,3.5
+73,Mud Vortex,WATER,GROUND,4.5
+74,Liquidation,WATER,ICE,3.5
+75,Blizzard,WATER,ICE,4.5
