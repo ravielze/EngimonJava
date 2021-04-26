@@ -23,4 +23,12 @@ public class EImage extends JPanel implements EComponent {
         add(imgLabel);
     }
 
+    public EImage(@NotNull Image image, int width, int height) {
+        JLabel imgLabel = new JLabel(new ImageIcon(image));
+        Dimension dim = new Dimension(width, height);
+        imgLabel.setPreferredSize(dim);
+        imgLabel.setMaximumSize(dim);
+        add(imgLabel);
+    }
+
 }

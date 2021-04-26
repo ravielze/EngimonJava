@@ -36,7 +36,7 @@ public class EMenu extends JFrame {
     public EMenu() {
         setLayout(new GridLayout(1, 0));
         setSize(new Dimension(800, 900));
-        setResizable(false);
+        // setResizable(false);
         setTitle("Engimon - Gotta Farm Them All");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         changePage(START_PAGE);

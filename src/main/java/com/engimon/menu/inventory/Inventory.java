@@ -25,7 +25,6 @@ public class Inventory extends ChooseEngimon {
     private ChooseMode mode  = ChooseMode.ENGIMON;
     public Inventory() {
         super(ChooseMode.ENGIMON);
-        skillTab.setBorder(BorderFactory.createLineBorder(Color.RED));
         engimonTab = EButtonFactory.CreateDefaultFontButton("Engimon", Color.decode("#0aceff"), new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -45,6 +44,8 @@ public class Inventory extends ChooseEngimon {
                 update();
             }
         });
+        skillTab.setBorder(BorderFactory.createLineBorder(Color.RED));
+
     }
 
     @Override
