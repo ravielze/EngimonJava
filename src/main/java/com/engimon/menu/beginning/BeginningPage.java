@@ -1,7 +1,11 @@
 package com.engimon.menu.beginning;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.border.BevelBorder;
 
 import com.engimon.entity.Cheat;
 import com.engimon.menu.EPage;
@@ -27,6 +31,11 @@ public class BeginningPage extends EPage {
         removeAll();
 
         EText text = new EText(bacotan);
+        ERow textRowContainer = new ERow();
+        ERow textRow = new ERow();
+        textRowContainer.add(textRow);
+        textRow.add(text);
+        textRow.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.decode("#a3a3a3"), Color.decode("#616161")));
         ERow pickerRow1 = new ERow();
         ERow pickerRow2 = new ERow();
 
@@ -39,8 +48,8 @@ public class BeginningPage extends EPage {
         buttons.add(new EngimonPicker("Engimon6"));
         buttons.subList(0, 3).forEach(x -> pickerRow1.add(x));
         buttons.subList(3, 6).forEach(x -> pickerRow2.add(x));
-        add(new EImage("Images/Others/prof.png", 50, 100));
-        add(text);
+        add(new EImage("Images/Others/prof.png", 100, 200));
+        add(textRowContainer);
         add(pickerRow1);
         add(pickerRow2);
     }
