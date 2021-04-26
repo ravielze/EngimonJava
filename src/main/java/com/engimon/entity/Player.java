@@ -147,4 +147,8 @@ public class Player implements LivingEntity, Moveable, Serializable {
         this.currentCell.setOccupier(this);
         this.activeEngimon.restate();
     }
+
+    public Cell getPosition() {
+        return currentCell;
+    }
 }

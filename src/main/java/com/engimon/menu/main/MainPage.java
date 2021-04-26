@@ -14,9 +14,11 @@ import javax.swing.Box;
 
 import com.engimon.entity.Game;
 import com.engimon.entity.Player;
+import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.entity.enums.Direction;
 import com.engimon.exception.CellException;
 import com.engimon.map.Map;
+import com.engimon.map.biome.Cell;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
@@ -69,7 +71,7 @@ public class MainPage extends EPage {
     private EButton help = EButtonFactory.CreateDefaultFontButton("Help", Color.decode("#ffc847"), new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("HELP CLICKED");
+            EMenu.getInstance().changePage(EMenu.HELP);
         }
     });
 
@@ -138,12 +140,19 @@ public class MainPage extends EPage {
     public synchronized void update() {
         Map map = Map.getInstance();
         removeAll();
+        List<WildEngimon> wildEngimons = new ArrayList<WildEngimon>();
+        if (Game.getRunningGame() != null) {
+            Cell currentPos = Game.getRunningGame().getPlayer().getPosition();
+            wildEngimons = Map.getSurroundingEngimon(currentPos.getX(), currentPos.getY());
+        }
+
         ERow menuRow = new ERow();
         menuRow.justifyFlexStart();
         menuRow.add(menuList);
 
         ERow gridRow = new ERow();
         gridRow.add(new MapGrid(map));
+        gridRow.add(new BattleList(wildEngimons));
 
         ERow messageRow = new ERow();
         messageRow.add(message);

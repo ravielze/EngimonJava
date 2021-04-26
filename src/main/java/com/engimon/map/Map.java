@@ -5,7 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.engimon.entity.engimon.Engimon;
+import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
@@ -188,6 +192,23 @@ public class Map implements Serializable {
     @Override
     public String toString() {
         return this.storage.toString();
+    }
+
+    public static List<WildEngimon> getSurroundingEngimon(int x, int y) {
+        Map map = Map.getInstance();
+        List<WildEngimon> wildEngimon = new ArrayList<WildEngimon>();
+        for (int xi = x - 1; xi <= x + 1; xi++) {
+            for (int yi = y - 1; yi <= y + 1; yi++) {
+                try {
+                    Cell cell = map.getCell(xi, yi);
+                    if (cell.isOccupied() && cell.getOccupier() instanceof WildEngimon) {
+                        wildEngimon.add((WildEngimon) cell.getOccupier());
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+        return wildEngimon;
     }
 
 }
