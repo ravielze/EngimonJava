@@ -3,7 +3,7 @@ package com.engimon.menu.beginning;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.engimon.entity.GameConfig;
+import com.engimon.entity.Cheat;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.EText;
@@ -30,9 +30,9 @@ public class BeginningPage extends EPage {
         ERow pickerRow2 = new ERow();
 
         List<EngimonPicker> buttons = new ArrayList<EngimonPicker>(6);
-        buttons.add(new EngimonPicker(GameConfig.getEngimon()));
-        buttons.add(new EngimonPicker("Engimon2"));
-        buttons.add(new EngimonPicker("Engimon3"));
+        buttons.add(new EngimonPicker(Cheat.getEngimon()));
+        buttons.add(new EngimonPicker(Cheat.getSecondEngimon()));
+        buttons.add(new EngimonPicker(Cheat.getThirdEngimon()));
         buttons.add(new EngimonPicker("Engimon4"));
         buttons.add(new EngimonPicker("Engimon5"));
         buttons.add(new EngimonPicker("Engimon6"));

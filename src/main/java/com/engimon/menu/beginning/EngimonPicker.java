@@ -1,5 +1,6 @@
 package com.engimon.menu.beginning;
 
+import com.engimon.entity.Cheat;
 import com.engimon.entity.Game;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EMenu;
@@ -14,6 +15,11 @@ public class EngimonPicker extends EButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
+                if (Game.getRunningGame() != null) {
+                    Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
+                    Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
+                }
+                
                 EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }
         });
