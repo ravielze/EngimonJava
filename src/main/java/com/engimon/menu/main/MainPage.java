@@ -22,49 +22,48 @@ public class MainPage extends EPage {
 
     private Map map = Map.getInstance();
 
-    private EButton inv = new EButton("Inventory", 20, new MouseAdapter() {
+    private EButton inv = new EButton("Inventory", 20, 120, 40, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INVENTORY CLICKED");
             EMenu.getInstance().changePage(EMenu.INVENTORY);
         }
     });
-    
-    private EButton switchb = new EButton("Switch", 20, new MouseAdapter() {
+
+    private EButton switchb = new EButton("Switch", 20, 120, 40, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("SWITCH CLICKED");
         }
     });
 
-    private EButton interact = new EButton("Interact", 20, new MouseAdapter() {
+    private EButton interact = new EButton("Interact", 20, 120, 40, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("INTERACT CLICKED");
         }
     });
 
-    private EButton breed = new EButton("Breed", 20, new MouseAdapter() {
+    private EButton breed = new EButton("Breed", 20, 90, 40, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             EMenu.getInstance().changePage(EMenu.BREEDING_CHOOSER);
         }
     });
 
-    private EButton save = new EButton("Save", 20, new MouseAdapter() {
+    private EButton save = new EButton("Save", 20, 90, 40, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("SAVE CLICKED");
         }
     });
 
-    private EButton help = new EButton("Help", 20, new MouseAdapter() {
+    private EButton help = new EButton("Help", 20, 90, 40, new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("HELP CLICKED");
         }
     });
-    
 
     private EText message = new EText("");
 

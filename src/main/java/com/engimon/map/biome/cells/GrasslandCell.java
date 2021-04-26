@@ -13,7 +13,7 @@ public class GrasslandCell extends Cell {
 
     private static final long serialVersionUID = 4976989679027883563L;
 
-    public GrasslandCell(int x, int y) {
+    public GrasslandCell(Integer x, Integer y) {
         super(x, y);
     }
 
@@ -37,7 +37,6 @@ public class GrasslandCell extends Cell {
 
     @Override
     public Color getColor() {
-        // TODO Auto-generated method stub
         return Color.decode("#32a600");
     }
 }

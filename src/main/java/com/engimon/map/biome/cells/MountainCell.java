@@ -13,7 +13,7 @@ public class MountainCell extends Cell {
 
     private static final long serialVersionUID = 3488408262249655249L;
 
-    public MountainCell(int x, int y) {
+    public MountainCell(Integer x, Integer y) {
         super(x, y);
     }
 
@@ -37,7 +37,6 @@ public class MountainCell extends Cell {
 
     @Override
     public Color getColor() {
-        // TODO Auto-generated method stub
         return Color.decode("#663800");
     }
 

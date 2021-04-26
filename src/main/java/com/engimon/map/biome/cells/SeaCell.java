@@ -13,7 +13,7 @@ public class SeaCell extends Cell {
 
     private static final long serialVersionUID = -3167859968279015012L;
 
-    public SeaCell(int x, int y) {
+    public SeaCell(Integer x, Integer y) {
         super(x, y);
     }
 
@@ -37,7 +37,6 @@ public class SeaCell extends Cell {
 
     @Override
     public Color getColor() {
-        // TODO Auto-generated method stub
         return Color.decode("#00c3ff");
 
     }
