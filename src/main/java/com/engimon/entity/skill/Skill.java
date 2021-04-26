@@ -1,5 +1,6 @@
 package com.engimon.entity.skill;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -128,6 +129,11 @@ public class Skill extends Elementum implements Comparable<Skill> {
     @Override
     public int hashCode() {
         return Integer.valueOf(this.skillId).hashCode();
+    }
+
+    public Image getIcon() {
+        // TODO image
+        return null;
     }
 
 }

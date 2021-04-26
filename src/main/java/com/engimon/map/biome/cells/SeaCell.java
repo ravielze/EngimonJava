@@ -1,6 +1,7 @@
 package com.engimon.map.biome.cells;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -40,6 +41,12 @@ public class SeaCell extends Cell {
         // TODO Auto-generated method stub
         return Color.decode("#00c3ff");
 
+    }
+
+    @Override
+    public Image getSprite() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

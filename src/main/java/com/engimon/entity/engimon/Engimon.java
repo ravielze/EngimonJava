@@ -1,5 +1,6 @@
 package com.engimon.entity.engimon;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -59,7 +60,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         }
     }
 
-    public Engimon(@NotNull Engimon engimon){
+    public Engimon(@NotNull Engimon engimon) {
         this.customName = engimon.customName;
         this.species = engimon.species;
         this.parentFirst = engimon.parentFirst;
@@ -107,7 +108,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         return skills;
     }
 
-    public int getSkillCount(){
+    public int getSkillCount() {
         return skills.size();
     }
 
@@ -271,7 +272,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         return level * Math.max(a, b) + sum;
     }
 
-    private Species breedSpecies(Engimon other){
+    private Species breedSpecies(Engimon other) {
         Species result;
         if (((Elementum) this.species).equals(other.getSpecies())) {
             result = this.getSpecies();
@@ -280,7 +281,8 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
             Element otherMajor = other.getSpecies().getMajorElement(this.getSpecies());
             if (ElementTable.getMultiplier(thisMajor, otherMajor) > ElementTable.getMultiplier(otherMajor, thisMajor)) {
                 result = this.getSpecies();
-            } else if (ElementTable.getMultiplier(thisMajor, otherMajor) < ElementTable.getMultiplier(otherMajor, thisMajor)) {
+            } else if (ElementTable.getMultiplier(thisMajor, otherMajor) < ElementTable.getMultiplier(otherMajor,
+                    thisMajor)) {
                 result = other.getSpecies();
             } else {
                 Elementum el = new ElementWrapper(this.species.getFirstElement(), this.species.getSecondElement());
@@ -291,7 +293,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
     }
 
     public Engimon breed(Engimon other) throws EngimonStateException {
-        if (this.getLevel() < 4 || other.getLevel() < 4){
+        if (this.getLevel() < 4 || other.getLevel() < 4) {
             throw new EngimonStateException(this, EngimonStateException.StateError.ENGIMON_CANT_BREED);
         }
         Species result = breedSpecies(other);
@@ -305,16 +307,16 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         thisSkills.forEach(x -> skills.add(new Skill(x, x.getMasteryLevel())));
         otherSkills.forEach(z -> {
             Skill x = new Skill(z, z.getMasteryLevel());
-            if (!skills.add(x)){
-                for (Skill y : skills){
-                    if (y.equals(x) && y.getMasteryLevel() == x.getMasteryLevel()){
+            if (!skills.add(x)) {
+                for (Skill y : skills) {
+                    if (y.equals(x) && y.getMasteryLevel() == x.getMasteryLevel()) {
                         y.addMasteryLevel();
                         break;
-                    } else if (y.equals(x) && y.getMasteryLevel() < x.getMasteryLevel()){
+                    } else if (y.equals(x) && y.getMasteryLevel() < x.getMasteryLevel()) {
                         skills.remove(y);
                         skills.add(x);
                         break;
-                    } else if (y.equals(x)){
+                    } else if (y.equals(x)) {
                         break;
                     }
                 }
@@ -324,11 +326,26 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         Collections.sort(sortSkills);
         sortSkills.remove(uniqueSkill);
         child.addSkill(uniqueSkill);
-        int take = 4-child.getSkillCount();
-        for (int i = 0; i < take; i++){
+        int take = 4 - child.getSkillCount();
+        for (int i = 0; i < take; i++) {
             child.addSkill(sortSkills.get(i));
         }
         return child;
+    }
+
+    public Image getIcon() {
+        // TODO image
+        return null;
+    }
+
+    public Image getSprite() {
+        // TODO image
+        return null;
+    }
+
+    public Image getAura() {
+        // TODO image
+        return null;
     }
 
 }

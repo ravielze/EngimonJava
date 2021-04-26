@@ -1,5 +1,6 @@
 package com.engimon.map.biome;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -101,5 +102,7 @@ public abstract class Cell implements Serializable, Colorable {
             this.setOccupier(null);
         }
     }
+
+    public abstract Image getSprite();
 
 }

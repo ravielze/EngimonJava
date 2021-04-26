@@ -1,6 +1,7 @@
 package com.engimon.map.biome.cells;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -39,6 +40,12 @@ public class MountainCell extends Cell {
     public Color getColor() {
         // TODO Auto-generated method stub
         return Color.decode("#663800");
+    }
+
+    @Override
+    public Image getSprite() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
