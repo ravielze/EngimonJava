@@ -18,7 +18,7 @@ public class TundraCell extends Cell {
         // Constructor for Serializable Access
     }
 
-    public TundraCell(int x, int y) {
+    public TundraCell(Integer x, Integer y) {
         super(x, y);
     }
 
@@ -37,7 +37,6 @@ public class TundraCell extends Cell {
 
     @Override
     public Color getColor() {
-        // TODO Auto-generated method stub
         return Color.decode("#ffb300");
     }
 

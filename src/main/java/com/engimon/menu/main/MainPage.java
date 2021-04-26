@@ -74,7 +74,6 @@ public class MainPage extends EPage {
             System.out.println("HELP CLICKED");
         }
     });
-    
 
     private EText message = new EText("");
 
