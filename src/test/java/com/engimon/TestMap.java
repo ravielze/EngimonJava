@@ -2,8 +2,6 @@ package com.engimon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.security.SecureRandom;
-
 import com.engimon.exception.CellException;
 import com.engimon.map.Map;
 
@@ -13,43 +11,46 @@ import org.junit.jupiter.api.Test;
 public class TestMap {
     @Test
     @DisplayName("Test Map - getInstance()")
-    void testgetInstance(){
+    void testgetInstance() {
         Map map = new Map(30);
         assertEquals(Map.getInstance(), map);
     }
+
     @Test
     @DisplayName("Test Map - setInstance(Map map)")
-    void testsetInstance(){
+    void testsetInstance() {
         Map map = new Map(20);
         Map.setInstance(map);
         assertEquals(map, Map.getInstance());
     }
+
     @Test
     @DisplayName("Test Map - getCell(int x, int y)")
-    void testgetCell(){
+    void testgetCell() {
         try {
             Map.getInstance().getCell(-1, -1);
-            assert(false);
+            assert (false);
         } catch (CellException e) {
-            assert(true);
-        }
-        finally {
+            assert (true);
+        } finally {
             try {
                 assertEquals(Map.getInstance().getCell(1, 1) == null, false);
             } catch (CellException e) {
-                assert(false);
+                assert (false);
             }
         }
     }
+
     @Test
     @DisplayName("Test Map - getSize()")
-    void testgetSize(){
+    void testgetSize() {
         Map map = Map.getInstance();
         assertEquals(30, map.getSize());
     }
+
     @Test
     @DisplayName("Test Map - testisInRange(int x, int y)")
-    void testisInRange(){
+    void testisInRange() {
         Map map = Map.getInstance();
         assertEquals(false, map.isInRange(-1, -1));
         assertEquals(false, map.isInRange(-1, 1));

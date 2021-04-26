@@ -16,10 +16,9 @@ import com.engimon.map.biome.cells.GrasslandCell;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
 public class TestWildEngimon {
-    
-    // Inisialisasi
+
+    @SuppressWarnings("unused")
     private Skill skill0 = new Skill(Element.ELECTRIC, 0, "Tidak Berguna", 0.0D);
     private Species species1;
     {
@@ -31,46 +30,42 @@ public class TestWildEngimon {
 
     @Test
     @DisplayName("Test constructor WildEngimon")
-    void testconstructor(){
+    void testconstructor() {
         try {
             WildEngimon wildEngimon = new WildEngimon(species1, 10, new GrasslandCell(2, 2));
             assertEquals(false, wildEngimon == null);
-        }
-        catch (EngimonStateException e){
-            e.getMessage();
-        }
-    }
-    @Test
-    @DisplayName("Test move")
-    void testmove(){
-        try {
-            Map map = new Map(20);
-            WildEngimon wildEngimon = new WildEngimon(species1, 10, map.getCell(2, 2));
-            wildEngimon.move(Direction.NORTH);
-            assertEquals(wildEngimon, map.getCell(2, 3).getOccupier());
-        }
-        catch (EngimonStateException e){
-            e.getMessage();
-        }
-        catch (CellException e){
+        } catch (EngimonStateException e) {
             e.getMessage();
         }
     }
 
     @Test
-    @DisplayName("Test kill")  
-    void testkill(){
+    @DisplayName("Test move")
+    void testmove() {
+        try {
+            Map map = new Map(20);
+            WildEngimon wildEngimon = new WildEngimon(species1, 10, map.getCell(2, 2));
+            wildEngimon.move(Direction.NORTH);
+            assertEquals(wildEngimon, map.getCell(2, 3).getOccupier());
+        } catch (EngimonStateException e) {
+            e.getMessage();
+        } catch (CellException e) {
+            e.getMessage();
+        }
+    }
+
+    @Test
+    @DisplayName("Test kill")
+    void testkill() {
         try {
             Map map = new Map(20);
             WildEngimon wildEngimon = new WildEngimon(species1, 10, map.getCell(2, 2));
             wildEngimon.kill();
             assertEquals(null, map.getCell(2, 2).getOccupier());
-        }
-        catch (EngimonStateException e){
+        } catch (EngimonStateException e) {
+            e.getMessage();
+        } catch (CellException e) {
             e.getMessage();
         }
-        catch (CellException e){
-            e.getMessage();
-        }
-    }  
+    }
 }
