@@ -1,5 +1,6 @@
 package com.engimon.map.biome;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -72,15 +73,15 @@ public abstract class Cell implements Serializable, Colorable {
         return this.occupied != null;
     }
 
-    public void setOccupier(CellOccupier entity) {
+    synchronized public void setOccupier(CellOccupier entity) {
         this.occupied = entity;
     }
 
-    public CellOccupier getOccupier() {
+    synchronized public CellOccupier getOccupier() {
         return this.occupied;
     }
 
-    public void transferEntity(Cell other) throws CellException {
+    synchronized public void transferEntity(Cell other) throws CellException {
         if (this.occupied == null) {
             throw new CellException(ErrorCause.CELL_EMPTY);
         }
@@ -101,5 +102,7 @@ public abstract class Cell implements Serializable, Colorable {
             this.setOccupier(null);
         }
     }
+
+    public abstract Image getSprite();
 
 }

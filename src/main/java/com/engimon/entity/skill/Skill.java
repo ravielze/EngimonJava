@@ -1,14 +1,18 @@
 package com.engimon.entity.skill;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.annotation.Nullable;
 
+import com.engimon.common.DataReader;
+import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 
@@ -26,6 +30,25 @@ public class Skill extends Elementum implements Comparable<Skill> {
     public static void setSkillList(Map<Integer, Skill> x) {
         skillList.clear();
         skillList.putAll(x);
+    }
+
+    public static void load(DataReader dr) {
+        List<String[]> data = dr.getResult();
+        data.remove(0);
+        for (String[] each : data) {
+            if (each.length != 5)
+                continue;
+            int skillId = Integer.valueOf(each[0]);
+            String skillName = each[1];
+            Element firstElement = Element.valueOf(each[2]);
+            Element secondElement = Element.valueOf(each[3]);
+            double basePower = Double.valueOf(each[4]);
+            if (secondElement != Element.NONE) {
+                new Skill(firstElement, secondElement, skillId, skillName, basePower);
+            } else {
+                new Skill(firstElement, skillId, skillName, basePower);
+            }
+        }
     }
 
     private int skillId;
@@ -128,6 +151,14 @@ public class Skill extends Elementum implements Comparable<Skill> {
     @Override
     public int hashCode() {
         return Integer.valueOf(this.skillId).hashCode();
+    }
+
+    public Image getSkillIcon() {
+        if (this.masteryLevel == 1 || this.getElements() == 2) {
+            return getElementIcon();
+        }
+        return ResourceReader.getImage("Icons/" + getFirstElement().toString() + "_" + this.masteryLevel + ".png", 50,
+                50);
     }
 
 }

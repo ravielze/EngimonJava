@@ -5,7 +5,11 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.engimon.common.DataReader;
+import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Engimon;
+import com.engimon.entity.engimon.Species;
+import com.engimon.entity.skill.Skill;
 import com.engimon.map.Map;
 import com.engimon.map.biome.Cell;
 
@@ -36,7 +40,10 @@ public class Game {
     public static void create(@NotNull Engimon firstEngimon) {
         Game game = new Game();
         Map.getInstance();
-        // TODO load from csv
+        DataReader dr = new DataReader(new ResourceReader("skill.csv"));
+        Skill.load(dr);
+        DataReader dr2 = new DataReader(new ResourceReader("species.csv"));
+        Species.load(dr2);
         Cell[] cells = Map.getInstance().getTwoSpawnableCell();
         game.player = new Player(firstEngimon, cells[0], cells[1]);
         // TODO random spawn wild engimon

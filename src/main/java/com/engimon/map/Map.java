@@ -9,8 +9,10 @@ import java.security.SecureRandom;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
+import com.engimon.map.biome.cells.CaveCell;
 import com.engimon.map.biome.cells.GrasslandCell;
 import com.engimon.map.biome.cells.MountainCell;
+import com.engimon.map.biome.cells.PowerplantCell;
 import com.engimon.map.biome.cells.SeaCell;
 import com.engimon.map.biome.cells.TundraCell;
 import com.google.common.collect.Table;
@@ -57,12 +59,14 @@ public class Map implements Serializable {
                 storage.put(x, y, new GrasslandCell(x, y));
             }
         }
-        massPopulate(SeaCell.class, 6, 9, 0.5D);
-        massPopulate(MountainCell.class, 6, 6, 0.5D);
-        massPopulate(TundraCell.class, 6, 6, 0.5D);
+        massPopulate(SeaCell.class, 6, 12, 0.5D);
+        massPopulate(MountainCell.class, 6, 9, 0.5D);
+        massPopulate(TundraCell.class, 6, 8, 0.5D);
+        massPopulate(CaveCell.class, 6, 7, 0.5D);
+        massPopulate(PowerplantCell.class, 6, 1, 0.8D);
     }
 
-    public Cell getCell(int x, int y) throws CellException {
+    synchronized public Cell getCell(int x, int y) throws CellException {
         if (!isInRange(x, y))
             throw new CellException(ErrorCause.CELL_NOT_FOUND);
         return storage.get(x, y);
