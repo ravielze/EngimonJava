@@ -1,3 +1,3 @@
-mvn clean install -Dmaven.test.skip=true > build.log
+mvn clean install > build.log
 cd target && java -jar OOPsie.jar --illegal-access=warn 
 cd ..
