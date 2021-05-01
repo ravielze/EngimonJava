@@ -5,6 +5,7 @@ import com.engimon.entity.skill.SkillItem;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.choose_engimon.ChooseEngimon;
 import com.engimon.menu.choose_engimon.EngimonCard;
+import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.ERow;
@@ -59,10 +60,10 @@ public class Inventory extends ChooseEngimon {
             tab.add(Box.createRigidArea(new Dimension(20, 0)));
             tab.add(skillTab);
         }
-        // add(tab);
         setMode(mode);
         super.update();
         add(tab, 0);
+        add(new EBack());
     }
 
     @Override
@@ -73,8 +74,7 @@ public class Inventory extends ChooseEngimon {
     @Override
     public void chooseSkillItem(SkillItem e, EngimonCard ec) {
         // TODO Auto-generated method stub
-        System.out.println(e);
-        
+        EMenu.getInstance().changePage(new LearnSkill(e));
     }
     
 }

@@ -75,6 +75,7 @@ public class Battle extends EPage {
         String text = "";
 
         text += attacker.getName() + "\n";
+        text += "Level : " + attacker.getLevel() + "\n";
         text += "Skills : \n";
         for (Skill skill : attacker.getAllSkills()) {
             text += skill.toString() + "\n";

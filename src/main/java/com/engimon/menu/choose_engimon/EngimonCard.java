@@ -22,7 +22,7 @@ public class EngimonCard extends JPanel implements EComponent{
         setLayout(new FlowLayout(FlowLayout.LEFT));
         ERow row = new ERow();
         row.justifyFlexStart();
-        row.setPreferredSize(new Dimension(400,100));
+        row.setPreferredSize(new Dimension(430,100));
         
         // TODO : add engimon image before label
         if (en instanceof Engimon) {

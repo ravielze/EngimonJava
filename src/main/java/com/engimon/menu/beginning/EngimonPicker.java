@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import com.engimon.entity.Cheat;
 import com.engimon.entity.Game;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EMenu;
@@ -21,10 +22,7 @@ public class EngimonPicker extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Game.create(eng);
-                // REMOVE THIS IN THE REAL GAMEPLAY
-                // Game.getRunningGame().getPlayer().addEngimon(Cheat.getSecondEngimon());
-                // Game.getRunningGame().getPlayer().addEngimon(Cheat.getThirdEngimon());
-
+                Cheat.IncreaseExpBy(2000);
                 EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
             }
         }));

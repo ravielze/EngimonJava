@@ -49,7 +49,6 @@ public class Player implements LivingEntity, Moveable, Serializable {
     public Player(@NotNull Engimon firstEngimon, @NotNull Cell spawnPoint, @NotNull Cell engimonSpawnPoint) {
         this.activeEngimon = new ActiveEngimon(firstEngimon, engimonSpawnPoint);
         this.inventory = new Inventory<>(30);
-        this.inventory.add(firstEngimon);
         this.currentCell = spawnPoint;
         spawnPoint.setOccupier(this);
     }
