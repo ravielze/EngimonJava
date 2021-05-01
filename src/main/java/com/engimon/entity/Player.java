@@ -54,6 +54,7 @@ public class Player implements LivingEntity, Moveable, Serializable {
     }
 
     public void switchEngimon(@NotNull Engimon eng) {
+        if (eng == this.activeEngimon) return;
         ActiveEngimon tempActiveEngimon = this.activeEngimon;
         if (inventory.contains(eng)) {
             activeEngimon = new ActiveEngimon(eng, tempActiveEngimon.getCell());

@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import com.engimon.entity.Game;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.exception.EngimonStateException;
+import com.engimon.menu.EMenu;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.EButtonFactory;
@@ -86,6 +87,9 @@ public class Breeding extends EPage {
             resultRow.add(Box.createRigidArea(new Dimension(0, 10)));
             resultColumn.add(new JLabel(result.toString()));
             resultRow.add(resultColumn);
+        } else {
+            EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
+            return;
         }
 
 
@@ -100,6 +104,7 @@ public class Breeding extends EPage {
                     result.setName(engimonName);
                     Game.getRunningGame().getPlayer().addEngimon(result);
                 }
+                EMenu.getInstance().changePage(EMenu.MAIN_PAGE);
                 
             }
         }));
