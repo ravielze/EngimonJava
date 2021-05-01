@@ -14,8 +14,10 @@ import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.ECard;
 import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
+import com.engimon.menu.component.EStackedImage;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 
 public class ViewEngimon extends EPage {
@@ -31,7 +33,6 @@ public class ViewEngimon extends EPage {
     public void update() {
         removeAll();
         EColumn column = new EColumn();
-        column.setOpaque(true);
         column.setBackground(Color.decode("#00f7ff"));
         column.add(engimonImage());
         column.add(engimonName());
@@ -60,15 +61,10 @@ public class ViewEngimon extends EPage {
     }
 
     private JLayeredPane engimonImage() {
-        JLayeredPane stackedImage = new JLayeredPane();
-        stackedImage.setPreferredSize(new Dimension(200,200));
-        EImage eIcon = new EImage(engimon.getIcon(), 200, 200);
-        EImage eAura = new EImage(engimon.getAura(), 200, 200);
-        eIcon.setBounds(0, 0, 200, 200);
-        eAura.setBounds(0, 0, 200, 200);
-        stackedImage.add(eIcon, 0);
-        stackedImage.add(eAura, 1);
-        return stackedImage;
+        ArrayList<EImage> images = new ArrayList<EImage>(2);
+        images.add(new EImage(engimon.getIcon(), 200, 200));
+        images.add(new EImage(engimon.getAura(), 200, 200));
+        return new EStackedImage(images, 200, 200);
         
     }
     

@@ -1,14 +1,10 @@
 package com.engimon.menu.component;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Image;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import com.engimon.common.ResourceReader;
 import com.engimon.menu.EComponent;
