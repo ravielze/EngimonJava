@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EPage;
+import com.engimon.menu.component.EBack;
+import com.engimon.menu.component.ECanvas;
 import com.engimon.menu.component.ECard;
 import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
@@ -28,7 +30,6 @@ public class ViewEngimon extends EPage {
 
     @Override
     public void update() {
-        // TODO add image
         removeAll();
         EColumn column = new EColumn();
         column.setOpaque(true);
@@ -40,7 +41,7 @@ public class ViewEngimon extends EPage {
         JPanel skillContainer = new JPanel(new GridLayout(2,2));
         engimon.getAllSkills().forEach(skill -> skillContainer.add(new SkillDetails(skill)));
         column.add(skillContainer);
-
+        column.add(new EBack());
         add(column);
     }
     private JPanel engimonDetails() {
@@ -54,21 +55,22 @@ public class ViewEngimon extends EPage {
         return skill;
     }
     private JLabel engimonName() {
-        JLabel name = new JLabel(engimon.getName());
+        JLabel name = new JLabel("Name : " + engimon.getName());
         name.setFont(new Font("Arial", Font.PLAIN, 16));
         return name;
     }
 
     private JLayeredPane engimonImage() {
         JLayeredPane stackedImage = new JLayeredPane();
-        stackedImage.setPreferredSize(new Dimension(300,300));
-        EImage eIcon = new EImage(engimon.getIcon(), 300, 300);
-        EImage eAura = new EImage(engimon.getAura(), 300, 300);
+        stackedImage.setPreferredSize(new Dimension(200,200));
+        EImage eIcon = new EImage(engimon.getIcon(), 200, 200);
+        EImage eAura = new EImage(engimon.getAura(), 200, 200);
         eIcon.setBounds(0, 0, 200, 200);
         eAura.setBounds(0, 0, 200, 200);
-        stackedImage.add(eIcon, 1);
-        stackedImage.add(eAura, 0);
+        stackedImage.add(eIcon, 0);
+        stackedImage.add(eAura, 1);
         return stackedImage;
+        
     }
     
 }
