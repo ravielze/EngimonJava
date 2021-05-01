@@ -50,7 +50,7 @@ public class Spawner implements Serializable {
     }
 
     public synchronized void spawn(int i) {
-        while (this.wildEngimonSpawned < i) {
+        while (this.wildEngimonSpawned < i && this.wildEngimonSpawned < GameConfig.MAX_WILD_ENGIMON) {
             this.spawn();
         }
     }

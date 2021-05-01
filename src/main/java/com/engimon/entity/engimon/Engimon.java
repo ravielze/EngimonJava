@@ -56,6 +56,16 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.skills.add(species.getUniqueSkill());
     }
 
+    public Engimon(@NotNull WildEngimon wildEngimon) {
+        this.species = wildEngimon.getSpecies();
+        this.customName = null;
+        this.skills = new ArrayList<>(4);
+        this.level = wildEngimon.getLevel();
+        this.experience = wildEngimon.getExperience();
+        this.cumulativeExperience = wildEngimon.getCumulativeExperience();
+        this.skills.add(species.getUniqueSkill());
+    }
+
     public Engimon(@NotNull Engimon engimon) {
         this.customName = engimon.customName;
         this.species = engimon.species;
@@ -67,16 +77,6 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.cumulativeExperience = engimon.cumulativeExperience;
         this.level = engimon.level;
         this.life = engimon.life;
-    }
-
-    public Engimon(@NotNull WildEngimon wildEngimon) {
-        this.species = wildEngimon.getSpecies();
-        this.customName = null;
-        this.skills = new ArrayList<>(4);
-        this.level = wildEngimon.getLevel();
-        this.experience = wildEngimon.getExperience();
-        this.cumulativeExperience = wildEngimon.getCumulativeExperience();
-        this.skills.add(species.getUniqueSkill());
     }
 
     public Engimon(@NotNull Species species, @NotNull Engimon parentFirst, @NotNull Engimon parentSecond) {

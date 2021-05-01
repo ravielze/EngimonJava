@@ -1,6 +1,7 @@
 package com.engimon.entity;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -46,7 +47,6 @@ public class Game {
 
     public static void create(@NotNull Engimon firstEngimon) {
         Game game = new Game();
-        Map.getInstance();
         Cell[] cells = Map.getInstance().getTwoSpawnableCell();
         game.player = new Player(firstEngimon, cells[0], cells[1]);
         Spawner.getInstance().spawn(8);
@@ -74,7 +74,7 @@ public class Game {
         runningGame = game;
     }
 
-    public static void load() {
+    public static void load() throws FileNotFoundException {
         Game game = new Game(null);
         try {
             FileInputStream fin = new FileInputStream(gameFileName);
@@ -84,6 +84,8 @@ public class Game {
             game.player.restate();
             StaticSerializer.load(((StaticSerializer) oit.readObject()));
             oit.close();
+        } catch (FileNotFoundException ex) {
+            throw ex;
         } catch (Exception ex) {
             ex.printStackTrace();
         }

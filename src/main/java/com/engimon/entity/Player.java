@@ -121,7 +121,7 @@ public class Player implements LivingEntity, Moveable, Serializable {
             } catch (EngimonDeadException ex) {
                 if (ex.getEngimon().equals(we)) {
                     we.kill();
-                    inventory.add(new Engimon(we));
+                    inventory.add(new Engimon((WildEngimon) we));
                     Skill sk = we.getRandomSkill();
                     boolean found = false;
                     for (SkillItem ski : getItems()) {

@@ -1,5 +1,6 @@
 package com.engimon.map;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,6 +8,8 @@ import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
@@ -33,7 +36,11 @@ public class Map implements Serializable {
 
     public synchronized static Map getInstance() {
         if (instance == null) {
-            instance = new Map(MAP_DEFAULT_SIZE);
+            try {
+                instance = new Map("map.txt");
+            } catch (IOException | IllegalStateException | NoSuchElementException ex) {
+                instance = new Map(MAP_DEFAULT_SIZE);
+            }
         }
         return instance;
     }
@@ -89,6 +96,42 @@ public class Map implements Serializable {
 
     public Map() {
         // Constructor for Serializable Access
+    }
+
+    public Map(String fileName) throws IOException, IllegalStateException, NoSuchElementException {
+        Scanner reader = new Scanner(System.in);
+        try {
+            File f = new File(fileName);
+            reader.close();
+            reader = new Scanner(f);
+            this.size = reader.nextInt();
+            this.storage = TreeBasedTable.create();
+            for (int y = 0; y < size; y++) {
+                String line = reader.next();
+                for (int x = 0; x < size; x++) {
+                    char i = line.charAt(x);
+                    if (i == 's' || i == 'S') {
+                        storage.put(x, y, new SeaCell(x, y));
+                    } else if (i == 'm' || i == 'M') {
+                        storage.put(x, y, new MountainCell(x, y));
+                    } else if (i == 't' || i == 'T') {
+                        storage.put(x, y, new TundraCell(x, y));
+                    } else if (i == 'c' || i == 'C') {
+                        storage.put(x, y, new CaveCell(x, y));
+                    } else if (i == 'p' || i == 'P') {
+                        storage.put(x, y, new PowerplantCell(x, y));
+                    } else if (i == 'g' || i == 'G') {
+                        storage.put(x, y, new GrasslandCell(x, y));
+                    } else {
+                        throw new NoSuchElementException("cell '" + i + "' not found");
+                    }
+                }
+            }
+        } catch (IOException | IllegalStateException | NoSuchElementException ex) {
+            throw ex;
+        } finally {
+            reader.close();
+        }
     }
 
     // TODO populate tree and rock
