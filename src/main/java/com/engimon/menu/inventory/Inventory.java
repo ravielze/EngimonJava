@@ -14,8 +14,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class Inventory extends ChooseEngimon {
 
@@ -34,7 +36,7 @@ public class Inventory extends ChooseEngimon {
                 update();
             }
         });
-        engimonTab.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        engimonTab.setBorder(BorderFactory.createLineBorder(Color.RED));
         skillTab = EButtonFactory.CreateDefaultFontButton("Skill", Color.decode("#0aceff"), new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -44,16 +46,17 @@ public class Inventory extends ChooseEngimon {
                 update();
             }
         });
-        skillTab.setBorder(BorderFactory.createLineBorder(Color.RED));
+        skillTab.setBorder(BorderFactory.createEmptyBorder());
+
 
     }
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
         ERow tab = new ERow();
         if (engimonTab != null && skillTab != null) {
             tab.add(engimonTab);
+            tab.add(Box.createRigidArea(new Dimension(20, 0)));
             tab.add(skillTab);
         }
         // add(tab);
@@ -64,7 +67,6 @@ public class Inventory extends ChooseEngimon {
 
     @Override
     public void chooseEngimon(Engimon e, EngimonCard ec) {
-        // TODO Auto-generated method stub
         EMenu.getInstance().changePage(new ViewEngimon(e));
     }
 

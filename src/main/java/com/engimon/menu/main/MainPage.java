@@ -23,6 +23,7 @@ import com.engimon.menu.EMenu;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.EButtonFactory;
+import com.engimon.menu.component.EImage;
 import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.EText;
 
@@ -77,18 +78,10 @@ public class MainPage extends EPage {
 
     private EText message = new EText("");
 
-    private List<EButton> menuList = new ArrayList<EButton>();
-
     public MainPage() {
         super();
         message.setFont(new Font("Arial", Font.PLAIN, 25));
         update();
-        menuList.add(inv);
-        menuList.add(switchb);
-        menuList.add(interact);
-        menuList.add(breed);
-        menuList.add(save);
-        menuList.add(help);
 
         this.addKeyListener(new KeyListener() {
 
@@ -130,7 +123,29 @@ public class MainPage extends EPage {
 
         });
     }
+    public void addTopMenu() {
+        ERow menuRow = new ERow();
+        menuRow.justifyFlexStart();
 
+        menuRow.add(new EImage("Images/Others/Icon/inventory_icon-min.png", 24, 24));
+        menuRow.add(inv);
+
+        menuRow.add(new EImage("Images/Others/Icon/switch_icon-min.png", 24, 24));
+        menuRow.add(switchb);
+
+        menuRow.add(new EImage("Images/Others/Icon/interact_icon-min.png", 24, 24));
+        menuRow.add(interact);
+
+        menuRow.add(new EImage("Images/Others/Icon/breed_icon-min.png", 24, 24));
+        menuRow.add(breed);
+
+        menuRow.add(new EImage("Images/Others/Icon/save_icon-min.png", 24, 24));
+        menuRow.add(save);
+
+        menuRow.add(new EImage("Images/Others/Icon/help_icon-min.png", 24, 24));
+        menuRow.add(help);
+        add(menuRow);
+    }
     @Override
     public String getName() {
         return "main_page";
@@ -140,16 +155,12 @@ public class MainPage extends EPage {
     public synchronized void update() {
         Map map = Map.getInstance();
         removeAll();
+        addTopMenu();
         List<WildEngimon> wildEngimons = new ArrayList<WildEngimon>();
         if (Game.getRunningGame() != null) {
             Cell currentPos = Game.getRunningGame().getPlayer().getPosition();
             wildEngimons = Map.getSurroundingEngimon(currentPos.getX(), currentPos.getY());
         }
-
-        ERow menuRow = new ERow();
-        menuRow.justifyFlexStart();
-        menuRow.add(menuList);
-
         ERow gridRow = new ERow();
         gridRow.add(new MapGrid(map));
         gridRow.add(new BattleList(wildEngimons));
@@ -157,7 +168,6 @@ public class MainPage extends EPage {
         ERow messageRow = new ERow();
         messageRow.add(message);
         add(Box.createRigidArea(new Dimension(0, 20)));
-        add(menuRow);
         add(gridRow);
         add(messageRow);
         revalidate();

@@ -20,6 +20,7 @@ public class EImage extends JPanel implements EComponent {
         Dimension dim = new Dimension(width, height);
         imgLabel.setPreferredSize(dim);
         imgLabel.setMaximumSize(dim);
+        imgLabel.setOpaque(false);
         add(imgLabel);
     }
 
