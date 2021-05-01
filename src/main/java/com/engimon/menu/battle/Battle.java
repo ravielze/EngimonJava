@@ -15,6 +15,7 @@ import com.engimon.menu.EPage;
 import com.engimon.menu.component.EImage;
 import com.engimon.menu.component.ERow;
 import com.engimon.menu.component.ETitle;
+import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.ECard;
 import java.awt.event.MouseAdapter;
@@ -69,6 +70,7 @@ public class Battle extends EPage {
         add(firstRow);
         add(secondRow);
         add(thirdRow);
+        add(new EBack());
     }
 
     private JPanel battleStats(Engimon attacker, Engimon defender) {

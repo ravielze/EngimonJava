@@ -328,7 +328,11 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         child.addSkill(uniqueSkill);
         int take = 4 - child.getSkillCount();
         for (int i = 0; i < take; i++) {
-            child.addSkill(sortSkills.get(i));
+            try {
+                child.addSkill(sortSkills.get(i));
+            } catch (Exception e) {}
+            // TODO : Add quick fix for breeding. Initial code : 
+            // child.addSkill(sortSkills.get(i));
         }
         this.level -= 3;
         other.level -= 3;

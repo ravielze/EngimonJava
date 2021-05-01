@@ -6,6 +6,7 @@ import com.engimon.entity.skill.SkillItem;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.choose_engimon.ChooseEngimon;
 import com.engimon.menu.choose_engimon.EngimonCard;
+import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.ETitle;
 
 public class SwitchEngimon extends ChooseEngimon {
@@ -18,6 +19,7 @@ public class SwitchEngimon extends ChooseEngimon {
         super.update();
         
         add(new ETitle("Switch Engimon"), 0);
+        add(new EBack());
     }
     @Override
     public void chooseEngimon(Engimon e, EngimonCard ec) {

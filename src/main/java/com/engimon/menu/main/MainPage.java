@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.Box;
 
+import com.engimon.entity.Cheat;
 import com.engimon.entity.Game;
 import com.engimon.entity.Player;
 import com.engimon.entity.engimon.WildEngimon;
@@ -33,7 +34,6 @@ public class MainPage extends EPage {
             new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    System.out.println("INVENTORY CLICKED");
                     EMenu.getInstance().changePage(EMenu.INVENTORY);
                 }
             });
@@ -73,6 +73,13 @@ public class MainPage extends EPage {
         @Override
         public void mouseClicked(MouseEvent e) {
             EMenu.getInstance().changePage(EMenu.HELP);
+        }
+    });
+
+    private EButton cheat = EButtonFactory.CreateDefaultFontButton("Cheat", Color.decode("#ffc847"), new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            Cheat.IncreaseExpBy(2000);
         }
     });
 
@@ -144,6 +151,8 @@ public class MainPage extends EPage {
 
         menuRow.add(new EImage("Images/Others/Icon/help_icon-min.png", 24, 24));
         menuRow.add(help);
+        
+        menuRow.add(cheat);
         add(menuRow);
     }
     @Override

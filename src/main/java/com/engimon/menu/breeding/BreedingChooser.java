@@ -5,6 +5,7 @@ import com.engimon.entity.skill.SkillItem;
 import com.engimon.menu.EMenu;
 import com.engimon.menu.choose_engimon.ChooseEngimon;
 import com.engimon.menu.choose_engimon.EngimonCard;
+import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.EButton;
 import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.ERow;
@@ -48,6 +49,7 @@ public class BreedingChooser extends ChooseEngimon {
         row.add(confirmButton);
         
         add(row);
+        add(new EBack());
     }
 
     private Engimon firstEngimon = null;

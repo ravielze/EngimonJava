@@ -18,6 +18,7 @@ import com.engimon.entity.Game;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.exception.EngimonStateException;
 import com.engimon.menu.EPage;
+import com.engimon.menu.component.EBack;
 import com.engimon.menu.component.EButtonFactory;
 import com.engimon.menu.component.EImage;
 import com.engimon.menu.component.ERow;
@@ -68,8 +69,10 @@ public class Breeding extends EPage {
 
         try {
             result = firstEngimon.breed(secondEngimon);
+            System.out.println(result.toString());
             JOptionPane.showMessageDialog(this, "Success");
         } catch (EngimonStateException er) {
+            System.out.println(er.getStateError());
             JOptionPane.showMessageDialog(this, "Tdak bisa melakukan breeding karena level dibawah 4");
             
         }
@@ -100,7 +103,7 @@ public class Breeding extends EPage {
                 
             }
         }));
-        
+        add(new EBack());
 
     }
 }

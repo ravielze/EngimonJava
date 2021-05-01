@@ -35,7 +35,9 @@ public abstract class ChooseEngimon extends EPage {
             return;
         }
         player = Game.getRunningGame().getPlayer();
+        Engimon activeEngimon = player.getActiveEngimon();
         engiInventory = player.getEngimons();
+        engiInventory.add(activeEngimon);
         skillInventory = player.getItems();
         column.removeAll();
         removeAll();
