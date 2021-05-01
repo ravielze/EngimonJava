@@ -18,7 +18,7 @@ public class EntityTicking implements Runnable {
                 EMenu.MAIN_PAGE.revalidate();
                 Thread.sleep(1000);
             } catch (Exception ignored) {
-
+                ignored.printStackTrace();
             }
             i++;
         }

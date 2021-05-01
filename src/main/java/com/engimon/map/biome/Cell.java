@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import com.engimon.entity.Player;
 import com.engimon.entity.engimon.ActiveEngimon;
@@ -13,7 +14,7 @@ import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.menu.main.Colorable;
 
-public abstract class Cell implements Colorable {
+public abstract class Cell implements Colorable, Serializable {
 
     private int x, y;
 

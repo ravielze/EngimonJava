@@ -12,12 +12,14 @@ import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
+import com.engimon.map.biome.CellOccupier;
 import com.engimon.map.biome.cells.CaveCell;
 import com.engimon.map.biome.cells.GrasslandCell;
 import com.engimon.map.biome.cells.MountainCell;
 import com.engimon.map.biome.cells.PowerplantCell;
 import com.engimon.map.biome.cells.SeaCell;
 import com.engimon.map.biome.cells.TundraCell;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 
@@ -29,53 +31,53 @@ public class Map implements Serializable {
     private Table<Integer, Integer, Cell> storage;
     private int size;
 
-    public static Map getInstance() {
+    public synchronized static Map getInstance() {
         if (instance == null) {
             instance = new Map(MAP_DEFAULT_SIZE);
         }
         return instance;
     }
 
-    public static void setInstance(Map map) {
+    public synchronized static void setInstance(Map map) {
         instance = map;
     }
 
-    // public static Table<Integer, Integer, Serializable> wrap() {
-    // Table<Integer, Integer, Serializable> result = HashBasedTable.create();
-    // Map map = getInstance();
-    // try {
-    // for (int i = 0; i < map.getSize(); i++) {
-    // for (int j = 0; j < map.getSize(); j++) {
-    // if (map.getCell(i, j).isOccupied()) {
-    // CellOccupier ent = map.getCell(i, j).getOccupier();
-    // if (ent instanceof Serializable) {
-    // result.put(i, j, (Serializable) ent);
-    // }
-    // }
-    // }
-    // }
-    // } catch (CellException ignored) {
-    // }
-    // return result;
-    // }
+    public static Table<Integer, Integer, Serializable> wrap(Map map) {
+        Table<Integer, Integer, Serializable> result = HashBasedTable.create();
+        try {
+            for (int i = 0; i < map.getSize(); i++) {
+                for (int j = 0; j < map.getSize(); j++) {
+                    if (map.getCell(i, j).isOccupied()) {
+                        CellOccupier ent = map.getCell(i, j).getOccupier();
+                        if (ent instanceof Serializable) {
+                            result.put(i, j, (Serializable) ent);
+                        }
+                    }
+                }
+            }
+        } catch (CellException ignored) {
+            ignored.printStackTrace();
+        }
+        return result;
+    }
 
-    // public static void unwrap(Table<Integer, Integer, Serializable> bungkus) {
-    // Map map = getInstance();
-    // try {
-    // for (int i = 0; i < map.getSize(); i++) {
-    // for (int j = 0; j < map.getSize(); j++) {
-    // Serializable x = bungkus.get(i, j);
-    // if (x != null) {
-    // if (x instanceof CellOccupier) {
-    // CellOccupier ent = (CellOccupier) x;
-    // map.getCell(i, j).setOccupier(ent);
-    // }
-    // }
-    // }
-    // }
-    // } catch (CellException ignored) {
-    // }
-    // }
+    public static void unwrap(Map map, Table<Integer, Integer, Serializable> bungkus) {
+        try {
+            for (int i = 0; i < map.getSize(); i++) {
+                for (int j = 0; j < map.getSize(); j++) {
+                    Serializable x = bungkus.get(i, j);
+                    if (x != null) {
+                        if (x instanceof CellOccupier) {
+                            CellOccupier ent = (CellOccupier) x;
+                            map.getCell(i, j).setOccupier(ent);
+                        }
+                    }
+                }
+            }
+        } catch (CellException ignored) {
+            ignored.printStackTrace();
+        }
+    }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
         inpStream.defaultReadObject();
@@ -180,6 +182,7 @@ public class Map implements Serializable {
                         storage.put(x + rx, y + ry,
                                 clazz.getConstructor(Integer.class, Integer.class).newInstance(x + rx, y + ry));
                     } catch (Exception ignored) {
+                        ignored.printStackTrace();
                     }
                 }
             }

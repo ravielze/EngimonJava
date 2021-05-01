@@ -53,11 +53,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.species = species;
         this.customName = null;
         this.skills = new ArrayList<>(4);
-        try {
-            addSkill(species.getUniqueSkill());
-        } catch (EngimonStateException ignored) {
-            // ignored karena gak mungkin
-        }
+        this.skills.add(species.getUniqueSkill());
     }
 
     public Engimon(@NotNull Engimon engimon) {
@@ -80,11 +76,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.level = wildEngimon.getLevel();
         this.experience = wildEngimon.getExperience();
         this.cumulativeExperience = wildEngimon.getCumulativeExperience();
-        try {
-            addSkill(species.getUniqueSkill());
-        } catch (EngimonStateException ignored) {
-            // ignored karena gak mungkin
-        }
+        this.skills.add(species.getUniqueSkill());
     }
 
     public Engimon(@NotNull Species species, @NotNull Engimon parentFirst, @NotNull Engimon parentSecond) {
@@ -92,11 +84,7 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.parentFirst = parentFirst;
         this.parentSecond = parentSecond;
         this.skills = new ArrayList<>(4);
-        try {
-            addSkill(species.getUniqueSkill());
-        } catch (EngimonStateException ignored) {
-            // ignored karena gak mungkin
-        }
+        this.skills.add(species.getUniqueSkill());
     }
 
     @Nullable

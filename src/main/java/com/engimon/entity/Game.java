@@ -49,9 +49,7 @@ public class Game {
         Map.getInstance();
         Cell[] cells = Map.getInstance().getTwoSpawnableCell();
         game.player = new Player(firstEngimon, cells[0], cells[1]);
-        for (int i = 0; i < 10; i++) {
-            Spawner.getInstance().spawn();
-        }
+        Spawner.getInstance().spawn(8);
         runningGame = game;
         Thread spawningThread = new Thread(new EntityTicking());
         spawningThread.start();
@@ -73,6 +71,7 @@ public class Game {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        runningGame = game;
     }
 
     public static void load() {
@@ -85,12 +84,12 @@ public class Game {
             game.player.restate();
             StaticSerializer.load(((StaticSerializer) oit.readObject()));
             oit.close();
-            runningGame = game;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         Thread spawningThread = new Thread(new EntityTicking());
         spawningThread.start();
+        runningGame = game;
     }
 
 }
