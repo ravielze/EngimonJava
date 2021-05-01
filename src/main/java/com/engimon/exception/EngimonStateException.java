@@ -11,6 +11,7 @@ public class EngimonStateException extends Exception {
     private StateError stateError;
 
     public EngimonStateException(Engimon eng, StateError se) {
+        super(eng.toString() + se.toString());
         this.engimon = eng;
         this.stateError = se;
     }
@@ -24,7 +25,8 @@ public class EngimonStateException extends Exception {
     }
 
     public enum StateError {
-        MAX_SKILL_REACHED, SKILL_ALREADY_LEARNED, INCOMPATIBLE_ELEMENT, SKILL_INDEX_NOT_FOUND, ENGIMON_CANT_BREED, ENGIMON_CANT_SPAWN;
+        MAX_SKILL_REACHED, SKILL_ALREADY_LEARNED, INCOMPATIBLE_ELEMENT, SKILL_INDEX_NOT_FOUND, ENGIMON_CANT_BREED,
+        ENGIMON_CANT_SPAWN;
     }
 
 }

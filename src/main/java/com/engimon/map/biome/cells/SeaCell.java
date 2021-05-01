@@ -5,14 +5,13 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import com.engimon.common.ResourceReader;
 import com.engimon.entity.engimon.Elementum;
 import com.engimon.entity.enums.Element;
 import com.engimon.map.biome.Cell;
 
-public class SeaCell extends Cell implements Serializable {
+public class SeaCell extends Cell {
 
     private static final long serialVersionUID = -3167859968279015012L;
     private static final Image IMAGE = ResourceReader.getImage("Images/Others/MapTerrain/sea.png", 24, 24);
@@ -52,6 +51,7 @@ public class SeaCell extends Cell implements Serializable {
 
     @Override
     public String toString() {
-        return "{SE : " + ((this.getOccupier() == null) ? "NULL" : this.getOccupier().toString()) + "}";
+        return "{SE : " + ((this.getOccupier() == null) ? "NULL" : this.getOccupier().toString()) + " (" + getX() + ","
+                + getY() + ")" + "}";
     }
 }

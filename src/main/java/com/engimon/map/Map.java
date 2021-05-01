@@ -1,5 +1,6 @@
 package com.engimon.map;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,17 +8,21 @@ import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import com.engimon.entity.engimon.WildEngimon;
 import com.engimon.exception.CellException;
 import com.engimon.exception.CellException.ErrorCause;
 import com.engimon.map.biome.Cell;
+import com.engimon.map.biome.CellOccupier;
 import com.engimon.map.biome.cells.CaveCell;
 import com.engimon.map.biome.cells.GrasslandCell;
 import com.engimon.map.biome.cells.MountainCell;
 import com.engimon.map.biome.cells.PowerplantCell;
 import com.engimon.map.biome.cells.SeaCell;
 import com.engimon.map.biome.cells.TundraCell;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 
@@ -29,53 +34,57 @@ public class Map implements Serializable {
     private Table<Integer, Integer, Cell> storage;
     private int size;
 
-    public static Map getInstance() {
+    public synchronized static Map getInstance() {
         if (instance == null) {
-            instance = new Map(MAP_DEFAULT_SIZE);
+            try {
+                instance = new Map("map.txt");
+            } catch (IOException | IllegalStateException | NoSuchElementException ex) {
+                instance = new Map(MAP_DEFAULT_SIZE);
+            }
         }
         return instance;
     }
 
-    public static void setInstance(Map map) {
+    public synchronized static void setInstance(Map map) {
         instance = map;
     }
 
-    // public static Table<Integer, Integer, Serializable> wrap() {
-    // Table<Integer, Integer, Serializable> result = HashBasedTable.create();
-    // Map map = getInstance();
-    // try {
-    // for (int i = 0; i < map.getSize(); i++) {
-    // for (int j = 0; j < map.getSize(); j++) {
-    // if (map.getCell(i, j).isOccupied()) {
-    // CellOccupier ent = map.getCell(i, j).getOccupier();
-    // if (ent instanceof Serializable) {
-    // result.put(i, j, (Serializable) ent);
-    // }
-    // }
-    // }
-    // }
-    // } catch (CellException ignored) {
-    // }
-    // return result;
-    // }
+    public static Table<Integer, Integer, Serializable> wrap(Map map) {
+        Table<Integer, Integer, Serializable> result = HashBasedTable.create();
+        try {
+            for (int i = 0; i < map.getSize(); i++) {
+                for (int j = 0; j < map.getSize(); j++) {
+                    if (map.getCell(i, j).isOccupied()) {
+                        CellOccupier ent = map.getCell(i, j).getOccupier();
+                        if (ent instanceof Serializable) {
+                            result.put(i, j, (Serializable) ent);
+                        }
+                    }
+                }
+            }
+        } catch (CellException ignored) {
+            ignored.printStackTrace();
+        }
+        return result;
+    }
 
-    // public static void unwrap(Table<Integer, Integer, Serializable> bungkus) {
-    // Map map = getInstance();
-    // try {
-    // for (int i = 0; i < map.getSize(); i++) {
-    // for (int j = 0; j < map.getSize(); j++) {
-    // Serializable x = bungkus.get(i, j);
-    // if (x != null) {
-    // if (x instanceof CellOccupier) {
-    // CellOccupier ent = (CellOccupier) x;
-    // map.getCell(i, j).setOccupier(ent);
-    // }
-    // }
-    // }
-    // }
-    // } catch (CellException ignored) {
-    // }
-    // }
+    public static void unwrap(Map map, Table<Integer, Integer, Serializable> bungkus) {
+        try {
+            for (int i = 0; i < map.getSize(); i++) {
+                for (int j = 0; j < map.getSize(); j++) {
+                    Serializable x = bungkus.get(i, j);
+                    if (x != null) {
+                        if (x instanceof CellOccupier) {
+                            CellOccupier ent = (CellOccupier) x;
+                            map.getCell(i, j).setOccupier(ent);
+                        }
+                    }
+                }
+            }
+        } catch (CellException ignored) {
+            ignored.printStackTrace();
+        }
+    }
 
     private void readObject(ObjectInputStream inpStream) throws IOException, ClassNotFoundException {
         inpStream.defaultReadObject();
@@ -87,6 +96,42 @@ public class Map implements Serializable {
 
     public Map() {
         // Constructor for Serializable Access
+    }
+
+    public Map(String fileName) throws IOException, IllegalStateException, NoSuchElementException {
+        Scanner reader = new Scanner(System.in);
+        try {
+            File f = new File(fileName);
+            reader.close();
+            reader = new Scanner(f);
+            this.size = reader.nextInt();
+            this.storage = TreeBasedTable.create();
+            for (int y = 0; y < size; y++) {
+                String line = reader.next();
+                for (int x = 0; x < size; x++) {
+                    char i = line.charAt(x);
+                    if (i == 's' || i == 'S') {
+                        storage.put(x, y, new SeaCell(x, y));
+                    } else if (i == 'm' || i == 'M') {
+                        storage.put(x, y, new MountainCell(x, y));
+                    } else if (i == 't' || i == 'T') {
+                        storage.put(x, y, new TundraCell(x, y));
+                    } else if (i == 'c' || i == 'C') {
+                        storage.put(x, y, new CaveCell(x, y));
+                    } else if (i == 'p' || i == 'P') {
+                        storage.put(x, y, new PowerplantCell(x, y));
+                    } else if (i == 'g' || i == 'G') {
+                        storage.put(x, y, new GrasslandCell(x, y));
+                    } else {
+                        throw new NoSuchElementException("cell '" + i + "' not found");
+                    }
+                }
+            }
+        } catch (IOException | IllegalStateException | NoSuchElementException ex) {
+            throw ex;
+        } finally {
+            reader.close();
+        }
     }
 
     // TODO populate tree and rock
@@ -180,6 +225,7 @@ public class Map implements Serializable {
                         storage.put(x + rx, y + ry,
                                 clazz.getConstructor(Integer.class, Integer.class).newInstance(x + rx, y + ry));
                     } catch (Exception ignored) {
+                        ignored.printStackTrace();
                     }
                 }
             }

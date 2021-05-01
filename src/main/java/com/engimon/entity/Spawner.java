@@ -49,6 +49,12 @@ public class Spawner implements Serializable {
         outStream.defaultWriteObject();
     }
 
+    public synchronized void spawn(int i) {
+        while (this.wildEngimonSpawned < i && this.wildEngimonSpawned < GameConfig.MAX_WILD_ENGIMON) {
+            this.spawn();
+        }
+    }
+
     public synchronized void spawn() {
         if (wildEngimonSpawned >= GameConfig.MAX_WILD_ENGIMON)
             return;
@@ -80,7 +86,6 @@ public class Spawner implements Serializable {
             wildEngimonSpawned++;
             wildEngimons.add(we);
         } catch (Exception ignored) {
-
         }
     }
 
@@ -97,7 +102,6 @@ public class Spawner implements Serializable {
         try {
             wildEngimons.get(x).move(d);
         } catch (CellException ex) {
-
         }
     }
 

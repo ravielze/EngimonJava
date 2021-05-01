@@ -53,11 +53,17 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.species = species;
         this.customName = null;
         this.skills = new ArrayList<>(4);
-        try {
-            addSkill(species.getUniqueSkill());
-        } catch (EngimonStateException ignored) {
-            // ignored karena gak mungkin
-        }
+        this.skills.add(species.getUniqueSkill());
+    }
+
+    public Engimon(@NotNull WildEngimon wildEngimon) {
+        this.species = wildEngimon.getSpecies();
+        this.customName = null;
+        this.skills = new ArrayList<>(4);
+        this.level = wildEngimon.getLevel();
+        this.experience = wildEngimon.getExperience();
+        this.cumulativeExperience = wildEngimon.getCumulativeExperience();
+        this.skills.add(species.getUniqueSkill());
     }
 
     public Engimon(@NotNull Engimon engimon) {
@@ -73,30 +79,12 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.life = engimon.life;
     }
 
-    public Engimon(@NotNull WildEngimon wildEngimon) {
-        this.species = wildEngimon.getSpecies();
-        this.customName = null;
-        this.skills = new ArrayList<>(4);
-        this.level = wildEngimon.getLevel();
-        this.experience = wildEngimon.getExperience();
-        this.cumulativeExperience = wildEngimon.getCumulativeExperience();
-        try {
-            addSkill(species.getUniqueSkill());
-        } catch (EngimonStateException ignored) {
-            // ignored karena gak mungkin
-        }
-    }
-
     public Engimon(@NotNull Species species, @NotNull Engimon parentFirst, @NotNull Engimon parentSecond) {
         this.species = species;
         this.parentFirst = parentFirst;
         this.parentSecond = parentSecond;
         this.skills = new ArrayList<>(4);
-        try {
-            addSkill(species.getUniqueSkill());
-        } catch (EngimonStateException ignored) {
-            // ignored karena gak mungkin
-        }
+        this.skills.add(species.getUniqueSkill());
     }
 
     @Nullable
