@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import com.engimon.entity.engimon.Engimon;
 import com.engimon.menu.EPage;
 import com.engimon.menu.component.EBack;
-import com.engimon.menu.component.ECanvas;
 import com.engimon.menu.component.ECard;
 import com.engimon.menu.component.EColumn;
 import com.engimon.menu.component.EImage;
