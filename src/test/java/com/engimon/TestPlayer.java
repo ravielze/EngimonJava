@@ -94,8 +94,8 @@ public class TestPlayer {
         try {
             Map map = new Map(20);
             Player p1 = new Player(engimon1, map.getCell(2, 2), map.getCell(2, 3));
-            assertEquals(1, p1.getEngimons().size());
-            assertEquals(engimon1, p1.getEngimons().get(0));
+            assertEquals(0, p1.getEngimons().size());
+            assertEquals(engimon1.toString(), p1.getActiveEngimon().toString());
         } catch (CellException e) {
             assert (false);
         }

@@ -84,7 +84,6 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         this.parentFirst = parentFirst;
         this.parentSecond = parentSecond;
         this.skills = new ArrayList<>(4);
-        this.skills.add(species.getUniqueSkill());
     }
 
     @Nullable
@@ -286,11 +285,9 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         }
         Species result = breedSpecies(other);
         Engimon child = new Engimon(result, this, other);
-
         Skill uniqueSkill = result.getUniqueSkill();
         List<Skill> thisSkills = new ArrayList<>(this.getAllSkills());
         List<Skill> otherSkills = new ArrayList<>(other.getAllSkills());
-
         Set<Skill> skills = new HashSet<>(8);
         thisSkills.forEach(x -> skills.add(new Skill(x, x.getMasteryLevel())));
         otherSkills.forEach(z -> {
@@ -314,13 +311,9 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         Collections.sort(sortSkills);
         sortSkills.remove(uniqueSkill);
         child.addSkill(uniqueSkill);
-        int take = 4 - child.getSkillCount();
+        int take = Math.min(4 - child.getSkillCount(), sortSkills.size());
         for (int i = 0; i < take; i++) {
-            try {
-                child.addSkill(sortSkills.get(i));
-            } catch (Exception e) {}
-            // TODO : Add quick fix for breeding. Initial code : 
-            // child.addSkill(sortSkills.get(i));
+            child.addSkill(sortSkills.get(i));
         }
         this.level -= 3;
         other.level -= 3;
