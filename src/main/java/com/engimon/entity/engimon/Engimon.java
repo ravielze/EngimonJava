@@ -115,6 +115,22 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
     }
 
     @NotNull
+    public Engimon addSkill(@NotNull Skill s, boolean override) throws EngimonStateException {
+        if (this.skills.size() > 4) {
+            throw new EngimonStateException(this, StateError.MAX_SKILL_REACHED);
+        }
+        if (this.skills.contains(s)) {
+            throw new EngimonStateException(this, StateError.SKILL_ALREADY_LEARNED);
+        }
+        if (!override && (!(this.getSpecies().isOneOf(s.getFirstElement())
+                && this.getSpecies().isOneOf(s.getSecondElement())))) {
+            throw new EngimonStateException(this, StateError.INCOMPATIBLE_ELEMENT);
+        }
+        this.skills.add(s);
+        return this;
+    }
+
+    @NotNull
     public Engimon replaceSkill(int id, @NotNull Skill s) throws EngimonStateException {
         if (id < 0 || id >= 4) {
             throw new EngimonStateException(this, StateError.SKILL_INDEX_NOT_FOUND);
@@ -310,10 +326,10 @@ public class Engimon implements Storable, Comparable<Engimon>, Serializable {
         List<Skill> sortSkills = new ArrayList<>(skills);
         Collections.sort(sortSkills);
         sortSkills.remove(uniqueSkill);
-        child.addSkill(uniqueSkill);
+        child = child.addSkill(uniqueSkill, true);
         int take = Math.min(4 - child.getSkillCount(), sortSkills.size());
         for (int i = 0; i < take; i++) {
-            child.addSkill(sortSkills.get(i));
+            child = child.addSkill(sortSkills.get(i), true);
         }
         this.level -= 3;
         other.level -= 3;
