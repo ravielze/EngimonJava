@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.engimon.entity.engimon.Species;
 import com.engimon.entity.engimon.WildEngimon;
-import com.engimon.entity.enums.Direction;
 import com.engimon.entity.enums.Element;
 import com.engimon.entity.skill.Skill;
 import com.engimon.exception.CellException;
