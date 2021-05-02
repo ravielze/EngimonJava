@@ -142,6 +142,10 @@ public class Player implements LivingEntity, Moveable, Serializable {
         this.inventory.add(e);
     }
 
+    public void removeItem(SkillItem s) {
+        inventory.remove(s);
+    }
+
     @Override
     public void restate() {
         this.currentCell.setOccupier(this);

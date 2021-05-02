@@ -40,21 +40,6 @@ public class TestWildEngimon {
     }
 
     @Test
-    @DisplayName("Test move")
-    void testmove() {
-        try {
-            Map map = new Map(20);
-            WildEngimon wildEngimon = new WildEngimon(species1, 10, map.getCell(2, 2));
-            wildEngimon.move(Direction.NORTH);
-            assertEquals(wildEngimon, map.getCell(2, 3).getOccupier());
-        } catch (EngimonStateException e) {
-            e.getMessage();
-        } catch (CellException e) {
-            e.getMessage();
-        }
-    }
-
-    @Test
     @DisplayName("Test kill")
     void testkill() {
         try {
